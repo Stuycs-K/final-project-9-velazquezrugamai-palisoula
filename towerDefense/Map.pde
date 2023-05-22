@@ -26,7 +26,7 @@ public class Map {
     money += value;
   }
   
-  boolean validPLacement(int x, int y, Tower tow) {
+  boolean validPlacement(int x, int y, Tower tow) {
     return true;
   }
 }

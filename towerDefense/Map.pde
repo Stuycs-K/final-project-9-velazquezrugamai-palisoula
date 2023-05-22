@@ -12,7 +12,7 @@ public class Map {
     Tower[][] towerLoc = new Tower[board.length][board[0].length];
   }
   
-  void changeBoard(int x, int y, Map obj) {
+  void changeBoard(int x, int y, Object obj) {
     
   }
   
@@ -27,8 +27,8 @@ public class Map {
   void changeMoney(int value) {
     money += value;
   }
-  
-  boolean validPLacement(int x, int y, Tower tow) {
-    return true;
+  //can the tower be placed at (x, y)?
+  boolean validPlacement(int x, int y) {
+    return x >= 0 && x < board.length && y >= 0 && y < board[x].length;
   }
 }

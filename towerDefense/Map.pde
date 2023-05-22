@@ -25,8 +25,8 @@ public class Map {
   void changeMoney(int value) {
     money += value;
   }
-  
-  boolean validPlacement(int x, int y, Tower tow) {
-    return true;
+  //can the tower be placed at (x, y)?
+  boolean validPlacement(int x, int y) {
+    return x >= 0 && x < board.length && y >= 0 && y < board[x].length;
   }
 }

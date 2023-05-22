@@ -7,7 +7,7 @@ public class Enemy {
   void move() {
     
   }
-  
+  //enemy takes value damage
   void recieveDamage(int value) {
     HP -= value;
   }

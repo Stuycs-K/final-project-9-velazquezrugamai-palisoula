@@ -10,7 +10,7 @@ public class Map {
     money = mo;
   }
   
-  void changeBoard(int x, int y, Map obj) {
+  void changeBoard(int x, int y, Object obj) {
     
   }
   

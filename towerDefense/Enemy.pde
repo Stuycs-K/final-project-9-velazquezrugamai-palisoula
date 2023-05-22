@@ -9,6 +9,6 @@ public class Enemy {
   }
   
   void recieveDamage(int value) {
-    
+    HP -= value;
   }
 }

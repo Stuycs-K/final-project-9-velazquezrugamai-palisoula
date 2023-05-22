@@ -17,6 +17,12 @@ void draw() {
   
 }
 
-void avitar() {
-  
+//Draws the map, then the towers, on top of it, then the enemies on top of those
+void avatar() {
+  String[][] temp = board.board;
+  for (int i=0; i<temp.length; i++) {
+    for (int j=0; j<temp[i].length; i++) {
+      
+    }
+  }
 }

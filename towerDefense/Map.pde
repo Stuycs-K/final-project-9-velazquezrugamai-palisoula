@@ -1,6 +1,6 @@
 public class Map {
   Tower[][] towerLoc;
-  Enemy[][] EnemyLoc;
+  ArrayList<Enemy> EnemyLoc;
   String[][] board;
   int round, lives, money;
   
@@ -8,6 +8,8 @@ public class Map {
     round = ro;
     lives = li;
     money = mo;
+    EnemyLoc = new ArrayList<Enemy>();
+    Tower[][] towerLoc = new Tower[board.length][board[0].length];
   }
   
   void changeBoard(int x, int y, Map obj) {

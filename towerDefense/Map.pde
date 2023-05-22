@@ -17,13 +17,13 @@ public class Map {
   void increaseRound() {
     round++;
   }
-  
+  //adding value to the lives
   void changeLives(int value) {
-    
+    lives += value;
   }
-  
+  //adding value to the money
   void changeMoney(int value) {
-    
+    money += value;
   }
   
   boolean validPLacement(int x, int y, Tower tow) {

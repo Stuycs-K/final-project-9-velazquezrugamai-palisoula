@@ -16,5 +16,15 @@ public class Map {
     round++;
   }
   
-  change
+  void changeLives(int value) {
+    
+  }
+  
+  void changeMoney(int value) {
+    
+  }
+  
+  boolean validPLacement(int x, int y, Tower tow) {
+    return true;
+  }
 }

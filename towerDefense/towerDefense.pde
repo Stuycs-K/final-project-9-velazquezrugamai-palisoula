@@ -1,3 +1,5 @@
+private Map board;
+
 void setup(){
   
 }

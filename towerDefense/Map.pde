@@ -5,7 +5,9 @@ public class Map {
   int round, lives, money;
   
   public Map(int ro, int li, int mo) {
-    
+    round = ro;
+    lives = li;
+    money = mo;
   }
   
   void changeBoard(int x, int y, Map obj) {

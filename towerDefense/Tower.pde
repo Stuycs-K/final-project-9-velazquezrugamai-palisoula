@@ -3,6 +3,15 @@ public class Tower {
   String type;
   int[] location;
   
+  public Tower(int price, int radius, int attackSpeed, int damage, String attackType, int[] loc) {
+    cost = price;
+    range = radius;
+    reload = attackSpeed;
+    pierce = damage;
+    type = attackType;
+    location = loc;
+  }
+  
   public void shoot(){
     
   }

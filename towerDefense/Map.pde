@@ -1,7 +1,7 @@
 public class Map {
   Tower[][] towerLoc;
   ArrayList<Enemy> EnemyLoc;
-  color[][] board;
+  Tiles[][] board;
   int round, lives, money;
   
   public Map(int rounds, int live, int mon, int ROW, int COL) {
@@ -10,7 +10,7 @@ public class Map {
     money = mon;
     EnemyLoc = new ArrayList<Enemy>();
     towerLoc = new Tower[ROW][COL];
-    board = new color[ROW][COL];
+    board = new Tiles[ROW][COL];
   }
   
   void changeBoard(int x, int y, Object obj) {

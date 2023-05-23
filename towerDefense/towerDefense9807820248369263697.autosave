@@ -1,0 +1,16 @@
+void setup(){
+  size(800, 800);
+  board = new Map(
+}
+
+void mouseClicked() {
+  
+}
+
+void keyPressed() {
+  
+}
+
+void draw() {
+  
+}

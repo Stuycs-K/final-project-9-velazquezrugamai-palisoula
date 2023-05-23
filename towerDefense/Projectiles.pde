@@ -8,4 +8,9 @@ public class Projectiles {
     location = coords;
     Color = image;
   }
+  
+  public void move(int x, int y) {
+    location[0]+=x;
+    location[1]+=y;
+  }
 }

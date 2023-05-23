@@ -27,10 +27,10 @@ void draw() {
 
 //Draws the map, then the towers, on top of it, then the enemies on top of those
 void avatar() {
-  color[][] temp = board.board;
+  Tiles[][] temp = board.board;
   for (int i=0; i<temp.length; i++) {
     for (int j=0; j<temp[i].length; i++) {
-      fill(temp[i][j]);
+      fill(temp[i][j].getColor());
       square(i*SQUARESIZE, j*SQUARESIZE, SQUARESIZE);
       noFill();
     }

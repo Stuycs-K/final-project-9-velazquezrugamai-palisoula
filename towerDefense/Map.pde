@@ -3,6 +3,7 @@ public class Map {
   ArrayList<Enemy> EnemyLoc;
   Tiles[][] board;
   int round, lives, money;
+  ArrayList<Projectiles> proLoc;
   
   public Map(int rounds, int live, int mon, int ROW, int COL) {
     round = rounds;
@@ -11,10 +12,15 @@ public class Map {
     EnemyLoc = new ArrayList<Enemy>();
     towerLoc = new Tower[ROW][COL];
     board = new Tiles[ROW][COL];
+    proLoc = new ArrayList<Projectiles>();
   }
   
   void changeBoard(int x, int y, Object obj) {
     
+  }
+  
+  void addProjectile(Projectiles proj) {
+    proLoc.add(proj);
   }
   
   void increaseRound() {

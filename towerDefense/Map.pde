@@ -12,9 +12,14 @@ public class Map {
     towerLoc = new Tower[ROW][COL];
     board = new Tiles[ROW][COL];
   }
-  
+  //chainging map
   void changeBoard(int x, int y, Object obj) {
     
+  }
+  
+  //adds tower to place
+  void addTower(int x, int y, Tower tow){
+    if(validPlacement(x, y)) tow.location = new int[] {x, y};
   }
   
   void increaseRound() {

@@ -17,8 +17,9 @@ void mouseClicked() {
   
 }
 
+//if key is pressed, skip round
 void keyPressed() {
-  
+  board.increaseRound();
 }
 
 void draw() {

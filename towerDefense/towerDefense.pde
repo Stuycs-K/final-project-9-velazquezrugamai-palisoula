@@ -22,6 +22,12 @@ void keyPressed() {
   board.increaseRound();
 }
 
+/*color codes
+brown: path for enemies
+gray: tower
+green: valid tower placement
+
+*/
 void draw() {
   
 }

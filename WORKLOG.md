@@ -18,7 +18,9 @@ info
 
 ### date x
 
-info
+5/22/23 - Allison Palisoul
+
+worked on most of the smaller methods (changePierce, recieveDamage, etc.) and changed variables (ex: removed Tower tow in validPlacement and changed obj in changeBoard from a Map to an Object)
 
 ### date y
 

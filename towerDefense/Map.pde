@@ -1,15 +1,16 @@
 public class Map {
   Tower[][] towerLoc;
   ArrayList<Enemy> EnemyLoc;
-  String[][] board;
+  color[][] board;
   int round, lives, money;
   
-  public Map(int ro, int li, int mo) {
-    round = ro;
-    lives = li;
-    money = mo;
+  public Map(int rounds, int live, int mon, int ROW, int COL) {
+    round = rounds;
+    lives = live;
+    money = mon;
     EnemyLoc = new ArrayList<Enemy>();
-    Tower[][] towerLoc = new Tower[board.length][board[0].length];
+    towerLoc = new Tower[ROW][COL];
+    board = new color[ROW][COL];
   }
   
   void changeBoard(int x, int y, Object obj) {

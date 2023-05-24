@@ -20,9 +20,6 @@ void mouseClicked() {
 
 //if key is pressed, skip round
 void keyPressed() {
-<<<<<<< HEAD
-  board.increaseRound();
-=======
   if (key == 'e') {
     size(800, 800);
     ROW = 25;
@@ -35,8 +32,9 @@ void keyPressed() {
     board = new Map(round, lives, startingMoney, ROW, COL);
     makeMap();
   }
->>>>>>> origin/towerDefense
 }
+
+
 
 /*color codes
 brown: path for enemies

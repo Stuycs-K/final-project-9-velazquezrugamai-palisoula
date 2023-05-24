@@ -1,5 +1,5 @@
 private Map board;
-private int ROW, COL, SQUARESIZE;
+private int ROW, COL, SQUARESIZE, HALT;
 
 void setup(){
   size(800, 800);
@@ -43,13 +43,30 @@ void giveUp() {
   int lives = 100;
   int startingMoney = 500;
   board = new Map(round, lives, startingMoney, ROW, COL);
-  text("YOU HAVE GIVEN UP", width/2, height/2);
+  textSize(35);
+  PFont font = createFont("Ani-48.vlw", 35);
+  textFont(font);
+  fill(color(136, 8, 8));
+  text("YOU HAVE GIVEN UP", width/2-130, height/2);
   makeMap();
+  HALT=2000;
+}
+
+
+void wait(int time) {
+ try {
+   Thread.sleep(time);
+ }
+ catch (Exception e) {
+   
+ }
 }
 
 //Draws the map, then the towers, on top of it, then the enemies on top of those
 void avatar() {
   Tiles[][] temp = board.board;
+  wait(HALT);
+  HALT-=HALT;
   for (int i=0; i<temp.length; i++) {
     for (int j=0; j<temp[i].length; j++) {
       fill(temp[i][j].getColor());
@@ -78,13 +95,4 @@ void makeMap() {
       j++;
     }
   }
-}
-
-void wait(int time) {
- try {
-   Thread.sleep(time);
- }
- catch (Exception e) {
-   
- }
 }

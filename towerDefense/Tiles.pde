@@ -3,7 +3,7 @@ public class Tiles {
   
   public final color PATH = color(131, 98, 12);
   public final color INVALID = color(255, 13, 13);
-  public final color VALID = color(67, 237, 128);
+  public final color VALID = color(56,78,29);
   public final color TOWER = color(165);
   
   public Tiles(color image) {

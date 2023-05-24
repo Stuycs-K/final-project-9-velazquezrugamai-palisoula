@@ -64,7 +64,7 @@ void makeMap() {
   int j = 0;
   for (i=0; i<ROW; i++) {
     for (j=0; j<COL; j++) {
-      board.board[i][j] = new Tiles(color(67, 237, 128));
+      board.board[i][j] = new Tiles(color(56,78,29));
     }
   }
   i=0;

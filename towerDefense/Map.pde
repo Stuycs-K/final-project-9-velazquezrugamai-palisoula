@@ -42,6 +42,6 @@ public class Map {
   }
   //can the tower be placed at (x, y)?
   boolean validPlacement(int x, int y) {
-    return (x >= 0 && x < board.length && y >= 0 && y < board[x].length)&& board[x][y].getColor() == color(67, 237, 128);
+    return (x >= 0 && x < board.length && y >= 0 && y < board[x].length)&& board[x][y].getColor() == color(56,78,29);
   }
 }

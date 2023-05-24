@@ -18,12 +18,21 @@ void mouseClicked() {
   
 }
 
+//if key is pressed, skip round
 void keyPressed() {
   if (key == 'e') {
     giveUp();
   }
 }
 
+
+
+/*color codes
+brown: path for enemies
+gray: tower
+green: valid tower placement
+
+*/
 void draw() {
   avatar();
 }
@@ -34,11 +43,29 @@ void giveUp() {
   int lives = 100;
   int startingMoney = 500;
   board = new Map(round, lives, startingMoney, ROW, COL);
+<<<<<<< HEAD
   textSize(40);
   fill(color(136, 8,8));
   text("YOU HAVE GIVEN UP", width/2-150, height/2);
   makeMap();
   HALT = 2000;
+=======
+  textSize(35);
+  fill(color(136, 8, 8));
+  text( "YOU HAVE GIVEN UP", width/2-100, height/2);
+  makeMap();
+  HALT=2000;
+}
+
+
+void wait(int time) {
+ try {
+   Thread.sleep(time);
+ }
+ catch (Exception e) {
+   
+ }
+>>>>>>> origin
 }
 
 //Draws the map, then the towers, on top of it, then the enemies on top of those
@@ -46,6 +73,8 @@ void avatar() {
   wait(HALT);
   HALT-=HALT;
   Tiles[][] temp = board.board;
+  wait(HALT);
+  HALT-=HALT;
   for (int i=0; i<temp.length; i++) {
     for (int j=0; j<temp[i].length; j++) {
       fill(temp[i][j].getColor());
@@ -74,13 +103,4 @@ void makeMap() {
       j++;
     }
   }
-}
-
-void wait(int time) {
- try {
-   Thread.sleep(time);
- }
- catch (Exception e) {
-   
- }
 }

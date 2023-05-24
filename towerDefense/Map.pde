@@ -14,11 +14,17 @@ public class Map {
     board = new Tiles[ROW][COL];
     proLoc = new ArrayList<Projectiles>();
   }
-  
+  //chainging map
   void changeBoard(int x, int y, Object obj) {
     
   }
   
+  //adds tower to place
+  void addTower(int x, int y, Tower tow){
+    if(validPlacement(x, y)) tow.location = new int[] {x, y};
+  }
+
+//adds projectile to tower
   void addProjectile(Projectiles proj) {
     proLoc.add(proj);
   }
@@ -36,6 +42,6 @@ public class Map {
   }
   //can the tower be placed at (x, y)?
   boolean validPlacement(int x, int y) {
-    return x >= 0 && x < board.length && y >= 0 && y < board[x].length;
+    return (x >= 0 && x < board.length && y >= 0 && y < board[x].length)&& board[x][y].getColor() == color(67, 237, 128);
   }
 }

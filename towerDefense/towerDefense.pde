@@ -43,6 +43,7 @@ void giveUp() {
   int lives = 100;
   int startingMoney = 500;
   board = new Map(round, lives, startingMoney, ROW, COL);
+  text("YOU HAVE GIVEN UP", width/2, height/2);
   makeMap();
 }
 

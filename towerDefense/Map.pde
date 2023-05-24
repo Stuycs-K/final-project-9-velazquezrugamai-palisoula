@@ -24,6 +24,7 @@ public class Map {
     if(validPlacement(x, y)) tow.location = new int[] {x, y};
   }
 
+//adds projectile to tower
   void addProjectile(Projectiles proj) {
     proLoc.add(proj);
   }
@@ -41,6 +42,6 @@ public class Map {
   }
   //can the tower be placed at (x, y)?
   boolean validPlacement(int x, int y) {
-    return (x >= 0 && x < board.length && y >= 0 && y < board[x].length);//tile is green;
+    return (x >= 0 && x < board.length && y >= 0 && y < board[x].length)&& board[x][y].getColor() == color(67, 237, 128);
   }
 }

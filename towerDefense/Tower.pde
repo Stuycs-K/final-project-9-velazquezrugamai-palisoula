@@ -14,8 +14,8 @@ public class Tower {
     proj = pro;
   }
   
-  public void shoot(){
-    Map.addProjectile(proj);
+  public void shoot(Map obj){
+    obj.addProjectile(proj);
   }
   
   //adding value to the range
@@ -29,5 +29,11 @@ public class Tower {
   //adding value to the cost
   public void changeCost(int value){
     cost += value;
+  }
+  
+  public void makeTower() {
+    fill(color(165));
+    square(location[0]*SQUARESIZE, location[1]*SQUARESIZE, (int)(cost/pierce));
+    noFill();
   }
 }

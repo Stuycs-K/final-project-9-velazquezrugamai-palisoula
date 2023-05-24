@@ -43,18 +43,11 @@ void giveUp() {
   int lives = 100;
   int startingMoney = 500;
   board = new Map(round, lives, startingMoney, ROW, COL);
-<<<<<<< HEAD
   textSize(40);
   fill(color(136, 8,8));
   text("YOU HAVE GIVEN UP", width/2-150, height/2);
   makeMap();
   HALT = 2000;
-=======
-  textSize(35);
-  fill(color(136, 8, 8));
-  text( "YOU HAVE GIVEN UP", width/2-100, height/2);
-  makeMap();
-  HALT=2000;
 }
 
 
@@ -65,7 +58,6 @@ void wait(int time) {
  catch (Exception e) {
    
  }
->>>>>>> origin
 }
 
 //Draws the map, then the towers, on top of it, then the enemies on top of those

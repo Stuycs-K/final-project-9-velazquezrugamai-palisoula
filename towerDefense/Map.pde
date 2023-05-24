@@ -3,6 +3,7 @@ public class Map {
   ArrayList<Enemy> EnemyLoc;
   Tiles[][] board;
   int round, lives, money;
+  ArrayList<Projectiles> proLoc;
   
   public Map(int rounds, int live, int mon, int ROW, int COL) {
     round = rounds;
@@ -11,15 +12,21 @@ public class Map {
     EnemyLoc = new ArrayList<Enemy>();
     towerLoc = new Tower[ROW][COL];
     board = new Tiles[ROW][COL];
+    proLoc = new ArrayList<Projectiles>();
   }
   //chainging map
   void changeBoard(int x, int y, Object obj) {
     
   }
   
+<<<<<<< HEAD
   //adds tower to place
   void addTower(int x, int y, Tower tow){
     if(validPlacement(x, y)) tow.location = new int[] {x, y};
+=======
+  void addProjectile(Projectiles proj) {
+    proLoc.add(proj);
+>>>>>>> origin/towerDefense
   }
   
   void increaseRound() {

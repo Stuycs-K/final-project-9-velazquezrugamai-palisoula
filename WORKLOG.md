@@ -7,6 +7,10 @@
 
 worked on a part of the class templates/Worked on printing the map background. Added new classes/changed the variables based on both Mr K's suggestions and ease of convenience (Tiles/Projectiles, and changed String[][] to color[][]).
 
+5/23/23 - Israel Velazquez
+
+Worked on making random maps, adding tiles at random and ending them in on the right side of the screen. Added some visuals to towers/Map to make it visible in processing, I've also added our signature e button into the game.
+
 
 
 info

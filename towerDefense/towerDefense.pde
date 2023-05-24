@@ -20,21 +20,21 @@ void mouseClicked() {
 
 void keyPressed() {
   if (key == 'e') {
-    size(800, 800);
-    ROW = 25;
-    COL = 25;
-    SQUARESIZE = height/ROW;
-  
-    int round = 0;
-    int lives = 100;
-    int startingMoney = 500;
-    board = new Map(round, lives, startingMoney, ROW, COL);
-    makeMap();
+    giveUp();
   }
 }
 
 void draw() {
   avatar();
+}
+
+void giveUp() {
+  background(255);
+  int round = 0;
+  int lives = 100;
+  int startingMoney = 500;
+  board = new Map(round, lives, startingMoney, ROW, COL);
+  makeMap();
 }
 
 //Draws the map, then the towers, on top of it, then the enemies on top of those
@@ -68,4 +68,13 @@ void makeMap() {
       j++;
     }
   }
+}
+
+void wait(int time) {
+ try {
+   Thread.sleep(time);
+ }
+ catch (Exception e) {
+   
+ }
 }

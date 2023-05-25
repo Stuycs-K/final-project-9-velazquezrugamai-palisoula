@@ -1,5 +1,5 @@
 public class Tower {
-  int cost, range, reload, pierce;
+  int cost, range, reload, pierce, timeWaited;
   String type;
   int[] location;
   Projectiles proj;

@@ -68,9 +68,7 @@ void wait(int time) {
  try {
    Thread.sleep(time);
  }
- catch (Exception e) {
-   
- }
+ catch (Exception e) {}
 }
 
 //Draws the map, then the towers, on top of it, then the enemies on top of those
@@ -134,7 +132,16 @@ Tower normalTower(int x, int y) {
   int[] loc = new int[] {x, y};
   int[] projLoc = loc;
   color projColor = color(90, 234, 221);
-  PVector direction = new PVector(1, 1);
+  PVector direction = new PVector(0, 0);
   Projectiles proj = new Projectiles(projLoc, projColor, direction);
   return new Tower(cost,radius,speed,damage,type,loc,proj);
+}
+
+void countdown() {
+ for (int i=0; i<board.towerLoc.length; i++) {
+   for (int j=0; j<board.towerLoc[i].length; j++) {
+     board.towerLoc[i][j].timeWaited--;
+     board.towerLoc[i][j].shoot(board);
+   }
+ }
 }

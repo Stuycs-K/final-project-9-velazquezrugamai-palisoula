@@ -45,7 +45,7 @@ public class Map {
   }
   //can the tower be placed at (x, y)?
   boolean validPlacement(int x, int y) {
-    return (x >= 0 && x < board.length && y >= 0 && y < board[x].length)&& board[x][y].getColor() == color(56,78,29);
+    return (x >= 0 && x < board.length && y >= 0 && y < board[x].length)&& board[y][x].getColor() == color(56,78,29);
   }
   
   //moves the enemies across the board

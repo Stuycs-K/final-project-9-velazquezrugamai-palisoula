@@ -32,6 +32,8 @@ public class Enemy {
   }
   
   public void visualize() {
-    
+    fill(image);
+    ellipse(loc[0], loc[1], (int)(SQUARESIZE/1.5), SQUARESIZE/2);
+    noFill();
   }
 }

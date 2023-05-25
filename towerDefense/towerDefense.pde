@@ -22,7 +22,7 @@ void mouseClicked() {
   }
 }
 
-//if key is pressed, skip round
+//if key is pressed, skip round, press e to give up
 void keyPressed() {
   if (key == 'e') {
     giveUp();
@@ -145,5 +145,12 @@ void countdown() {
        board.towerLoc[i][j].shoot(board, board.enemyLoc.get(k));
      }
    }
+ }
+}
+
+void startRound() {
+  board.increaseRound();
+ for (int i=0; i<board.round*10; i++) {
+   board.addEnemy();
  }
 }

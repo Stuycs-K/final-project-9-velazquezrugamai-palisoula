@@ -54,4 +54,12 @@ public class Map {
      enemyLoc.get(i).move(board);
    }
   }
+  
+  void addEnemy() {
+    for (int i=0; i<board.length; i++) {
+      if (board[i][0].getColor()==color(131, 98, 12)) {
+        enemyLoc.add(new Enemy(
+      }
+    }
+  }
 }

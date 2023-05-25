@@ -1,6 +1,6 @@
 public class Map {
   Tower[][] towerLoc;
-  ArrayList<Enemy> EnemyLoc;
+  ArrayList<Enemy> enemyLoc;
   Tiles[][] board;
   int round, lives, money;
   ArrayList<Projectiles> proLoc;
@@ -9,7 +9,7 @@ public class Map {
     round = rounds;
     lives = live;
     money = mon;
-    EnemyLoc = new ArrayList<Enemy>();
+    enemyLoc = new ArrayList<Enemy>();
     towerLoc = new Tower[ROW][COL];
     board = new Tiles[ROW][COL];
     proLoc = new ArrayList<Projectiles>();
@@ -50,8 +50,8 @@ public class Map {
   
   //moves the enemies across the board
   void moveEnemies() {
-   for (int i=0; i<EnemyLoc.size(); i++) {
-     EnemyLoc.get(i).move(board);
+   for (int i=0; i<enemyLoc.size(); i++) {
+     enemyLoc.get(i).move(board);
    }
   }
 }

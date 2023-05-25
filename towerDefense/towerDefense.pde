@@ -39,12 +39,6 @@ green: valid tower placement
 */
 void draw() {
   avatar();
-  textSize(25);
-  fill(0);
-  text("ROUND: " + board.round, width-195, 25);
-  text("MONEY: " + board.money, width-195, 50);
-  text("LIVES: " + board.lives, width-195, 75);
-  noFill();
 }
 
 //Resets the board, and tell the player that they lost
@@ -85,8 +79,14 @@ void avatar() {
       tempTowers[i][j].makeTower();
     }
   }
-  fill(104, 103, 237);
+  fill(176);
   rect(width-200, 0, width, height);
+  noFill();
+  textSize(25);
+  fill(0);
+  text("ROUND: " + board.round, width-195, SQUARESIZE);
+  text("MONEY: " + board.money, width-195, SQUARESIZE*2);
+  text("LIVES: " + board.lives, width-195, SQUARESIZE*3);
   noFill();
 }
 
@@ -140,8 +140,10 @@ Tower normalTower(int x, int y) {
 void countdown() {
  for (int i=0; i<board.towerLoc.length; i++) {
    for (int j=0; j<board.towerLoc[i].length; j++) {
-     board.towerLoc[i][j].timeWaited--;
-     board.towerLoc[i][j].shoot(board);
+     board.towerLoc[i][j].reduceWait();
+     for (int k=0; k<board.enemyLoc.size(); k++) {
+       board.towerLoc[i][j].shoot(board, board.enemyLoc.get(k));
+     }
    }
  }
 }

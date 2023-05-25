@@ -14,8 +14,14 @@ public class Tower {
     proj = pro;
   }
   
-  public void shoot(Map obj){
-    obj.addProjectile(proj);
+  public void shoot(Map obj, Enemy enem){
+    float distance = PVector.dist(new PVector(enem.loc[0], enem.loc[1]), new PVector(location[0], location[1]));
+    if (distance<=range) {
+      PVector temp = new PVector(enem.loc[0]-location[0], enem.loc[1]-location[1]);
+      proj.setDir(temp.normalize());
+      obj.addProjectile(proj);
+      timeWaited+=reload;
+    }
   }
   
   //adding value to the range
@@ -35,5 +41,9 @@ public class Tower {
     fill(color(165));
     circle(location[0]*SQUARESIZE+SQUARESIZE/2, location[1]*SQUARESIZE+SQUARESIZE/2, SQUARESIZE/2);
     noFill();
+  }
+  
+  public void reduceWait() {
+    timeWaited--;
   }
 }

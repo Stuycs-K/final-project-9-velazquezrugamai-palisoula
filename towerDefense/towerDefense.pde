@@ -55,10 +55,10 @@ void giveUp() {
   int startingMoney = 500;
   board = new Map(round, lives, startingMoney, ROW, COL);
   textSize(35);
-  PFont font = createFont("Ani-48.vlw", 35);
+  PFont font = loadFont("Ani-48.vlw");
   textFont(font);
   fill(color(136, 8, 8));
-  text("YOU HAVE GIVEN UP", width/2-130, height/2);
+  text("YOU HAVE GIVEN UP", width/2-250, height/2);
   makeMap();
   HALT = 2000;
 }

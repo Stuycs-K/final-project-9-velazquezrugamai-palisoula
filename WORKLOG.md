@@ -13,7 +13,7 @@ Worked on making random maps, adding tiles at random and ending them in on the r
 
 5/24/24 - Israel Velazquez
 
-Worked on adding a side bar with extra information about the amount of lives/money you have and what round you are in. I also added a normal tower and granted the player the ability to click on the board in order to place their tower. 
+Worked on adding a side bar with extra information about the amount of lives/money you have and what round you are in. I also added a normal tower and granted the player the ability to click on the board in order to place their tower.
 
 info
 
@@ -32,4 +32,8 @@ added an addTower method, did keyPressed (pressing key skips round), edited vali
 
 5/24/23
 
-finished validPlacement, fixed merge conflicts, added comments to methods that they're necessary. Also changed the color of the map and plan on changing the "you have given up" message to a different font.
+finished validPlacement, fixed merge conflicts, added comments to the methods that they're necessary. Also changed the color of the map and plan on changing the "you have given up" message to a different font.
+
+5/25/23
+
+worked on Enemy.move() function so that they can move along the path. also centered "you have given up" and changed the font :D

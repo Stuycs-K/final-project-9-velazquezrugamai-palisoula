@@ -16,8 +16,15 @@ public class Map {
   }
   
   //adds tower to place
-  void addTower(int x, int y, Tower tow){
-    if(validPlacement(x, y)) tow.location = new int[] {x, y};
+  boolean addTower(Tower tow){
+    int x = tow.location[0];
+    int y = tow.location[1];
+    if(validPlacement(x, y)) {
+      towerLoc[y][x]=tow;
+      board[y][x] = new Tiles(color(255, 13, 13));
+      return true;
+    }
+    return false;
   }
 
 //adds projectile to tower

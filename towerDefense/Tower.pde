@@ -33,7 +33,7 @@ public class Tower {
   
   public void makeTower() {
     fill(color(165));
-    square(location[0]*SQUARESIZE, location[1]*SQUARESIZE, (int)(cost/pierce));
+    circle(location[0]*SQUARESIZE+SQUARESIZE/2, location[1]*SQUARESIZE+SQUARESIZE/2, SQUARESIZE/2);
     noFill();
   }
 }

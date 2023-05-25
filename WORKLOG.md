@@ -27,3 +27,7 @@ worked on most of the smaller methods (changePierce, recieveDamage, etc.) and ch
 5/23/23
 
 added an addTower method, did keyPressed (pressing key skips round), edited validPlacement
+
+5/24/23
+
+finished validPlacement, fixed merge conflicts, added comments to methods that they're necessary. Also changed the color of the map and plan on changing the "you have given up" message to a different font.

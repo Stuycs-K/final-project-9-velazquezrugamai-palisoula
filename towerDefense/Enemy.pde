@@ -1,6 +1,6 @@
 public class Enemy {
   int HP, speed;
-  String[][] image;
+  color image;
   String Resistance;
   int[] loc = new int[2];
   
@@ -12,11 +12,16 @@ public class Enemy {
     loc[1]=y;
   }
   
-  void move() {
-    
+  void move(Tiles[][] board) {
+    //if (board[loc[1]/SQUARESIZE][(loc[0]+speed)/SQUARESIZE]==5)
   }
+  
   //enemy takes value damage
   void recieveDamage(int value) {
     HP -= value;
+  }
+  
+  public void visualize() {
+    
   }
 }

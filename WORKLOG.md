@@ -36,4 +36,4 @@ finished validPlacement, fixed merge conflicts, added comments to the methods th
 
 5/25/23
 
-worked on Enemy.move() function so that they can move along the path. also centered "you have given up" and changed the font :D
+worked on Enemy.move() function so that they can move along the path. also centered "you have given up" and changed the font :D, fixed validPlacement bug

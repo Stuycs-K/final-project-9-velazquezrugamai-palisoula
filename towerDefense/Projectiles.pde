@@ -14,4 +14,8 @@ public class Projectiles {
     location[0]+=x*dir.x;
     location[1]+=y*dir.y;
   }
+  
+  void setDir(PVector value) {
+    dir = value;
+  }
 }

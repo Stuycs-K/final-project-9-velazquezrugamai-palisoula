@@ -142,7 +142,7 @@ Tower normalTower(int x, int y) {
   int[] projLoc = new int[] {x*SQUARESIZE, y*SQUARESIZE};
   color projColor = color(90, 234, 221);
   PVector direction = new PVector(0, 0);
-  Projectiles proj = new Projectiles(projLoc, projColor, direction);
+  Projectiles proj = new Projectiles(projLoc, projColor, direction, damage);
   return new Tower(cost, radius, speed, damage, type, loc, proj);
 }
 //Tells the towers to shoot
@@ -166,11 +166,20 @@ void startRound() {
 
 //Advances the enemies and projectiles ahead
 void advance() {
-  for (int i=0; i<board.enemyLoc.size(); i++) {
-    board.enemyLoc.get(i).move(board.board);
-  }
   for (int i=0; i<board.proLoc.size(); i++) {
     board.proLoc.get(i).move();
+    for (int j=0; j<board.enemyLoc.size(); j++) {
+      if (i==0) board.enemyLoc.get(j).move(board.board);
+      PVector temp = new PVector(board.enemyLoc.get(j).loc[0], board.enemyLoc.get(j).loc[1]);
+      if (Math.abs(PVector.dist(board.proLoc.get(i).dir, temp))<=10) {
+        board.enemyLoc.get(j).recieveDamage(board.proLoc.get(i).damage);
+        board.proLoc.remove(i);
+        i--;
+        if (killEnemy(j)) {
+          j--;
+        }
+      }
+    }
   }
   countdown();
 }

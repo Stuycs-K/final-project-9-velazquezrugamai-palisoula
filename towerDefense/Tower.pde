@@ -1,7 +1,7 @@
 public class Tower {
   int cost, range, reload, pierce, timeWaited;
   String type;
-  private final int[] location;
+  private int[] location;
   Projectiles proj;
   
   public Tower(int price, int radius, int attackSpeed, int damage, String attackType, int[] loc, Projectiles pro) {

@@ -81,4 +81,11 @@ public class Map {
       }
     }
   }
+  
+  boolean killEnemy(int value) {
+    if (enemyLoc.get(value).HP<=0) {
+      enemyLoc.remove(value);
+      return true;
+    }
+    return false;
 }

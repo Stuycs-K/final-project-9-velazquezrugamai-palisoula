@@ -15,12 +15,12 @@ public class Tower {
   }
   
   public void shoot(Map obj, Enemy enem){
-    float distance = PVector.dist(new PVector(enem.loc[0]/SQUARESIZE, enem.loc[1]/SQUARESIZE), new PVector(location[0], location[1]));
+    float distance = PVector.dist(new PVector(enem.loc[0], enem.loc[1]), new PVector(location[0]*SQUARESIZE, location[1]*SQUARESIZE));
     if (distance<=range && timeWaited==0) {
-      PVector temp = new PVector(enem.loc[0]/SQUARESIZE-location[0], enem.loc[1]/SQUARESIZE-location[1]);
+      PVector temp = new PVector(enem.loc[0]-location[0]*SQUARESIZE, enem.loc[1]-location[1]*SQUARESIZE);
       proj.setDir(temp.normalize());
       obj.addProjectile(proj);
-      timeWaited+=reload;
+      timeWaited=reload;
     }
   }
   

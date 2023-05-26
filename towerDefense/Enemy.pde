@@ -3,6 +3,7 @@ public class Enemy {
   color image;
   String Resistance;
   int[] loc = new int[2];
+  int radius = SQUARESIZE/2;
   
   public Enemy(int health, int move, String type, int x, int y) {
     HP = health;

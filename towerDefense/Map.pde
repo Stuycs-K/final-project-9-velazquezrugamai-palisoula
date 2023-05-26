@@ -71,4 +71,14 @@ public class Map {
       }
     }
   }
+  
+  void deleteProj() {
+    for (int i=0; i<proLoc.size(); i++) {
+      int[] tempLoc = proLoc.get(i).location;
+      if (tempLoc[0]<0 || tempLoc[1]<0 || tempLoc[0]>=width-200 || tempLoc[1]>=height) {
+        proLoc.remove(i);
+        i--;
+      }
+    }
+  }
 }

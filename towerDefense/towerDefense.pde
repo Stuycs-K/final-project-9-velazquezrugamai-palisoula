@@ -15,7 +15,7 @@ void setup() {
   board = new Map(round, lives, startingMoney, ROW, COL);
   makeMap();
 }
-
+//placs down a tower
 void mouseClicked() {
   if (board.money>=250) {
     if (board.addTower(normalTower(mouseX/SQUARESIZE, mouseY/SQUARESIZE))) {
@@ -24,7 +24,7 @@ void mouseClicked() {
   }
 }
 
-//if key is pressed, skip round, press e to give up
+//if key is pressed, ' ' to skip round, press e to give up
 void keyPressed() {
   if (key == 'e') {
     giveUp();
@@ -49,7 +49,6 @@ void keyPressed() {
 void draw() {
   avatar();
   advance();
-  countdown();
   if (add==true && ENEMIES!=0) {
     startRound();
   }
@@ -71,14 +70,12 @@ void giveUp() {
   HALT = 2000;
 }
 
-
+//Halts the screen for time miliseconds
 void wait(int time) {
   try {
     Thread.sleep(time);
   }
-  catch (Exception e) {
-    
-  }
+  catch (Exception e) {}
 }
 
 //Draws the map, then the towers, on top of it, then the enemies on top of those
@@ -106,6 +103,9 @@ void avatar() {
   noFill();
   for (int i=0; i<board.enemyLoc.size(); i++) {
     board.enemyLoc.get(i).visualize();
+  }
+  for (int i=0; i<board.proLoc.size(); i++) {
+    board.proLoc.get(i).project();
   }
 }
 
@@ -148,18 +148,18 @@ Tower normalTower(int x, int y) {
   int damage = 1;
   String type = "piercing";
   int[] loc = new int[] {x, y};
-  int[] projLoc = loc;
+  int[] projLoc = new int[] {x*SQUARESIZE, y*SQUARESIZE};
   color projColor = color(90, 234, 221);
   PVector direction = new PVector(0, 0);
   Projectiles proj = new Projectiles(projLoc, projColor, direction);
   return new Tower(cost, radius, speed, damage, type, loc, proj);
 }
-
+//Tells the towers to shoot
 void countdown() {
   for (int i=0; i<board.towerLoc.length; i++) {
     for (int j=0; j<board.towerLoc[i].length; j++) {
       board.towerLoc[i][j].reduceWait();
-      for (int k=0; k<board.enemyLoc.size(); k++) {
+      for (int k=board.enemyLoc.size()-1; k>=0; k--) {
         board.towerLoc[i][j].shoot(board, board.enemyLoc.get(k));
       }
     }
@@ -183,4 +183,5 @@ void advance() {
   for (int i=0; i<board.proLoc.size(); i++) {
     board.proLoc.get(i).move();
   }
+  countdown();
 }

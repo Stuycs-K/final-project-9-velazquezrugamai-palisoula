@@ -1,7 +1,7 @@
 public class Tower {
   int cost, range, reload, pierce, timeWaited;
   String type;
-  int[] location;
+  private final int[] location;
   Projectiles proj;
   
   public Tower(int price, int radius, int attackSpeed, int damage, String attackType, int[] loc, Projectiles pro) {
@@ -15,9 +15,9 @@ public class Tower {
   }
   
   public void shoot(Map obj, Enemy enem){
-    float distance = PVector.dist(new PVector(enem.loc[0], enem.loc[1]), new PVector(location[0], location[1]));
-    if (distance<=range) {
-      PVector temp = new PVector(enem.loc[0]-location[0], enem.loc[1]-location[1]);
+    float distance = PVector.dist(new PVector(enem.loc[0]/SQUARESIZE, enem.loc[1]/SQUARESIZE), new PVector(location[0], location[1]));
+    if (distance<=range && timeWaited==0) {
+      PVector temp = new PVector(enem.loc[0]/SQUARESIZE-location[0], enem.loc[1]/SQUARESIZE-location[1]);
       proj.setDir(temp.normalize());
       obj.addProjectile(proj);
       timeWaited+=reload;
@@ -45,5 +45,8 @@ public class Tower {
   
   public void reduceWait() {
     timeWaited--;
+    if (timeWaited<0) {
+      timeWaited=0;
+    }
   }
 }

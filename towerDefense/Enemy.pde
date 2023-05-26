@@ -20,10 +20,10 @@ public class Enemy {
       int x = loc[0] + dir[i][0];
       int y = loc[1] + dir[i][1];
       if (y/SQUARESIZE>=board.length) {
-        y=(board.length-1)*SQUARESIZE;
+        y=(board.length-1)*SQUARESIZE+(int)(SQUARESIZE/1.1);
       }
       if (x/SQUARESIZE>=board[0].length) {
-        x=(board[0].length-1)*SQUARESIZE;
+        x=(board[0].length-1)*SQUARESIZE+(int)(SQUARESIZE/1.1);
       }
       if(board[y/SQUARESIZE][x/SQUARESIZE].getColor() == color(131, 98, 12)){
         loc[0] = x;

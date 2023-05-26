@@ -1,12 +1,14 @@
 private Map board;
-private int ROW, COL, SQUARESIZE, HALT;
+private int ROW, COL, SQUARESIZE, HALT, ENEMIES;
+private boolean add;
 
 void setup() {
   size(1000, 800);
   ROW = 25;
   COL = 25;
   SQUARESIZE = height/ROW;
-
+  add = false;
+  ENEMIES = 0;
   int round = 0;
   int lives = 100;
   int startingMoney = 500;
@@ -29,9 +31,10 @@ void keyPressed() {
   }
   if (key == ' ') {
     board.increaseRound();
-    for (int i=0; i<board.round*10; i++) {
-      startRound();
-    }
+    startRound();
+    board.changeMoney(750);
+    add = true;
+    ENEMIES = board.round*10;
   }
 }
 
@@ -47,6 +50,9 @@ void draw() {
   avatar();
   advance();
   countdown();
+  if (add==true && ENEMIES!=0) {
+    startRound();
+  }
 }
 
 //Resets the board, and tell the player that they lost
@@ -71,6 +77,7 @@ void wait(int time) {
     Thread.sleep(time);
   }
   catch (Exception e) {
+    
   }
 }
 
@@ -161,11 +168,11 @@ void countdown() {
 
 //Spawns in enemies and grants the player cash
 void startRound() {
-  int hold = 25;
-  for (int i=0; i<board.round*10; i++) {
+  int hold = 50;
+  if (frameCount%hold==0) {
     board.addEnemy();
+    ENEMIES--;
   }
-  board.changeMoney(750);
 }
 
 //Advances the enemies and projectiles ahead

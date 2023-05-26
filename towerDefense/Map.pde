@@ -1,5 +1,5 @@
 public class Map {
-  Tower[][] towerLoc;
+  ArrayList<Tower> towerLoc;
   ArrayList<Enemy> enemyLoc;
   Tiles[][] board;
   int round, lives, money;
@@ -10,7 +10,7 @@ public class Map {
     lives = live;
     money = mon;
     enemyLoc = new ArrayList<Enemy>();
-    towerLoc = new Tower[ROW][COL];
+    towerLoc = new ArrayList<Tower>();
     board = new Tiles[ROW][COL];
     proLoc = new ArrayList<Projectiles>();
   }
@@ -20,7 +20,7 @@ public class Map {
     int x = tow.location[0];
     int y = tow.location[1];
     if(validPlacement(x, y)) {
-      towerLoc[y][x]=tow;
+      towerLoc.add(tow);
       board[y][x] = new Tiles(color(255, 13, 13));
       return true;
     }

@@ -82,13 +82,12 @@ void avatar() {
   wait(HALT);
   HALT-=HALT;
   Tiles[][] temp = board.board;
-  Tower[][] tempTowers = board.towerLoc;
+  ArrayList<Tower> tempTowers = board.towerLoc;
   for (int i=0; i<temp.length; i++) {
     for (int j=0; j<temp[i].length; j++) {
       fill(temp[i][j].getColor());
       square(j*SQUARESIZE, i*SQUARESIZE, SQUARESIZE);
       noFill();
-      tempTowers[i][j].makeTower();
     }
   }
   fill(175);
@@ -107,6 +106,9 @@ void avatar() {
   for (int i=0; i<board.proLoc.size(); i++) {
     board.proLoc.get(i).project();
   }
+  for (int i=0; i<tempTowers.size(); i++) {
+    tempTowers.get(i).makeTower();
+  }
 }
 
 void makeMap() {
@@ -115,17 +117,6 @@ void makeMap() {
   for (i=0; i<ROW; i++) {
     for (j=0; j<COL; j++) {
       board.board[i][j] = new Tiles(color(56, 78, 29));
-      int cost = 500;
-      int radius = 0;
-      int speed = 0;
-      int damage = 0;
-      String type = "";
-      int[] loc = new int[] {height*500, width*500};
-      int[] projLoc = loc;
-      color projColor = color(0);
-      PVector direction = new PVector(5, 5);
-      Projectiles proj = new Projectiles(projLoc, projColor, direction);
-      board.towerLoc[i][j] = new Tower(cost, radius, speed, damage, type, loc, proj);
     }
   }
   i=0;
@@ -156,12 +147,10 @@ Tower normalTower(int x, int y) {
 }
 //Tells the towers to shoot
 void countdown() {
-  for (int i=0; i<board.towerLoc.length; i++) {
-    for (int j=0; j<board.towerLoc[i].length; j++) {
-      board.towerLoc[i][j].reduceWait();
-      for (int k=board.enemyLoc.size()-1; k>=0; k--) {
-        board.towerLoc[i][j].shoot(board, board.enemyLoc.get(k));
-      }
+  for (int i=0; i<board.towerLoc.size(); i++) {
+    board.towerLoc.get(i).reduceWait();
+    for (int k=board.enemyLoc.size()-1; k>=0; k--) {
+      board.towerLoc.get(i).shoot(board, board.enemyLoc.get(k));
     }
   }
 }

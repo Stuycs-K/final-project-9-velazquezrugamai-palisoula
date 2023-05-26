@@ -95,7 +95,7 @@ void avatar() {
       tempTowers[i][j].makeTower();
     }
   }
-  fill(176);
+  fill(175);
   rect(width-200, 0, width, height);
   noFill();
   textSize(25);

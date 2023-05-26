@@ -1,12 +1,12 @@
 private Map board;
 private int ROW, COL, SQUARESIZE, HALT;
 
-void setup(){
+void setup() {
   size(1000, 800);
   ROW = 25;
   COL = 25;
   SQUARESIZE = height/ROW;
-  
+
   int round = 0;
   int lives = 100;
   int startingMoney = 500;
@@ -27,18 +27,26 @@ void keyPressed() {
   if (key == 'e') {
     giveUp();
   }
+  if (key == ' ') {
+    board.increaseRound();
+    for (int i=0; i<board.round*10; i++) {
+      startRound();
+    }
+  }
 }
 
 
 
 /*color codes
-brown: path for enemies
-gray: tower
-green: valid tower placement
-
-*/
+ brown: path for enemies
+ gray: tower
+ green: valid tower placement
+ 
+ */
 void draw() {
   avatar();
+  advance();
+  countdown();
 }
 
 //Resets the board, and tell the player that they lost
@@ -59,10 +67,11 @@ void giveUp() {
 
 
 void wait(int time) {
- try {
-   Thread.sleep(time);
- }
- catch (Exception e) {}
+  try {
+    Thread.sleep(time);
+  }
+  catch (Exception e) {
+  }
 }
 
 //Draws the map, then the towers, on top of it, then the enemies on top of those
@@ -88,6 +97,9 @@ void avatar() {
   text("MONEY: " + board.money, width-195, SQUARESIZE*2);
   text("LIVES: " + board.lives, width-195, SQUARESIZE*3);
   noFill();
+  for (int i=0; i<board.enemyLoc.size(); i++) {
+    board.enemyLoc.get(i).visualize();
+  }
 }
 
 void makeMap() {
@@ -95,7 +107,7 @@ void makeMap() {
   int j = 0;
   for (i=0; i<ROW; i++) {
     for (j=0; j<COL; j++) {
-      board.board[i][j] = new Tiles(color(56,78,29));
+      board.board[i][j] = new Tiles(color(56, 78, 29));
       int cost = 500;
       int radius = 0;
       int speed = 0;
@@ -106,7 +118,7 @@ void makeMap() {
       color projColor = color(0);
       PVector direction = new PVector(5, 5);
       Projectiles proj = new Projectiles(projLoc, projColor, direction);
-      board.towerLoc[i][j] = new Tower(cost,radius,speed,damage,type,loc,proj);
+      board.towerLoc[i][j] = new Tower(cost, radius, speed, damage, type, loc, proj);
     }
   }
   i=0;
@@ -115,8 +127,7 @@ void makeMap() {
     board.board[i][j] = new Tiles(color(131, 98, 12));
     if (Math.random()<.62 && i!=ROW-1) {
       i++;
-    }
-    else {
+    } else {
       j++;
     }
   }
@@ -134,23 +145,35 @@ Tower normalTower(int x, int y) {
   color projColor = color(90, 234, 221);
   PVector direction = new PVector(0, 0);
   Projectiles proj = new Projectiles(projLoc, projColor, direction);
-  return new Tower(cost,radius,speed,damage,type,loc,proj);
+  return new Tower(cost, radius, speed, damage, type, loc, proj);
 }
 
 void countdown() {
- for (int i=0; i<board.towerLoc.length; i++) {
-   for (int j=0; j<board.towerLoc[i].length; j++) {
-     board.towerLoc[i][j].reduceWait();
-     for (int k=0; k<board.enemyLoc.size(); k++) {
-       board.towerLoc[i][j].shoot(board, board.enemyLoc.get(k));
-     }
-   }
- }
+  for (int i=0; i<board.towerLoc.length; i++) {
+    for (int j=0; j<board.towerLoc[i].length; j++) {
+      board.towerLoc[i][j].reduceWait();
+      for (int k=0; k<board.enemyLoc.size(); k++) {
+        board.towerLoc[i][j].shoot(board, board.enemyLoc.get(k));
+      }
+    }
+  }
 }
 
+//Spawns in enemies and grants the player cash
 void startRound() {
-  board.increaseRound();
- for (int i=0; i<board.round*10; i++) {
-   board.addEnemy();
- }
+  int hold = 25;
+  for (int i=0; i<board.round*10; i++) {
+    board.addEnemy();
+  }
+  board.changeMoney(750);
+}
+
+//Advances the enemies and projectiles ahead
+void advance() {
+  for (int i=0; i<board.enemyLoc.size(); i++) {
+    board.enemyLoc.get(i).move(board.board);
+  }
+  for (int i=0; i<board.proLoc.size(); i++) {
+    board.proLoc.get(i).move();
+  }
 }

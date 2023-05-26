@@ -48,17 +48,26 @@ public class Map {
     return (x >= 0 && x < board.length && y >= 0 && y < board[x].length)&& board[y][x].getColor() == color(56,78,29);
   }
   
-  //moves the enemies across the board
-  void moveEnemies() {
+  //moves enemies and projectiles across the board
+  void moveEverything() {
    for (int i=0; i<enemyLoc.size(); i++) {
      enemyLoc.get(i).move(board);
    }
+   for (int i=0; i<proLoc.size(); i++) {
+     proLoc.get(i).move();
+   }
   }
   
+  //Adds enemies based off of of the round
   void addEnemy() {
     for (int i=0; i<board.length; i++) {
       if (board[i][0].getColor()==color(131, 98, 12)) {
-        enemyLoc.add(new Enemy(
+        int health = 1;
+        int move = SQUARESIZE/4;
+        String type = "normal";
+        int x = 0;
+        int y = i;
+        enemyLoc.add(new Enemy(health, move, type, x, y));
       }
     }
   }

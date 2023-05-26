@@ -11,9 +11,13 @@ worked on a part of the class templates/Worked on printing the map background. A
 
 Worked on making random maps, adding tiles at random and ending them in on the right side of the screen. Added some visuals to towers/Map to make it visible in processing, I've also added our signature e button into the game.
 
-5/24/24 - Israel Velazquez
+5/24/23 - Israel Velazquez
 
 Worked on adding a side bar with extra information about the amount of lives/money you have and what round you are in. I also added a normal tower and granted the player the ability to click on the board in order to place their tower.
+
+5/25/23 - Israel Velazquez
+
+Enemies can now appear on the board, and they move like they're supposed to. They don't yet die or get hit, and towers are starting to jump them *literally*, but hey it works somewhat.
 
 info
 

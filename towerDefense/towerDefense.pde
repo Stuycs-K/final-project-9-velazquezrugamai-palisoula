@@ -61,7 +61,6 @@ void giveUp() {
   int lives = 100;
   int startingMoney = 500;
   board = new Map(round, lives, startingMoney, ROW, COL);
-  textSize(35);
   PFont font = loadFont("Ani-48.vlw");
   textFont(font);
   fill(color(136, 8, 8));
@@ -95,7 +94,8 @@ void avatar() {
   fill(175);
   rect(width-200, 0, width, height);
   noFill();
-  textSize(25);
+  PFont font = loadFont("Ani-25.vlw");
+  textFont(font);
   fill(0);
   text("ROUND: " + board.round, width-195, SQUARESIZE);
   text("MONEY: " + board.money, width-195, SQUARESIZE*2);

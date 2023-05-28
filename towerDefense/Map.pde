@@ -48,6 +48,10 @@ public class Map {
     return (x >= 0 && x < board.length && y >= 0 && y < board[x].length)&& board[y][x].getColor() == color(56,78,29);
   }
   
+  boolean canUpgrade(int x, int y){
+    return (board[y][x].getColor() == color(255, 13, 13));
+  }
+  
   //moves enemies and projectiles across the board
   void moveEverything() {
    for (int i=0; i<enemyLoc.size(); i++) {

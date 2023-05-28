@@ -45,3 +45,11 @@ finished validPlacement, fixed merge conflicts, added comments to the methods th
 5/25/23
 
 worked on Enemy.move() function so that they can move along the path. also centered "you have given up" and changed the font :D, fixed validPlacement bug
+
+5/26/23
+
+made the font consistent, attempted to make a static class for variables but it was too buggy
+
+5/27/23
+
+started working on way to upgrade towers (Map.canUpgrade(), towerDefense.upTower(), adding to mouseClicked())

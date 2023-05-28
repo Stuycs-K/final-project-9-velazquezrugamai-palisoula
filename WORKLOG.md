@@ -19,6 +19,10 @@ Worked on adding a side bar with extra information about the amount of lives/mon
 
 Enemies can now appear on the board, and they move like they're supposed to. They don't yet die or get hit, and towers are starting to jump them *literally*, but hey it works somewhat.
 
+5/26/23 - Israel Velazquez
+
+Worked on a more efficient move system, tried to get the towers to be more accurate, and to get them to shoot more often
+
 info
 
 

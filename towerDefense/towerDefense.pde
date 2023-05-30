@@ -62,6 +62,7 @@ void draw() {
   if (add==true && ENEMIES!=0) {
     startRound();
   }
+  println(board.proLoc.size());
 }
 
 //Resets the board, and tell the player that they lost
@@ -175,6 +176,7 @@ Tower upTower(int x, int y) {
 //Tells the towers to shoot
 void countdown() {
   for (int i=0; i<board.towerLoc.size(); i++) {
+    board.towerLoc.get(i).reduceWait();
     for (int k=board.enemyLoc.size()-1; k>=0; k--) {
       if (board.towerLoc.get(i).shoot(board, board.enemyLoc.get(k))) break;
     }
@@ -194,4 +196,5 @@ void startRound() {
 void advance() {
   board.moveEverything(width-210);
   countdown();
+  board.deleteProj();
 }

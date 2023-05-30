@@ -25,10 +25,7 @@ public class Tower {
       timeWaited=reload;
       return true;
     }
-    else {
-      reduceWait();
-      return false;
-    }
+    return false;
   }
   
   //adding value to the range

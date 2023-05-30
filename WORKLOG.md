@@ -23,6 +23,12 @@ Enemies can now appear on the board, and they move like they're supposed to. The
 
 Worked on a more efficient move system, tried to get the towers to be more accurate, and to get them to shoot more often
 
+5/27/2023 - Israel Velazquez
+Worked on moving the enemies/projectiles more efficiently to cause less lag, tried to get the projectiles to be more accurate, also tried to verify why the projectiles were so inaccurate
+
+5/29/2023 - Israel Velazquez
+Projectile accuracy has increased, enemies now die when shot, enemies also disappear and take away lives when they make it to the end. Two final bugs left however. Towers don't reload their shots unless they hit an enemy, and enemies sometimes increase the amount of lives they have
+
 info
 
 

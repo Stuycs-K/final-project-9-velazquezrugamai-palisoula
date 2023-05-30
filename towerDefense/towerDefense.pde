@@ -39,7 +39,7 @@ void keyPressed() {
   if (key == 'e') {
     giveUp();
   }
-  if (key == ' ') {
+  if (key == ' ' && board.enemyLoc.size()==0) {
     board.increaseRound();
     startRound();
     board.changeMoney(750);

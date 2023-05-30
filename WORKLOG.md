@@ -45,3 +45,7 @@ worked on Enemy.move() function so that they can move along the path. also cente
 5/26/23
 
 made the font consistent, attempted to make a static class for variables but it was too buggy
+
+5/27/23
+
+started working on way to upgrade towers (Map.canUpgrade(), towerDefense.upTower(), adding to mouseClicked())

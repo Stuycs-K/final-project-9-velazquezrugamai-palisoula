@@ -15,13 +15,18 @@ void setup() {
   board = new Map(round, lives, startingMoney, ROW, COL);
   makeMap();
 }
-//placs down a tower
+//places down a tower
 void mouseClicked() {
   if (board.money>=250) {
     if (board.addTower(normalTower(mouseX/SQUARESIZE, mouseY/SQUARESIZE))) {
       board.changeMoney(-250);
     }
   }
+  //if(board.money>=100 && board.canUpgrade(mouseX/SQUARESIZE, mouseY/SQUARESIZE)){
+  //  board.addTower(upTower(mouseX/SQUARESIZE, mouseY/SQUARESIZE));
+  //  board.changeMoney(-100);
+  //  board.board[mouseY/SQUARESIZE][mouseX/SQUARESIZE] = new Tiles(color(222, 25, 212));
+  //}
 }
 
 //if key is pressed, ' ' to skip round, press e to give up
@@ -143,6 +148,21 @@ Tower normalTower(int x, int y) {
   color projColor = color(90, 234, 221);
   PVector direction = new PVector(0, 0);
   Projectiles proj = new Projectiles(projLoc, projColor, direction, damage);
+  return new Tower(cost, radius, speed, damage, type, loc, proj);
+}
+
+//upgrades tower
+Tower upTower(int x, int y){
+  int cost = 100;
+  int radius = 15;
+  int speed = 28;
+  int damage = 2;
+  String type = "piercing";
+  int[] loc = new int[] {x, y};
+  int[] projLoc = new int[] {x*SQUARESIZE, y*SQUARESIZE};
+  color projColor = color(90, 234, 221);
+  PVector direction = new PVector(0, 0);
+  Projectiles proj = new Projectiles(projLoc, projColor, direction);
   return new Tower(cost, radius, speed, damage, type, loc, proj);
 }
 //Tells the towers to shoot

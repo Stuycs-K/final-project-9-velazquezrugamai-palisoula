@@ -26,7 +26,7 @@ public class Enemy {
       if (x/SQUARESIZE>=board[0].length) {
         x=(board[0].length-1)*SQUARESIZE+(int)(SQUARESIZE/1.1);
       }
-      if(board[y/SQUARESIZE][x/SQUARESIZE].getColor() == color(131, 98, 12)){
+      if(board[y/SQUARESIZE][x/SQUARESIZE].getColor() == PATH){
         loc[0] = x;
         loc[1] = y;
       }
@@ -42,5 +42,13 @@ public class Enemy {
     fill(image);
     ellipse(loc[0], loc[1], (int)(SQUARESIZE/1.5), SQUARESIZE/2);
     noFill();
+  }
+  
+  public boolean end(int value) {
+    return loc[0]>=value;
+  }
+  
+  public int getHP() {
+    return HP;
   }
 }

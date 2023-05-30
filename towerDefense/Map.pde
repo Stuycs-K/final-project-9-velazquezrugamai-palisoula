@@ -21,7 +21,7 @@ public class Map {
     int y = tow.location[1];
     if(validPlacement(x, y)) {
       towerLoc.add(tow);
-      board[y][x] = new Tiles(color(255, 13, 13));
+      board[y][x] = new Tiles(INVALID);
       return true;
     }
     return false;
@@ -32,6 +32,7 @@ public class Map {
     proLoc.add(proj);
   }
   
+//INcreases the rounds passed by 1
   void increaseRound() {
     round++;
   }
@@ -48,20 +49,44 @@ public class Map {
     return (x >= 0 && x < board.length && y >= 0 && y < board[x].length)&& board[y][x].getColor() == color(56,78,29);
   }
   
+//can the tower be upgraded?
+  boolean canUpgrade(int x, int y){
+    return (board[y][x].getColor() == INVALID);
+  }
+  
   //moves enemies and projectiles across the board
-  void moveEverything() {
+  void moveEverything(int value) {
    for (int i=0; i<enemyLoc.size(); i++) {
      enemyLoc.get(i).move(board);
    }
    for (int i=0; i<proLoc.size(); i++) {
+     Projectiles object = proLoc.get(i);
      proLoc.get(i).move();
+     for (int j=0; j<enemyLoc.size(); j++) {
+       Enemy enemy = enemyLoc.get(j);
+       PVector enemyCoord = new PVector(enemy.loc[0], enemy.loc[1]);
+       PVector projectileLoc = new PVector(object.location[0], object.location[1]);
+       if (PVector.dist(enemyCoord, projectileLoc)<=SQUARESIZE) {
+         proLoc.remove(i);
+         enemy.recieveDamage(object.getDamage());
+         killEnemy(j);
+         i--;
+         j=0;
+         break;
+       }
+       else if (enemy.end(value)) {
+         enemyLoc.remove(j);
+         j--;
+         changeLives(-enemy.getHP());
+       }
+     }
    }
   }
   
   //Adds enemies based off of of the round
   void addEnemy() {
     for (int i=0; i<board.length; i++) {
-      if (board[i][0].getColor()==color(131, 98, 12)) {
+      if (board[i][0].getColor()==PATH) {
         int health = 1;
         int move = SQUARESIZE/4;
         String type = "normal";
@@ -72,6 +97,7 @@ public class Map {
     }
   }
   
+  //Delete a projectile if it goes out of bounds
   void deleteProj() {
     for (int i=0; i<proLoc.size(); i++) {
       int[] tempLoc = proLoc.get(i).location;
@@ -82,10 +108,12 @@ public class Map {
     }
   }
   
+  //If an enemy has 0 HP or less, remove them from the field
   boolean killEnemy(int value) {
-    if (enemyLoc.get(value).HP<=0) {
+    if (enemyLoc.get(value).getHP()<=0) {
       enemyLoc.remove(value);
       return true;
     }
     return false;
+  }
 }

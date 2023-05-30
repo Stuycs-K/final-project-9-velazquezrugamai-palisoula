@@ -1,6 +1,11 @@
 private Map board;
 private int ROW, COL, SQUARESIZE, HALT, ENEMIES;
 private boolean add;
+public final color PATH = color(131, 98, 12);
+public final color INVALID = color(255, 13, 13);
+public final color VALID = color(56, 78, 29);
+public final color TOWER = color(165);
+public final color PROJECTILE = color(90, 234, 221);
 
 void setup() {
   size(1000, 800);
@@ -15,13 +20,18 @@ void setup() {
   board = new Map(round, lives, startingMoney, ROW, COL);
   makeMap();
 }
-//placs down a tower
+//places down a tower
 void mouseClicked() {
   if (board.money>=250) {
     if (board.addTower(normalTower(mouseX/SQUARESIZE, mouseY/SQUARESIZE))) {
       board.changeMoney(-250);
     }
   }
+  //if(board.money>=100 && board.canUpgrade(mouseX/SQUARESIZE, mouseY/SQUARESIZE)){
+  //  board.addTower(upTower(mouseX/SQUARESIZE, mouseY/SQUARESIZE));
+  //  board.changeMoney(-100);
+  //  board.board[mouseY/SQUARESIZE][mouseX/SQUARESIZE] = new Tiles(color(222, 25, 212));
+  //}
 }
 
 //if key is pressed, ' ' to skip round, press e to give up
@@ -74,7 +84,8 @@ void wait(int time) {
   try {
     Thread.sleep(time);
   }
-  catch (Exception e) {}
+  catch (Exception e) {
+  }
 }
 
 //Draws the map, then the towers, on top of it, then the enemies on top of those
@@ -111,18 +122,19 @@ void avatar() {
   }
 }
 
+//Makes a random map for the enemies to move on
 void makeMap() {
   int i = 0;
   int j = 0;
   for (i=0; i<ROW; i++) {
     for (j=0; j<COL; j++) {
-      board.board[i][j] = new Tiles(color(56, 78, 29));
+      board.board[i][j] = new Tiles(VALID);
     }
   }
   i=0;
   j=0;
   while (j!=COL) {
-    board.board[i][j] = new Tiles(color(131, 98, 12));
+    board.board[i][j] = new Tiles(PATH);
     if (Math.random()<.62 && i!=ROW-1) {
       i++;
     } else {
@@ -134,13 +146,28 @@ void makeMap() {
 //Makes a normal tower
 Tower normalTower(int x, int y) {
   int cost = 250;
-  int radius = 40;
+  int radius = 100;
   int speed = 10;
   int damage = 1;
   String type = "piercing";
   int[] loc = new int[] {x, y};
   int[] projLoc = new int[] {x*SQUARESIZE, y*SQUARESIZE};
-  color projColor = color(90, 234, 221);
+  color projColor = PROJECTILE;
+  PVector direction = new PVector(0, 0);
+  Projectiles proj = new Projectiles(projLoc, projColor, direction, damage);
+  return new Tower(cost, radius, speed, damage, type, loc, proj);
+}
+
+//upgrades a tower
+Tower upTower(int x, int y) {
+  int cost = 100;
+  int radius = 15;
+  int speed = 28;
+  int damage = 2;
+  String type = "piercing";
+  int[] loc = new int[] {x, y};
+  int[] projLoc = new int[] {x*SQUARESIZE, y*SQUARESIZE};
+  color projColor = PROJECTILE;
   PVector direction = new PVector(0, 0);
   Projectiles proj = new Projectiles(projLoc, projColor, direction, damage);
   return new Tower(cost, radius, speed, damage, type, loc, proj);
@@ -148,9 +175,8 @@ Tower normalTower(int x, int y) {
 //Tells the towers to shoot
 void countdown() {
   for (int i=0; i<board.towerLoc.size(); i++) {
-    board.towerLoc.get(i).reduceWait();
     for (int k=board.enemyLoc.size()-1; k>=0; k--) {
-      board.towerLoc.get(i).shoot(board, board.enemyLoc.get(k));
+      if (board.towerLoc.get(i).shoot(board, board.enemyLoc.get(k))) break;
     }
   }
 }
@@ -166,20 +192,6 @@ void startRound() {
 
 //Advances the enemies and projectiles ahead
 void advance() {
-  for (int i=0; i<board.proLoc.size(); i++) {
-    board.proLoc.get(i).move();
-    for (int j=0; j<board.enemyLoc.size(); j++) {
-      if (i==0) board.enemyLoc.get(j).move(board.board);
-      PVector temp = new PVector(board.enemyLoc.get(j).loc[0], board.enemyLoc.get(j).loc[1]);
-      if (Math.abs(PVector.dist(board.proLoc.get(i).dir, temp))<=10) {
-        board.enemyLoc.get(j).recieveDamage(board.proLoc.get(i).damage);
-        board.proLoc.remove(i);
-        i--;
-        if (killEnemy(j)) {
-          j--;
-        }
-      }
-    }
-  }
+  board.moveEverything(width-210);
   countdown();
 }

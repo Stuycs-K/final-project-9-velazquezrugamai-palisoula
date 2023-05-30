@@ -19,6 +19,16 @@ Worked on adding a side bar with extra information about the amount of lives/mon
 
 Enemies can now appear on the board, and they move like they're supposed to. They don't yet die or get hit, and towers are starting to jump them *literally*, but hey it works somewhat.
 
+5/26/23 - Israel Velazquez
+
+Worked on a more efficient move system, tried to get the towers to be more accurate, and to get them to shoot more often
+
+5/27/2023 - Israel Velazquez
+Worked on moving the enemies/projectiles more efficiently to cause less lag, tried to get the projectiles to be more accurate, also tried to verify why the projectiles were so inaccurate
+
+5/29/2023 - Israel Velazquez
+Projectile accuracy has increased, enemies now die when shot, enemies also disappear and take away lives when they make it to the end. Two final bugs left however. Towers don't reload their shots unless they hit an enemy, and enemies sometimes increase the amount of lives they have
+
 info
 
 
@@ -45,3 +55,7 @@ worked on Enemy.move() function so that they can move along the path. also cente
 5/26/23
 
 made the font consistent, attempted to make a static class for variables but it was too buggy
+
+5/27/23
+
+started working on way to upgrade towers (Map.canUpgrade(), towerDefense.upTower(), adding to mouseClicked())

@@ -12,15 +12,22 @@ public class Tower {
     type = attackType;
     location = loc;
     proj = pro;
+    timeWaited=0;
   }
   
-  public void shoot(Map obj, Enemy enem){
-    float distance = PVector.dist(new PVector(enem.loc[0], enem.loc[1]), new PVector(location[0]*SQUARESIZE, location[1]*SQUARESIZE));
+  public boolean shoot(Map obj, Enemy enem){
+    int[] towLoc = new int[] {location[0]*SQUARESIZE + SQUARESIZE/2, location[1]*SQUARESIZE + SQUARESIZE/2};
+    float distance = PVector.dist(new PVector(enem.loc[0], enem.loc[1]), new PVector(towLoc[0], towLoc[1]));
     if (distance<=range && timeWaited==0) {
-      PVector temp = new PVector(enem.loc[0]-location[0]*SQUARESIZE, enem.loc[1]-location[1]*SQUARESIZE);
-      proj.setDir(temp.normalize());
+      PVector temp = new PVector(enem.loc[0]-towLoc[0], enem.loc[1]-towLoc[1]);
+      proj.setDir(temp);
       obj.addProjectile(proj);
       timeWaited=reload;
+      return true;
+    }
+    else {
+      reduceWait();
+      return false;
     }
   }
   
@@ -38,15 +45,14 @@ public class Tower {
   }
   
   public void makeTower() {
-    fill(color(165));
+    fill(TOWER);
     circle(location[0]*SQUARESIZE+SQUARESIZE/2, location[1]*SQUARESIZE+SQUARESIZE/2, SQUARESIZE/2);
     noFill();
   }
   
   public void reduceWait() {
-    timeWaited--;
-    if (timeWaited<0) {
-      timeWaited=0;
+    if (timeWaited!=0) {
+      timeWaited--;
     }
   }
 }

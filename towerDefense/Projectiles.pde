@@ -14,17 +14,21 @@ public class Projectiles {
   
   //moves the projectile across the screen
   public void move() {
-    location[0]+=(int)(2*dir.x);
-    location[1]+=(int)(2*dir.y);
+    location[0]+=(int)(dir.x);
+    location[1]+=(int)(dir.y);
   }
   
   void setDir(PVector value) {
     dir = value;
   }
   
+  int getDamage() {
+    return damage;
+  }
+  
   void project() {
     fill(Color);
-    circle(location[0]+SQUARESIZE/2, location[1]+SQUARESIZE/2, SQUARESIZE/3);
+    circle(location[0], location[1], SQUARESIZE/3);
     noFill();
   }
 }

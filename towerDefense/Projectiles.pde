@@ -8,7 +8,8 @@ public class Projectiles {
     location[0] = coords[0];
     location[1] = coords[1];
     Color = image;
-    dir = direction.normalize();
+    direction.normalize();
+    dir = direction;
     damage = dam;
   }
   

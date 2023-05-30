@@ -114,6 +114,7 @@ public class Map {
   boolean killEnemy(int value) {
     if (enemyLoc.get(value).getHP()<=0) {
       enemyLoc.remove(value);
+      changeMoney(15);
       return true;
     }
     return false;

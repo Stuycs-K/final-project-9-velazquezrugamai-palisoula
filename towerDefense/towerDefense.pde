@@ -148,7 +148,7 @@ void makeMap() {
 Tower normalTower(int x, int y) {
   int cost = 250;
   int radius = 100;
-  int speed = 10;
+  int speed = 100;
   int damage = 1;
   String type = "piercing";
   int[] loc = new int[] {x, y};
@@ -162,8 +162,8 @@ Tower normalTower(int x, int y) {
 //upgrades a tower
 Tower upTower(int x, int y) {
   int cost = 100;
-  int radius = 15;
-  int speed = 28;
+  int radius = 150;
+  int speed = 82;
   int damage = 2;
   String type = "piercing";
   int[] loc = new int[] {x, y};

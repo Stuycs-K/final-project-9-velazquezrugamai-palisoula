@@ -67,6 +67,8 @@ void draw() {
 //Resets the board, and tell the player that they lost
 void giveUp() {
   background(255);
+  PImage boom = loadImage("boom.jpeg");
+  image(boom, 0, 0);
   int round = 0;
   int lives = 100;
   int startingMoney = 500;

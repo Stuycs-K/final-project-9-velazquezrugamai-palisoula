@@ -59,3 +59,7 @@ made the font consistent, attempted to make a static class for variables but it 
 5/27/23
 
 started working on way to upgrade towers (Map.canUpgrade(), towerDefense.upTower(), adding to mouseClicked())
+
+5/30/23
+
+finished debugging upgrade component, added explosion picture to giveup(), will need to edit

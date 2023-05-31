@@ -15,8 +15,8 @@ public class Projectiles {
   
   //moves the projectile across the screen
   public void move() {
-    location[0]+=((int)(dir.x))/4;
-    location[1]+=((int)(dir.y))/4;
+    location[0]+=((int)(dir.x))/8;
+    location[1]+=((int)(dir.y))/8;
   }
   
   void setDir(PVector value) {

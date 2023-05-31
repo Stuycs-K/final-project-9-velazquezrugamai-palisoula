@@ -1,5 +1,5 @@
 private Map board;
-private int ROW, COL, SQUARESIZE, HALT, ENEMIES;
+private int ROW, COL, SQUARESIZE, HALT, ENEMIES, MODE;
 private boolean add;
 public final color PATH = color(131, 98, 12);
 public final color INVALID = color(255, 13, 13);
@@ -20,14 +20,20 @@ void setup() {
   int startingMoney = 500;
   board = new Map(round, lives, startingMoney, ROW, COL);
   makeMap();
+  MODE = 0;
 }
 //places down a tower
 void mouseClicked() {
-  if (board.money>=250 && board.board[mouseY/SQUARESIZE][mouseX/SQUARESIZE].getColor() == VALID) {
+  if (mouseX>=width-200) {
+    if (mouseY>=SQUARESIZE*3) {
+      MODE = mouseY/100;
+    }
+  }
+  else if (MODE==1 && board.money>=250 && board.board[mouseY/SQUARESIZE][mouseX/SQUARESIZE].getColor() == VALID) {
     if (board.addTower(normalTower(mouseX/SQUARESIZE, mouseY/SQUARESIZE))) {
       board.changeMoney(-250);
     }
-  } else if(board.money>=100 && board.canUpgrade(mouseX/SQUARESIZE, mouseY/SQUARESIZE)){
+  } else if(MODE==2 && board.money>=100 && board.canUpgrade(mouseX/SQUARESIZE, mouseY/SQUARESIZE)){
       board.addTower(upTower(mouseX/SQUARESIZE, mouseY/SQUARESIZE));
       board.changeMoney(-100);
       board.board[mouseY/SQUARESIZE][mouseX/SQUARESIZE] = new Tiles(UPGRADED);
@@ -40,6 +46,9 @@ void keyPressed() {
     giveUp();
   }
   if (key == ' ' && board.enemyLoc.size()==0) {
+    for (int i = board.proLoc.size()-1; i>=0; i--) {
+      board.proLoc.remove(i);
+    }
     board.increaseRound();
     startRound();
     board.changeMoney(750);
@@ -104,6 +113,9 @@ void avatar() {
       noFill();
     }
   }
+  for (int i=0; i<8; i++) {
+    square(width/2, i*100, 10);
+  }
   fill(175);
   rect(width-200, 0, width, height);
   noFill();
@@ -113,6 +125,13 @@ void avatar() {
   text("ROUND: " + board.round, width-195, SQUARESIZE);
   text("MONEY: " + board.money, width-195, SQUARESIZE*2);
   text("LIVES: " + board.lives, width-195, SQUARESIZE*3);
+  rect(width-200, SQUARESIZE*3+5, 200, 100);
+  fill(125);
+  rect(width-200, SQUARESIZE*3+105, 200, 100);
+  fill(255);
+  text(" BUY NORMAL", width-195, SQUARESIZE*4+20);
+  text("    TOWERS ", width-195, SQUARESIZE*4+45);
+  text("    UPGRADE", width-195, SQUARESIZE*3+162);
   noFill();
   for (int i=0; i<board.enemyLoc.size(); i++) {
     board.enemyLoc.get(i).visualize();
@@ -165,7 +184,7 @@ Tower normalTower(int x, int y) {
 Tower upTower(int x, int y) {
   int cost = 100;
   int radius = 150;
-  int speed = 82;
+  int speed = 59;
   int damage = 2;
   String type = "piercing";
   int[] loc = new int[] {x, y};

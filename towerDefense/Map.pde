@@ -66,9 +66,7 @@ public class Map {
    }
    for (int i=0; i<proLoc.size(); i++) {
      Projectiles object = proLoc.get(i);
-     if (frameCount%5==0) {
-       proLoc.get(i).move();
-     }
+     proLoc.get(i).move();
      for (int j=0; j<enemyLoc.size(); j++) {
        Enemy enemy = enemyLoc.get(j);
        PVector enemyCoord = new PVector(enemy.loc[0], enemy.loc[1]);

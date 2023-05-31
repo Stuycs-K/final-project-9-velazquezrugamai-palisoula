@@ -63,3 +63,7 @@ started working on way to upgrade towers (Map.canUpgrade(), towerDefense.upTower
 5/30/23
 
 finished debugging upgrade component, added explosion picture to giveup() and removed unneeded files.
+
+5/31/23
+
+added a feature where the color of upgrade and new tower changed based on mode, game now always starts on "Buy new towers".

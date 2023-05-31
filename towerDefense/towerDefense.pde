@@ -178,7 +178,7 @@ void makeMap() {
 //Makes a normal tower
 Tower normalTower(int x, int y) {
   int cost = 250;
-  int radius = 100;
+  int radius = 150;
   int speed = 100;
   int damage = 1;
   String type = "piercing";

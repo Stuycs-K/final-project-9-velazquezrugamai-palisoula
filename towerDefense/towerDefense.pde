@@ -20,7 +20,7 @@ void setup() {
   int startingMoney = 500;
   board = new Map(round, lives, startingMoney, ROW, COL);
   makeMap();
-  MODE = 0;
+  MODE = 1;
 }
 //places down a tower
 void mouseClicked() {
@@ -125,6 +125,7 @@ void avatar() {
   text("ROUND: " + board.round, width-195, SQUARESIZE);
   text("MONEY: " + board.money, width-195, SQUARESIZE*2);
   text("LIVES: " + board.lives, width-195, SQUARESIZE*3);
+  if(MODE == 1){
   rect(width-200, SQUARESIZE*3+5, 200, 100);
   fill(125);
   rect(width-200, SQUARESIZE*3+105, 200, 100);
@@ -133,6 +134,15 @@ void avatar() {
   text("    TOWERS ", width-195, SQUARESIZE*4+45);
   text("    UPGRADE", width-195, SQUARESIZE*3+162);
   noFill();
+  }else{
+    rect(width-200, SQUARESIZE*3+5, 200, 100);
+  fill(255);
+  rect(width-200, SQUARESIZE*3+105, 200, 100);
+  fill(125);
+  text(" BUY NORMAL", width-195, SQUARESIZE*4+20);
+  text("    TOWERS ", width-195, SQUARESIZE*4+45);
+  text("    UPGRADE", width-195, SQUARESIZE*3+162);
+  }
   for (int i=0; i<board.enemyLoc.size(); i++) {
     board.enemyLoc.get(i).visualize();
   }
@@ -185,7 +195,7 @@ Tower upTower(int x, int y) {
   int cost = 100;
   int radius = 150;
   int speed = 59;
-  int damage = 2;
+  int damage = 3;
   String type = "piercing";
   int[] loc = new int[] {x, y};
   int[] projLoc = new int[] {x*SQUARESIZE, y*SQUARESIZE};

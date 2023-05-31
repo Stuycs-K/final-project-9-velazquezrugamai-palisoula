@@ -62,4 +62,4 @@ started working on way to upgrade towers (Map.canUpgrade(), towerDefense.upTower
 
 5/30/23
 
-finished debugging upgrade component, added explosion picture to giveup(), will need to edit
+finished debugging upgrade component, added explosion picture to giveup() and removed unneeded files.

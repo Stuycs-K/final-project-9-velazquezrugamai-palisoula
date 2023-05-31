@@ -6,6 +6,7 @@ public final color INVALID = color(255, 13, 13);
 public final color VALID = color(56, 78, 29);
 public final color TOWER = color(165);
 public final color PROJECTILE = color(90, 234, 221);
+public final color UPGRADED = color(222, 25, 212);
 
 void setup() {
   size(1000, 800);
@@ -22,16 +23,15 @@ void setup() {
 }
 //places down a tower
 void mouseClicked() {
-  if (board.money>=250) {
+  if (board.money>=250 && board.board[mouseY/SQUARESIZE][mouseX/SQUARESIZE].getColor() == VALID) {
     if (board.addTower(normalTower(mouseX/SQUARESIZE, mouseY/SQUARESIZE))) {
       board.changeMoney(-250);
     }
+  } else if(board.money>=100 && board.canUpgrade(mouseX/SQUARESIZE, mouseY/SQUARESIZE)){
+      board.addTower(upTower(mouseX/SQUARESIZE, mouseY/SQUARESIZE));
+      board.changeMoney(-100);
+      board.board[mouseY/SQUARESIZE][mouseX/SQUARESIZE] = new Tiles(UPGRADED);
   }
-  //if(board.money>=100 && board.canUpgrade(mouseX/SQUARESIZE, mouseY/SQUARESIZE)){
-  //  board.addTower(upTower(mouseX/SQUARESIZE, mouseY/SQUARESIZE));
-  //  board.changeMoney(-100);
-  //  board.board[mouseY/SQUARESIZE][mouseX/SQUARESIZE] = new Tiles(color(222, 25, 212));
-  //}
 }
 
 //if key is pressed, ' ' to skip round, press e to give up
@@ -68,6 +68,8 @@ void draw() {
 //Resets the board, and tell the player that they lost
 void giveUp() {
   background(255);
+  PImage boom = loadImage("boom.jpeg");
+  image(boom, 0, 0);
   int round = 0;
   int lives = 100;
   int startingMoney = 500;

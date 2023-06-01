@@ -71,7 +71,7 @@ public class Map {
        Enemy enemy = enemyLoc.get(j);
        PVector enemyCoord = new PVector(enemy.loc[0], enemy.loc[1]);
        PVector projectileLoc = new PVector(object.location[0], object.location[1]);
-       if (PVector.dist(enemyCoord, projectileLoc)<=SQUARESIZE*2) {
+       if (PVector.dist(enemyCoord, projectileLoc)<=SQUARESIZE/2) {
          proLoc.remove(i);
          enemy.recieveDamage(object.getDamage());
          killEnemy(j);
@@ -88,8 +88,8 @@ public class Map {
   void addEnemy() {
     for (int i=0; i<board.length; i++) {
       if (board[i][0].getColor()==PATH) {
-        int health = 1;
-        int move = SQUARESIZE/4;
+        int health = round/2;
+        int move = money/350;
         String type = "normal";
         int x = 0;
         int y = i;
@@ -116,5 +116,13 @@ public class Map {
       return true;
     }
     return false;
+  }
+  
+  int getLives() {
+    return lives;
+  }
+  
+  int getRound() {
+    return round;
   }
 }

@@ -21,7 +21,7 @@ public class Tower {
     if (distance<=range && timeWaited==0) {
       PVector temp = new PVector(enem.loc[0]-towLoc[0], enem.loc[1]-towLoc[1]);
       proj.setDir(temp);
-      obj.addProjectile(proj);
+      obj.addProjectile(proj.copy());
       timeWaited=reload;
       return true;
     }

@@ -15,8 +15,8 @@ public class Projectiles {
   
   //moves the projectile across the screen
   public void move() {
-    location[0]+=((int)(dir.x))/8;
-    location[1]+=((int)(dir.y))/8;
+    location[0]+=((int)(dir.x*5));
+    location[1]+=((int)(dir.y*5));
   }
   
   void setDir(PVector value) {
@@ -27,9 +27,31 @@ public class Projectiles {
     return damage;
   }
   
+  color getColor() {
+    return Color;
+  }
+  
+  PVector getDirection() {
+    return dir;
+  }
+  
+  int[] getLoc() {
+    return location;
+  }
+  
   void project() {
     fill(Color);
     circle(location[0], location[1], SQUARESIZE/3);
     noFill();
+  }
+  
+  Projectiles copy() {
+    int[] Loc = new int[2];
+    Loc[0] = getLoc()[0];
+    Loc[1] = getLoc()[1];
+    color CLR = getColor();
+    PVector heading = getDirection();
+    int dmg = getDamage();
+    return new Projectiles(Loc, CLR, heading, dmg);
   }
 }

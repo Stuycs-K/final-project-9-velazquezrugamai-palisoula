@@ -1,5 +1,5 @@
 public class Enemy {
-  int HP, speed;
+  private int HP, speed;
   color image;
   String Resistance;
   int[] loc = new int[2];
@@ -11,25 +11,35 @@ public class Enemy {
     Resistance = type;
     loc[0]=x;
     loc[1]=y;
+    if (speed==0) {
+      speed++;
+    }
+    if (HP==0) {
+      HP++;
+    }
   }
   
   void move(Tiles[][] board) {
     //if (board[loc[1]/SQUARESIZE][(loc[0]+speed)/SQUARESIZE]==5)
-    int[][] dir = {{0, 1}, {1, 0}, {-1, 0}, {0, -1}};
-    //the for loop only goes until i = 2 because the road currently goes down and right only.
-    for(int i = 0; i < 2; i++){
-      int x = loc[0] + dir[i][0];
-      int y = loc[1] + dir[i][1];
-      if (y/SQUARESIZE>=board.length) {
-        y=(board.length-1)*SQUARESIZE+(int)(SQUARESIZE/1.1);
+    int temp = speed;
+    while (temp!=0) {
+      int[][] dir = {{0, 1}, {1, 0}, {-1, 0}, {0, -1}};
+      //the for loop only goes until i = 2 because the road currently goes down and right only.
+      for(int i = 0; i < 2; i++){
+        int x = loc[0] + dir[i][0];
+        int y = loc[1] + dir[i][1];
+        if (y/SQUARESIZE>=board.length) {
+          y=(board.length-1)*SQUARESIZE+(int)(SQUARESIZE/1.1);
+        }
+        if (x/SQUARESIZE>=board[0].length) {
+          x=(board[0].length-1)*SQUARESIZE+(int)(SQUARESIZE/1.1);
+        }
+        if(board[y/SQUARESIZE][x/SQUARESIZE].getColor() == PATH){
+          loc[0] = x;
+          loc[1] = y;
+        }
       }
-      if (x/SQUARESIZE>=board[0].length) {
-        x=(board[0].length-1)*SQUARESIZE+(int)(SQUARESIZE/1.1);
-      }
-      if(board[y/SQUARESIZE][x/SQUARESIZE].getColor() == PATH){
-        loc[0] = x;
-        loc[1] = y;
-      }
+      temp--;
     }
   }
   

@@ -1,5 +1,5 @@
 private Map board;
-private int ROW, COL, SQUARESIZE, HALT, ENEMIES, MODE;
+private int ROW, COL, SQUARESIZE, HALT, ENEMIES, MODE, hold;
 private boolean add;
 public final color PATH = color(131, 98, 12);
 public final color INVALID = color(255, 13, 13);
@@ -18,9 +18,10 @@ void setup() {
   int round = 0;
   int lives = 100;
   int startingMoney = 500;
+  hold = 50;
   board = new Map(round, lives, startingMoney, ROW, COL);
   makeMap();
-  MODE = 1;
+  MODE = -1;
 }
 //places down a tower
 void mouseClicked() {
@@ -55,6 +56,18 @@ void keyPressed() {
     add = true;
     ENEMIES = board.round*10;
   }
+  if (key=='m') {
+    board.changeMoney(500);
+  }
+  if (key==',') {
+    hold--;
+    if (hold<=0) {
+      hold = 1;
+    }
+  }
+  if (key=='.') {
+    hold++;
+  }
 }
 
 
@@ -71,7 +84,7 @@ void draw() {
   if (add==true && ENEMIES!=0) {
     startRound();
   }
-  println(board.proLoc.size());
+  dead();
 }
 
 //Resets the board, and tell the player that they lost
@@ -112,9 +125,6 @@ void avatar() {
       square(j*SQUARESIZE, i*SQUARESIZE, SQUARESIZE);
       noFill();
     }
-  }
-  for (int i=0; i<8; i++) {
-    square(width/2, i*100, 10);
   }
   fill(175);
   rect(width-200, 0, width, height);
@@ -179,7 +189,7 @@ void makeMap() {
 Tower normalTower(int x, int y) {
   int cost = 250;
   int radius = 150;
-  int speed = 100;
+  int speed = 150;
   int damage = 1;
   String type = "piercing";
   int[] loc = new int[] {x, y};
@@ -194,7 +204,7 @@ Tower normalTower(int x, int y) {
 Tower upTower(int x, int y) {
   int cost = 100;
   int radius = 150;
-  int speed = 59;
+  int speed = 100;
   int damage = 3;
   String type = "piercing";
   int[] loc = new int[] {x, y};
@@ -216,7 +226,6 @@ void countdown() {
 
 //Spawns in enemies and grants the player cash
 void startRound() {
-  int hold = 50;
   if (frameCount%hold==0) {
     board.addEnemy();
     ENEMIES--;
@@ -228,4 +237,52 @@ void advance() {
   board.moveEverything(width-210);
   countdown();
   board.deleteProj();
+}
+
+void dead() {
+  if (board.getLives()<=0) {
+    add = false;
+    for (int i=board.enemyLoc.size()-1; i>=0; i--) {
+      board.enemyLoc.remove(i);
+    }
+    for (int i=board.proLoc.size()-1; i>=0; i--) {
+      board.proLoc.remove(i);
+    }
+    lost();
+  }
+}
+
+void lost() {
+  background(255);
+  PImage boom = loadImage("boom.jpg");
+  image(boom, 100, 0);
+  int round = 0;
+  int lives = 100;
+  int startingMoney = 500;
+  board = new Map(round, lives, startingMoney, ROW, COL);
+  PFont font = loadFont("Ani-48.vlw");
+  textFont(font);
+  fill(color(136, 8, 8));
+  text("YOU HAVE LOST", width/2-250, height/2);
+  makeMap();
+  HALT = 4000;
+}
+
+void win() {
+  if (board.getRound()>=25) {
+    background(255);
+    PImage boom = loadImage("boom.jpg");
+    image(boom, 100, 0);
+    int round = 0;
+    int lives = 100;
+    int startingMoney = 500;
+    board = new Map(round, lives, startingMoney, ROW, COL);
+    PFont font = loadFont("Ani-48.vlw");
+    textFont(font);
+    fill(color(136, 8, 8));
+    text("YOU HAVE WON!!", width/2-250, height/2);
+    text("but can you win again?", width/2-250, height/2+250);
+    makeMap();
+    HALT = 8000;
+  }
 }

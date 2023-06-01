@@ -25,19 +25,22 @@ void setup() {
 }
 //places down a tower
 void mouseClicked() {
+  int x = mouseX/SQUARESIZE;
+  int y = mouseY/SQUARESIZE;
   if (mouseX>=width-200) {
     if (mouseY>=SQUARESIZE*3) {
       MODE = mouseY/100;
     }
   }
-  else if (MODE==1 && board.money>=250 && board.board[mouseY/SQUARESIZE][mouseX/SQUARESIZE].getColor() == VALID) {
-    if (board.addTower(normalTower(mouseX/SQUARESIZE, mouseY/SQUARESIZE))) {
+  else if (MODE==1 && board.money>=250 && board.board[y][x].getColor() == VALID) {
+    if (board.addTower(normalTower(x, y))) {
       board.changeMoney(-250);
     }
-  } else if(MODE==2 && board.money>=100 && board.canUpgrade(mouseX/SQUARESIZE, mouseY/SQUARESIZE)){
-      board.addTower(upTower(mouseX/SQUARESIZE, mouseY/SQUARESIZE));
+  } else if(MODE==2 && board.money>=100 && board.canUpgrade(x, y)){
+      board.removeOld(x, y);
+      board.addTower(upTower(x, y));
       board.changeMoney(-100);
-      board.board[mouseY/SQUARESIZE][mouseX/SQUARESIZE] = new Tiles(UPGRADED);
+      board.board[y][x] = new Tiles(UPGRADED);
   }
 }
 
@@ -68,6 +71,15 @@ void keyPressed() {
   if (key=='.') {
     hold++;
   }
+  if (key=='\\') {
+    boardState();
+  }
+  if (key=='l') {
+    board.changeMoney(-500);
+    if (board.getMoney()<0) {
+      board.changeMoney(-board.getMoney());
+    }
+  }
 }
 
 
@@ -85,6 +97,7 @@ void draw() {
     startRound();
   }
   dead();
+  win();
 }
 
 //Resets the board, and tell the player that they lost
@@ -203,7 +216,7 @@ Tower normalTower(int x, int y) {
 //upgrades a tower
 Tower upTower(int x, int y) {
   int cost = 100;
-  int radius = 150;
+  int radius = 175;
   int speed = 100;
   int damage = 3;
   String type = "piercing";
@@ -269,7 +282,7 @@ void lost() {
 }
 
 void win() {
-  if (board.getRound()>=25) {
+  if (board.getRound()>=10) {
     background(255);
     PImage boom = loadImage("boom.jpg");
     image(boom, 100, 0);
@@ -281,8 +294,24 @@ void win() {
     textFont(font);
     fill(color(136, 8, 8));
     text("YOU HAVE WON!!", width/2-250, height/2);
-    text("but can you win again?", width/2-250, height/2+250);
+    text("but can you win again?", width/2-250, height/2+350);
     makeMap();
     HALT = 8000;
+  }
+}
+
+void boardState() {
+  Tiles[][] map = board.getBoard();
+  for (int i=0; i<map.length; i++) {
+    for (int j=0; j<map[i].length; j++) {
+      if (map[i][j].getColor()==VALID) {
+        board.addTower(normalTower(j, i));
+        board.board[i][j] = new Tiles(INVALID);
+      }
+      if (map[i][j].getColor()==INVALID) {
+        board.addTower(upTower(j, i));
+        board.board[i][j] = new Tiles(UPGRADED);
+      }
+    }
   }
 }

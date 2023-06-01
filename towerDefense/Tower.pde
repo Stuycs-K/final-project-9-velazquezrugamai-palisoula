@@ -52,4 +52,12 @@ public class Tower {
       timeWaited--;
     }
   }
+  
+  public int[] getLocation() {
+    return location;
+  }
+  
+  public int getpierce() {
+    return pierce;
+  }
 }

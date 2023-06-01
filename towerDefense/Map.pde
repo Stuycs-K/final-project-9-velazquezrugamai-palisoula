@@ -19,7 +19,8 @@ public class Map {
   boolean addTower(Tower tow){
     int x = tow.location[0];
     int y = tow.location[1];
-    if(validPlacement(x, y)) {
+    boolean attackUp = tow.getpierce()>1;
+    if(validPlacement(x, y) || (attackUp && canUpgrade(x, y))) {
       towerLoc.add(tow);
       board[y][x] = new Tiles(INVALID);
       return true;
@@ -46,12 +47,14 @@ public class Map {
   }
   //can the tower be placed at (x, y)?
   boolean validPlacement(int x, int y) {
-    return (x >= 0 && x < board.length && y >= 0 && y < board[x].length)&& board[y][x].getColor() == color(56,78,29);
+    boolean inRange = (x >= 0 && y < board.length && y >= 0 && x < board[y].length);
+    return inRange && board[y][x].getColor() == VALID;
   }
   
 //can the tower be upgraded?
   boolean canUpgrade(int x, int y){
-    return (board[y][x].getColor() == INVALID);
+    boolean inRange = (x >= 0 && y < board.length && y >= 0 && x < board[y].length);
+    return inRange && (board[y][x].getColor() == INVALID);
   }
   
   //moves enemies and projectiles across the board
@@ -124,5 +127,23 @@ public class Map {
   
   int getRound() {
     return round;
+  }
+  
+  void removeOld(int x, int y) {
+    for (int i=0; i<towerLoc.size(); i++) {
+      int[] Loc = towerLoc.get(i).getLocation();
+      if (Loc[0]==x && Loc[1]==y) {
+        towerLoc.remove(i);
+        break;
+      }
+    }
+  }
+  
+  public Tiles[][] getBoard() {
+    return board;
+  }
+  
+  public int getMoney() {
+    return money;
   }
 }

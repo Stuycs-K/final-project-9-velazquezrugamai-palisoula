@@ -32,15 +32,15 @@ void mouseClicked() {
       MODE = mouseY/100;
     }
   }
-  else if (MODE==1 && board.money>=250 && board.board[y][x].getColor() == VALID) {
+  else if (MODE==1 && board.getMoney()>=250 && board.getTile(y, x).getColor() == VALID) {
     if (board.addTower(normalTower(x, y))) {
       board.changeMoney(-250);
     }
-  } else if(MODE==2 && board.money>=100 && board.canUpgrade(x, y)){
+  } else if(MODE==2 && board.getMoney()>=100 && board.canUpgrade(x, y)){
       board.removeOld(x, y);
       board.addTower(upTower(x, y));
       board.changeMoney(-100);
-      board.board[y][x] = new Tiles(UPGRADED);
+      board.setBoard(y, x, new Tiles(UPGRADED));
   }
 }
 
@@ -49,15 +49,15 @@ void keyPressed() {
   if (key == 'e') {
     giveUp();
   }
-  if (key == ' ' && board.enemyLoc.size()==0) {
-    for (int i = board.proLoc.size()-1; i>=0; i--) {
-      board.proLoc.remove(i);
+  if (key == ' ' && board.getEnemy().size()==0) {
+    for (int i = board.getPro().size()-1; i>=0; i--) {
+      board.getPro().remove(i);
     }
     board.increaseRound();
     startRound();
     board.changeMoney(750);
     add = true;
-    ENEMIES = board.round*10;
+    ENEMIES = board.getRounds()*10;
   }
   if (key=='m') {
     board.changeMoney(500);
@@ -119,19 +119,16 @@ void giveUp() {
 
 //Halts the screen for time miliseconds
 void wait(int time) {
-  try {
-    Thread.sleep(time);
-  }
-  catch (Exception e) {
-  }
+  try {Thread.sleep(time);}
+  catch (Exception e) {}
 }
 
 //Draws the map, then the towers, on top of it, then the enemies on top of those
 void avatar() {
   wait(HALT);
   HALT-=HALT;
-  Tiles[][] temp = board.board;
-  ArrayList<Tower> tempTowers = board.towerLoc;
+  Tiles[][] temp = board.getBoard();
+  ArrayList<Tower> tempTowers = board.getTower();
   for (int i=0; i<temp.length; i++) {
     for (int j=0; j<temp[i].length; j++) {
       fill(temp[i][j].getColor());
@@ -145,9 +142,9 @@ void avatar() {
   PFont font = loadFont("Ani-25.vlw");
   textFont(font);
   fill(0);
-  text("ROUND: " + board.round, width-195, SQUARESIZE);
-  text("MONEY: " + board.money, width-195, SQUARESIZE*2);
-  text("LIVES: " + board.lives, width-195, SQUARESIZE*3);
+  text("ROUND: " + board.getRounds(), width-195, SQUARESIZE);
+  text("MONEY: " + board.getMoney(), width-195, SQUARESIZE*2);
+  text("LIVES: " + board.getLives(), width-195, SQUARESIZE*3);
   if(MODE == 1){
   rect(width-200, SQUARESIZE*3+5, 200, 100);
   fill(125);
@@ -167,10 +164,10 @@ void avatar() {
   text("    UPGRADE", width-195, SQUARESIZE*3+162);
   }
   for (int i=0; i<board.enemyLoc.size(); i++) {
-    board.enemyLoc.get(i).visualize();
+    board.getEnemy().get(i).visualize();
   }
-  for (int i=0; i<board.proLoc.size(); i++) {
-    board.proLoc.get(i).project();
+  for (int i=0; i<board.getPro().size(); i++) {
+    board.getPro().get(i).project();
   }
   for (int i=0; i<tempTowers.size(); i++) {
     tempTowers.get(i).makeTower();
@@ -183,13 +180,13 @@ void makeMap() {
   int j = 0;
   for (i=0; i<ROW; i++) {
     for (j=0; j<COL; j++) {
-      board.board[i][j] = new Tiles(VALID);
+      board.setBoard(i, j, new Tiles(VALID));
     }
   }
   i=0;
   j=0;
   while (j!=COL) {
-    board.board[i][j] = new Tiles(PATH);
+    board.setBoard(i, j, new Tiles(PATH));
     if (Math.random()<.62 && i!=ROW-1) {
       i++;
     } else {
@@ -206,7 +203,7 @@ Tower normalTower(int x, int y) {
   int damage = 1;
   String type = "piercing";
   int[] loc = new int[] {x, y};
-  int[] projLoc = new int[] {x*SQUARESIZE, y*SQUARESIZE};
+  int[] projLoc = new int[] {x*SQUARESIZE+SQUARESIZE/2, y*SQUARESIZE+SQUARESIZE/2};
   color projColor = PROJECTILE;
   PVector direction = new PVector(0, 0);
   Projectiles proj = new Projectiles(projLoc, projColor, direction, damage);
@@ -216,12 +213,12 @@ Tower normalTower(int x, int y) {
 //upgrades a tower
 Tower upTower(int x, int y) {
   int cost = 100;
-  int radius = 175;
-  int speed = 100;
+  int radius = 200;
+  int speed = 75;
   int damage = 3;
   String type = "piercing";
   int[] loc = new int[] {x, y};
-  int[] projLoc = new int[] {x*SQUARESIZE, y*SQUARESIZE};
+  int[] projLoc = new int[] {x*SQUARESIZE+SQUARESIZE/2, y*SQUARESIZE+SQUARESIZE/2};
   color projColor = PROJECTILE;
   PVector direction = new PVector(0, 0);
   Projectiles proj = new Projectiles(projLoc, projColor, direction, damage);
@@ -230,9 +227,9 @@ Tower upTower(int x, int y) {
 //Tells the towers to shoot
 void countdown() {
   for (int i=0; i<board.towerLoc.size(); i++) {
-    board.towerLoc.get(i).reduceWait();
+    board.getTower().get(i).reduceWait();
     for (int k=board.enemyLoc.size()-1; k>=0; k--) {
-      if (board.towerLoc.get(i).shoot(board, board.enemyLoc.get(k))) break;
+      if (board.getTower().get(i).shoot(board, board.enemyLoc.get(k))) break;
     }
   }
 }
@@ -256,10 +253,10 @@ void dead() {
   if (board.getLives()<=0) {
     add = false;
     for (int i=board.enemyLoc.size()-1; i>=0; i--) {
-      board.enemyLoc.remove(i);
+      board.getEnemy().remove(i);
     }
-    for (int i=board.proLoc.size()-1; i>=0; i--) {
-      board.proLoc.remove(i);
+    for (int i=board.getPro().size()-1; i>=0; i--) {
+      board.getPro().remove(i);
     }
     lost();
   }
@@ -297,6 +294,8 @@ void win() {
     text("but can you win again?", width/2-250, height/2+350);
     makeMap();
     HALT = 8000;
+    add = false;
+    ENEMIES=0;
   }
 }
 
@@ -306,11 +305,11 @@ void boardState() {
     for (int j=0; j<map[i].length; j++) {
       if (map[i][j].getColor()==VALID) {
         board.addTower(normalTower(j, i));
-        board.board[i][j] = new Tiles(INVALID);
+        board.setBoard(i, j, new Tiles(INVALID));
       }
       if (map[i][j].getColor()==INVALID) {
         board.addTower(upTower(j, i));
-        board.board[i][j] = new Tiles(UPGRADED);
+        board.setBoard(i, j, new Tiles(UPGRADED));
       }
     }
   }

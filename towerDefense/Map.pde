@@ -74,7 +74,7 @@ public class Map {
        Enemy enemy = enemyLoc.get(j);
        PVector enemyCoord = new PVector(enemy.loc[0], enemy.loc[1]);
        PVector projectileLoc = new PVector(object.location[0], object.location[1]);
-       if (PVector.dist(enemyCoord, projectileLoc)<=SQUARESIZE/2) {
+       if (PVector.dist(enemyCoord, projectileLoc)<=SQUARESIZE/1.5) {
          proLoc.remove(i);
          enemy.recieveDamage(object.getDamage());
          killEnemy(j);
@@ -143,7 +143,31 @@ public class Map {
     return board;
   }
   
+  public Tiles getTile(int i, int j) {
+    return board[i][j];
+  }
+  
   public int getMoney() {
     return money;
+  }
+  
+  public int getRounds() {
+    return round;
+  }
+  
+  public ArrayList<Projectiles> getPro() {
+    return proLoc;
+  }
+  
+  public void setBoard(int i, int j, Tiles obj) {
+    board[i][j] = obj;
+  }
+  
+  public ArrayList<Enemy> getEnemy() {
+    return enemyLoc;
+  }
+  
+  public ArrayList<Tower> getTower() {
+    return towerLoc;
   }
 }

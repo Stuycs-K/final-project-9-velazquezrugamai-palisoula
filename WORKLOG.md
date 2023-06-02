@@ -30,6 +30,9 @@ Added a way for the enemies to decrease the life counter. I also tried to decrea
 5/31/2023 - Israel Velazquez
 Added a way to win and to lose, added several cheater methods that allow you to gain/lose money, increase/decrease the enemy spawn rate, and make the entire valid board filled with towers. I've also made the enemies scale with each passing round, increasing HP by 1 every 2nd round after round 2, and increasing speed based off of the amount of money the player has. I also added several get() methods to make our code more readable, and fixed the upgraded Towers to make sure to add the towers.
 
+6/1/2023 - Israel Velazquez
+Changed all of our direct variables to be accessor methods. Made it so winning doesn't just start the new round with round 10 enemies. Made the projectiles more accurate, and faster. Added comments to all of our methods
+
 info
 
 

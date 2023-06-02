@@ -4,6 +4,7 @@ public class Tower {
   private int[] location;
   Projectiles proj;
   
+  //Creates a new tower
   public Tower(int price, int radius, int attackSpeed, int damage, String attackType, int[] loc, Projectiles pro) {
     cost = price;
     range = radius;
@@ -15,6 +16,7 @@ public class Tower {
     timeWaited=0;
   }
   
+  //Tells the tower to shoot at the enemy closest to the back lines
   public boolean shoot(Map obj, Enemy enem){
     int[] towLoc = new int[] {location[0]*SQUARESIZE + SQUARESIZE/2, location[1]*SQUARESIZE + SQUARESIZE/2};
     float distance = PVector.dist(new PVector(enem.loc[0], enem.loc[1]), new PVector(towLoc[0], towLoc[1]));
@@ -28,6 +30,20 @@ public class Tower {
     return false;
   }
   
+  //Draws the tower in Processing
+  public void makeTower() {
+    fill(TOWER);
+    circle(location[0]*SQUARESIZE+SQUARESIZE/2, location[1]*SQUARESIZE+SQUARESIZE/2, SQUARESIZE/2);
+    noFill();
+  }
+  
+  //setter method to reduce the time needed for the tower to reload
+  public void reduceWait() {
+    if (timeWaited!=0) {
+      timeWaited--;
+    }
+  }
+    
   //adding value to the range
   public void changeRange(int value){
     range += value;
@@ -41,22 +57,12 @@ public class Tower {
     cost += value;
   }
   
-  public void makeTower() {
-    fill(TOWER);
-    circle(location[0]*SQUARESIZE+SQUARESIZE/2, location[1]*SQUARESIZE+SQUARESIZE/2, SQUARESIZE/2);
-    noFill();
-  }
-  
-  public void reduceWait() {
-    if (timeWaited!=0) {
-      timeWaited--;
-    }
-  }
-  
+  //accessor method for the location of the tower
   public int[] getLocation() {
     return location;
   }
   
+  //accessor method for the damage of the tower
   public int getpierce() {
     return pierce;
   }

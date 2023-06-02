@@ -8,6 +8,7 @@ public final color TOWER = color(165);
 public final color PROJECTILE = color(90, 234, 221);
 public final color UPGRADED = color(222, 25, 212);
 
+//sets the initial starting board screen
 void setup() {
   size(1000, 800);
   ROW = 25;
@@ -23,6 +24,7 @@ void setup() {
   makeMap();
   MODE = -1;
 }
+
 //places down a tower
 void mouseClicked() {
   int x = mouseX/SQUARESIZE;
@@ -88,7 +90,7 @@ void keyPressed() {
  brown: path for enemies
  gray: tower
  green: valid tower placement
- 
+ Draws the board, map, enemies, towers, and projectiles
  */
 void draw() {
   avatar();
@@ -224,6 +226,7 @@ Tower upTower(int x, int y) {
   Projectiles proj = new Projectiles(projLoc, projColor, direction, damage);
   return new Tower(cost, radius, speed, damage, type, loc, proj);
 }
+
 //Tells the towers to shoot
 void countdown() {
   for (int i=0; i<board.towerLoc.size(); i++) {
@@ -249,6 +252,7 @@ void advance() {
   board.deleteProj();
 }
 
+//determines if the player has died, and shows them the loss screen
 void dead() {
   if (board.getLives()<=0) {
     add = false;
@@ -262,6 +266,7 @@ void dead() {
   }
 }
 
+//shows the player the loss screen
 void lost() {
   background(255);
   PImage boom = loadImage("boom.jpg");
@@ -278,8 +283,9 @@ void lost() {
   HALT = 4000;
 }
 
+//determines if the player has won, and shows them the victory screen
 void win() {
-  if (board.getRound()>=10) {
+  if (board.getRounds()>=11) {
     background(255);
     PImage boom = loadImage("boom.jpg");
     image(boom, 100, 0);
@@ -299,6 +305,7 @@ void win() {
   }
 }
 
+//cheat method that adds the upgraded tower across the entire screen
 void boardState() {
   Tiles[][] map = board.getBoard();
   for (int i=0; i<map.length; i++) {

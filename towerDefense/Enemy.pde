@@ -5,6 +5,7 @@ public class Enemy {
   int[] loc = new int[2];
   int radius = SQUARESIZE/2;
   
+  //makes a new enemy on the map
   public Enemy(int health, int move, String type, int x, int y) {
     HP = health;
     speed = move;
@@ -19,6 +20,7 @@ public class Enemy {
     }
   }
   
+  //allows the enemy to move based on the tiles in the map, and their speed increases how fast they can move across this board
   void move(Tiles[][] board) {
     //if (board[loc[1]/SQUARESIZE][(loc[0]+speed)/SQUARESIZE]==5)
     int temp = speed;
@@ -48,16 +50,19 @@ public class Enemy {
     HP -= value;
   }
   
+  //draws the enemy on the map
   public void visualize() {
     fill(image);
     ellipse(loc[0], loc[1], (int)(SQUARESIZE/1.5), SQUARESIZE/2);
     noFill();
   }
   
+  //determines if the enemy has reached the end
   public boolean end(int value) {
     return loc[0]>=value;
   }
   
+  //accessor method for the HP the enmy has
   public int getHP() {
     return HP;
   }

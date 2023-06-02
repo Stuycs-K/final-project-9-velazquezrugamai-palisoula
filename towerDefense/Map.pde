@@ -5,6 +5,7 @@ public class Map {
   int round, lives, money;
   ArrayList<Projectiles> proLoc;
   
+  //creates a new map
   public Map(int rounds, int live, int mon, int ROW, int COL) {
     round = rounds;
     lives = live;
@@ -15,7 +16,7 @@ public class Map {
     proLoc = new ArrayList<Projectiles>();
   }
   
-  //adds tower to place
+  //adds tower to a tile
   boolean addTower(Tower tow){
     int x = tow.location[0];
     int y = tow.location[1];
@@ -26,35 +27,6 @@ public class Map {
       return true;
     }
     return false;
-  }
-
-//adds projectile to tower
-  void addProjectile(Projectiles proj) {
-    proLoc.add(proj);
-  }
-  
-//INcreases the rounds passed by 1
-  void increaseRound() {
-    round++;
-  }
-  //adding value to the lives
-  void changeLives(int value) {
-    lives += value;
-  }
-  //adding value to the money
-  void changeMoney(int value) {
-    money += value;
-  }
-  //can the tower be placed at (x, y)?
-  boolean validPlacement(int x, int y) {
-    boolean inRange = (x >= 0 && y < board.length && y >= 0 && x < board[y].length);
-    return inRange && board[y][x].getColor() == VALID;
-  }
-  
-//can the tower be upgraded?
-  boolean canUpgrade(int x, int y){
-    boolean inRange = (x >= 0 && y < board.length && y >= 0 && x < board[y].length);
-    return inRange && (board[y][x].getColor() == INVALID);
   }
   
   //moves enemies and projectiles across the board
@@ -82,7 +54,6 @@ public class Map {
          j=0;
          break;
        }
-      
      }
    }
   }
@@ -121,14 +92,7 @@ public class Map {
     return false;
   }
   
-  int getLives() {
-    return lives;
-  }
-  
-  int getRound() {
-    return round;
-  }
-  
+  //When upgrading a tower, remove the older tower placed there originally
   void removeOld(int x, int y) {
     for (int i=0; i<towerLoc.size(); i++) {
       int[] Loc = towerLoc.get(i).getLocation();
@@ -139,35 +103,78 @@ public class Map {
     }
   }
   
+  //accessor method for the tiles array
   public Tiles[][] getBoard() {
     return board;
   }
   
+  //accessor method for a specific Tile
   public Tiles getTile(int i, int j) {
     return board[i][j];
   }
   
+  //accessor method for the amount of money the map has
   public int getMoney() {
     return money;
   }
   
+  //accessor method for the amount of rounds passed in this map
   public int getRounds() {
     return round;
   }
   
+  //accessor method for the projectiles on the map
   public ArrayList<Projectiles> getPro() {
     return proLoc;
   }
   
-  public void setBoard(int i, int j, Tiles obj) {
-    board[i][j] = obj;
-  }
-  
+  //accessor method for the enemies on the map
   public ArrayList<Enemy> getEnemy() {
     return enemyLoc;
   }
   
+  //accessor method for the towers on the map
   public ArrayList<Tower> getTower() {
     return towerLoc;
+  }
+  
+  //accessor method for the amount of lives the map has
+  int getLives() {
+    return lives;
+  }
+  
+  //adds projectile to tower
+  void addProjectile(Projectiles proj) {
+    proLoc.add(proj);
+  }
+  
+  //setter method for a specific tile on the baord
+  public void setBoard(int i, int j, Tiles obj) {
+    board[i][j] = obj;
+  }
+  
+//Increases the rounds passed by 1
+  void increaseRound() {
+    round++;
+  }
+  //adding value to the lives
+  void changeLives(int value) {
+    lives += value;
+  }
+  //adding value to the money
+  void changeMoney(int value) {
+    money += value;
+  }
+  
+  //can the tower be placed at (x, y)?
+  boolean validPlacement(int x, int y) {
+    boolean inRange = (x >= 0 && y < board.length && y >= 0 && x < board[y].length);
+    return inRange && board[y][x].getColor() == VALID;
+  }
+  
+//can the tower be upgraded?
+  boolean canUpgrade(int x, int y){
+    boolean inRange = (x >= 0 && y < board.length && y >= 0 && x < board[y].length);
+    return inRange && (board[y][x].getColor() == INVALID);
   }
 }

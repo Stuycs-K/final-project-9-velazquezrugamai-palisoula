@@ -36,7 +36,7 @@ public class Map {
      enemy.move(board);
      if (enemy.end(value)) {
        enemyLoc.remove(i);
-       changeLives(0-enemy.getHP());
+       changeLives(-enemy.getHP());
      }
    }
    for (int i=0; i<proLoc.size(); i++) {
@@ -44,8 +44,8 @@ public class Map {
      proLoc.get(i).move();
      for (int j=0; j<enemyLoc.size(); j++) {
        Enemy enemy = enemyLoc.get(j);
-       PVector enemyCoord = new PVector(enemy.loc[0], enemy.loc[1]);
-       PVector projectileLoc = new PVector(object.location[0], object.location[1]);
+       PVector enemyCoord = new PVector(enemy.getLocX(), enemy.getLocY());
+       PVector projectileLoc = new PVector(object.getLocX(), object.getLocY());
        if (PVector.dist(enemyCoord, projectileLoc)<=SQUARESIZE/1.5) {
          proLoc.remove(i);
          enemy.recieveDamage(object.getDamage());
@@ -66,8 +66,9 @@ public class Map {
         int move = money/350;
         String type = "normal";
         int x = 0;
-        int y = i;
+        int y = i*SQUARESIZE;
         enemyLoc.add(new Enemy(health, move, type, x, y));
+        i+=board.length;
       }
     }
   }
@@ -177,4 +178,53 @@ public class Map {
     boolean inRange = (x >= 0 && y < board.length && y >= 0 && x < board[y].length);
     return inRange && (board[y][x].getColor() == INVALID);
   }
+  
+  //Draws the map, then the towers, on top of it, then the enemies on top of those
+void avatar() {
+  Tiles[][] temp = getBoard();
+  ArrayList<Tower> tempTowers = getTower();
+  for (int i=0; i<temp.length; i++) {
+    for (int j=0; j<temp[i].length; j++) {
+      fill(temp[i][j].getColor());
+      square(j*SQUARESIZE, i*SQUARESIZE, SQUARESIZE);
+      noFill();
+    }
+  }
+  fill(175);
+  rect(width-200, 0, width, height);
+  noFill();
+  PFont font = loadFont("Ani-25.vlw");
+  textFont(font);
+  fill(0);
+  text("ROUND: " + getRounds(), width-195, SQUARESIZE);
+  text("MONEY: " + getMoney(), width-195, SQUARESIZE*2);
+  text("LIVES: " + getLives(), width-195, SQUARESIZE*3);
+  if(MODE == 1){
+  rect(width-200, SQUARESIZE*3+5, 200, 100);
+  fill(125);
+  rect(width-200, SQUARESIZE*3+105, 200, 100);
+  fill(255);
+  text(" BUY NORMAL", width-195, SQUARESIZE*4+20);
+  text("    TOWERS ", width-195, SQUARESIZE*4+45);
+  text("    UPGRADE", width-195, SQUARESIZE*3+162);
+  noFill();
+  }else{
+    rect(width-200, SQUARESIZE*3+5, 200, 100);
+  fill(255);
+  rect(width-200, SQUARESIZE*3+105, 200, 100);
+  fill(125);
+  text(" BUY NORMAL", width-195, SQUARESIZE*4+20);
+  text("    TOWERS ", width-195, SQUARESIZE*4+45);
+  text("    UPGRADE", width-195, SQUARESIZE*3+162);
+  }
+  for (int i=0; i<enemyLoc.size(); i++) {
+    getEnemy().get(i).visualize();
+  }
+  for (int i=0; i<getPro().size(); i++) {
+    getPro().get(i).project();
+  }
+  for (int i=0; i<tempTowers.size(); i++) {
+    tempTowers.get(i).makeTower();
+  }
+}
 }

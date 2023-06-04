@@ -63,4 +63,14 @@ public class Projectiles {
   int[] getLoc() {
     return location;
   }
+  
+  //accessor method for the X-coordinate of the projectile
+  int getLocX() {
+    return location[0];
+  }
+  
+  //accessor method for the Y-coordinate of the projectile
+  int getLocY() {
+    return location[1];
+  }
 }

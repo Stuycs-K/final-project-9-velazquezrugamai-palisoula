@@ -66,4 +66,14 @@ public class Enemy {
   public int getHP() {
     return HP;
   }
+  
+  //accessor method for the X-coordinate of the enemy
+  public int getLocX() {
+    return loc[0];
+  }
+  
+  //accessor method for the Y-coordinate of the enemy
+  public int getLocY() {
+    return loc[1];
+  }
 }

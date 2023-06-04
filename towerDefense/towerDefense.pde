@@ -93,7 +93,9 @@ void keyPressed() {
  Draws the board, map, enemies, towers, and projectiles
  */
 void draw() {
-  avatar();
+  wait(HALT);
+  HALT-=HALT;
+  board.avatar();
   advance();
   if (add==true && ENEMIES!=0) {
     startRound();
@@ -123,57 +125,6 @@ void giveUp() {
 void wait(int time) {
   try {Thread.sleep(time);}
   catch (Exception e) {}
-}
-
-//Draws the map, then the towers, on top of it, then the enemies on top of those
-void avatar() {
-  wait(HALT);
-  HALT-=HALT;
-  Tiles[][] temp = board.getBoard();
-  ArrayList<Tower> tempTowers = board.getTower();
-  for (int i=0; i<temp.length; i++) {
-    for (int j=0; j<temp[i].length; j++) {
-      fill(temp[i][j].getColor());
-      square(j*SQUARESIZE, i*SQUARESIZE, SQUARESIZE);
-      noFill();
-    }
-  }
-  fill(175);
-  rect(width-200, 0, width, height);
-  noFill();
-  PFont font = loadFont("Ani-25.vlw");
-  textFont(font);
-  fill(0);
-  text("ROUND: " + board.getRounds(), width-195, SQUARESIZE);
-  text("MONEY: " + board.getMoney(), width-195, SQUARESIZE*2);
-  text("LIVES: " + board.getLives(), width-195, SQUARESIZE*3);
-  if(MODE == 1){
-  rect(width-200, SQUARESIZE*3+5, 200, 100);
-  fill(125);
-  rect(width-200, SQUARESIZE*3+105, 200, 100);
-  fill(255);
-  text(" BUY NORMAL", width-195, SQUARESIZE*4+20);
-  text("    TOWERS ", width-195, SQUARESIZE*4+45);
-  text("    UPGRADE", width-195, SQUARESIZE*3+162);
-  noFill();
-  }else{
-    rect(width-200, SQUARESIZE*3+5, 200, 100);
-  fill(255);
-  rect(width-200, SQUARESIZE*3+105, 200, 100);
-  fill(125);
-  text(" BUY NORMAL", width-195, SQUARESIZE*4+20);
-  text("    TOWERS ", width-195, SQUARESIZE*4+45);
-  text("    UPGRADE", width-195, SQUARESIZE*3+162);
-  }
-  for (int i=0; i<board.enemyLoc.size(); i++) {
-    board.getEnemy().get(i).visualize();
-  }
-  for (int i=0; i<board.getPro().size(); i++) {
-    board.getPro().get(i).project();
-  }
-  for (int i=0; i<tempTowers.size(); i++) {
-    tempTowers.get(i).makeTower();
-  }
 }
 
 //Makes a random map for the enemies to move on
@@ -229,10 +180,14 @@ Tower upTower(int x, int y) {
 
 //Tells the towers to shoot
 void countdown() {
-  for (int i=0; i<board.towerLoc.size(); i++) {
-    board.getTower().get(i).reduceWait();
-    for (int k=board.enemyLoc.size()-1; k>=0; k--) {
-      if (board.getTower().get(i).shoot(board, board.enemyLoc.get(k))) break;
+  ArrayList<Tower> towers = board.getTower();
+  ArrayList<Enemy> enemies = board.getEnemy();
+  for (int i=0; i<towers.size(); i++) {
+    Tower tower = towers.get(i);
+    tower.reduceWait();
+    for (int k=0; k<enemies.size(); k++) {
+      Enemy enemy = enemies.get(k);
+      if (tower.shoot(board, enemy)) break;
     }
   }
 }
@@ -247,7 +202,7 @@ void startRound() {
 
 //Advances the enemies and projectiles ahead
 void advance() {
-  board.moveEverything(width-210);
+  board.moveEverything(width-203);
   countdown();
   board.deleteProj();
 }

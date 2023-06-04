@@ -33,6 +33,9 @@ Added a way to win and to lose, added several cheater methods that allow you to 
 6/1/2023 - Israel Velazquez
 Changed all of our direct variables to be accessor methods. Made it so winning doesn't just start the new round with round 10 enemies. Made the projectiles more accurate, and faster. Added comments to all of our methods
 
+6/4/2023 - Israel Velazquez
+FIXED THE HP BUG. Enemies spawned in multiple times depending on the amount of possible spawn locations, now that that can't happen, they only spawn in one at a time. I've also added more accessor methods to replace the direct variable we were using. Towers now target the front lines instead of the last ones
+
 info
 
 

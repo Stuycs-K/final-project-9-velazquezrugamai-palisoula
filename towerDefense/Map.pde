@@ -199,24 +199,16 @@ void avatar() {
   text("ROUND: " + getRounds(), width-195, SQUARESIZE);
   text("MONEY: " + getMoney(), width-195, SQUARESIZE*2);
   text("LIVES: " + getLives(), width-195, SQUARESIZE*3);
-  if(MODE == 1){
   rect(width-200, SQUARESIZE*3+5, 200, 100);
-  fill(125);
+  if(MODE == 1) fill(125);
+  else fill(255);
   rect(width-200, SQUARESIZE*3+105, 200, 100);
-  fill(255);
+  if (MODE == 1) fill(255);
+  else fill(125);
   text(" BUY NORMAL", width-195, SQUARESIZE*4+20);
   text("    TOWERS ", width-195, SQUARESIZE*4+45);
   text("    UPGRADE", width-195, SQUARESIZE*3+162);
   noFill();
-  }else{
-    rect(width-200, SQUARESIZE*3+5, 200, 100);
-  fill(255);
-  rect(width-200, SQUARESIZE*3+105, 200, 100);
-  fill(125);
-  text(" BUY NORMAL", width-195, SQUARESIZE*4+20);
-  text("    TOWERS ", width-195, SQUARESIZE*4+45);
-  text("    UPGRADE", width-195, SQUARESIZE*3+162);
-  }
   for (int i=0; i<enemyLoc.size(); i++) {
     getEnemy().get(i).visualize();
   }

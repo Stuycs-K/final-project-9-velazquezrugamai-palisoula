@@ -8,14 +8,15 @@ public class Projectiles {
     location[0] = coords[0];
     location[1] = coords[1];
     Color = image;
-    dir = direction.normalize();
+    direction.normalize();
+    dir = direction;
     damage = dam;
   }
   
   //moves the projectile across the screen
   public void move() {
-    location[0]+=(int)(dir.x);
-    location[1]+=(int)(dir.y);
+    location[0]+=((int)(dir.x))/4;
+    location[1]+=((int)(dir.y))/4;
   }
   
   void setDir(PVector value) {

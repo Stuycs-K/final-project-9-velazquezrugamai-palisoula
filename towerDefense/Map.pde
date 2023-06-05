@@ -56,17 +56,24 @@ public class Map {
   
   //moves enemies and projectiles across the board
   void moveEverything(int value) {
-   for (int i=0; i<enemyLoc.size(); i++) {
-     enemyLoc.get(i).move(board);
+   for (int i=enemyLoc.size()-1; i>=0; i--) {
+     Enemy enemy = enemyLoc.get(i);
+     enemy.move(board);
+     if (enemy.end(value)) {
+       enemyLoc.remove(i);
+       changeLives(0-enemy.getHP());
+     }
    }
    for (int i=0; i<proLoc.size(); i++) {
      Projectiles object = proLoc.get(i);
-     proLoc.get(i).move();
+     if (frameCount%5==0) {
+       proLoc.get(i).move();
+     }
      for (int j=0; j<enemyLoc.size(); j++) {
        Enemy enemy = enemyLoc.get(j);
        PVector enemyCoord = new PVector(enemy.loc[0], enemy.loc[1]);
        PVector projectileLoc = new PVector(object.location[0], object.location[1]);
-       if (PVector.dist(enemyCoord, projectileLoc)<=SQUARESIZE) {
+       if (PVector.dist(enemyCoord, projectileLoc)<=SQUARESIZE*2) {
          proLoc.remove(i);
          enemy.recieveDamage(object.getDamage());
          killEnemy(j);
@@ -74,11 +81,7 @@ public class Map {
          j=0;
          break;
        }
-       else if (enemy.end(value)) {
-         enemyLoc.remove(j);
-         j--;
-         changeLives(-enemy.getHP());
-       }
+      
      }
    }
   }
@@ -99,11 +102,10 @@ public class Map {
   
   //Delete a projectile if it goes out of bounds
   void deleteProj() {
-    for (int i=0; i<proLoc.size(); i++) {
+    for (int i=proLoc.size()-1; i>=0; i--) {
       int[] tempLoc = proLoc.get(i).location;
       if (tempLoc[0]<0 || tempLoc[1]<0 || tempLoc[0]>=width-200 || tempLoc[1]>=height) {
         proLoc.remove(i);
-        i--;
       }
     }
   }
@@ -112,6 +114,7 @@ public class Map {
   boolean killEnemy(int value) {
     if (enemyLoc.get(value).getHP()<=0) {
       enemyLoc.remove(value);
+      changeMoney(15);
       return true;
     }
     return false;

@@ -62,6 +62,7 @@ void draw() {
   if (add==true && ENEMIES!=0) {
     startRound();
   }
+  println(board.proLoc.size());
 }
 
 //Resets the board, and tell the player that they lost
@@ -149,7 +150,7 @@ void makeMap() {
 Tower normalTower(int x, int y) {
   int cost = 250;
   int radius = 100;
-  int speed = 10;
+  int speed = 100;
   int damage = 1;
   String type = "piercing";
   int[] loc = new int[] {x, y};
@@ -164,7 +165,11 @@ Tower normalTower(int x, int y) {
 Tower upTower(int x, int y) {
   int cost = 100;
   int radius = 150;
+<<<<<<< HEAD
   int speed = 8;
+=======
+  int speed = 82;
+>>>>>>> towerDefense
   int damage = 2;
   String type = "piercing";
   int[] loc = new int[] {x, y};
@@ -177,6 +182,7 @@ Tower upTower(int x, int y) {
 //Tells the towers to shoot
 void countdown() {
   for (int i=0; i<board.towerLoc.size(); i++) {
+    board.towerLoc.get(i).reduceWait();
     for (int k=board.enemyLoc.size()-1; k>=0; k--) {
       if (board.towerLoc.get(i).shoot(board, board.enemyLoc.get(k))) break;
     }
@@ -196,4 +202,5 @@ void startRound() {
 void advance() {
   board.moveEverything(width-210);
   countdown();
+  board.deleteProj();
 }

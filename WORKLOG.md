@@ -39,7 +39,8 @@ FIXED THE HP BUG. Enemies spawned in multiple times depending on the amount of p
 6/5/2023 - Israel Velazquez
 Added more accessor methods, a radius to help determine the shootable area of the tower, and made the game fullScreen. Added methods in the map area to find specific towers without having to make the loops each time. Re-made it possible for the towers to be upgraded. I also made it to we could see the range of the upgraded tower's as well
 
-
+6/6/2023 - Israel Velazquez
+Added even more accessor methods, gave towers their own menu option, made the screen be based more on SQUARESIZE instead on relying on magic numbers, and I added some work in progress additions for addons.
 
 info
 

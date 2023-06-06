@@ -22,7 +22,7 @@ void setup() {
   hold = 50;
   board = new Map(round, lives, startingMoney, ROW, COL);
   makeMap();
-  MODE = -1;
+  MODE = 1;
   DIFF = width-height;
   HITBOX=(int)(SQUARESIZE/2.3);
 }
@@ -42,7 +42,7 @@ void mouseClicked() {
     }
   } else if(MODE==2 && board.getMoney()>=100 && board.canUpgrade(x, y)){
       board.removeOld(x, y);
-      board.addTower(upTower(x, y));
+      //board.addTower(upTower(x, y));
       board.changeMoney(-100);
       board.setBoard(y, x, new Tiles(UPGRADED));
   }
@@ -86,10 +86,6 @@ void keyPressed() {
   }
 }
 
-void mouseMoved() {
-  
-}
-
 //Draws the range that a tower would have
 void drawArea() {
   int radi = 0;
@@ -99,8 +95,8 @@ void drawArea() {
   int boardY = y/SQUARESIZE;
   boolean foundTower = board.findTowerIndex(boardX, boardY)!=-1;
   if (MODE==1 || foundTower) {
-    if (foundTower && board.findTower(boardX, boardY).getCost()==100) radi=upTower(0,0).getRadius();
-    else radi=normalTower(0,0).getRadius();
+    //if (foundTower && board.findTower(boardX, boardY).getCost()==100) radi=upTower(0,0).getRadius();
+    //else radi=normalTower(0,0).getRadius();
   }
   strokeWeight(10);
   if (x<=(width-DIFF-radi-9)) circle(x, y, radi*2);
@@ -185,7 +181,7 @@ Tower normalTower(int x, int y) {
   return new Tower(cost, radius, speed, damage, type, loc, proj);
 }
 
-//types of upgrade
+//upgrades reload speed
 Tower reloadTower(int x, int y) {
   int cost = 100;
   int speed = 82;
@@ -199,7 +195,7 @@ Tower reloadTower(int x, int y) {
   Projectiles proj = new Projectiles(projLoc, projColor, direction, damage);
   return new Tower(cost, radius, speed, damage, type, loc, proj);
 }
-
+//upgrades range
 Tower rangeTower(int x, int y) {
   int cost = 100;
   int speed = 150;
@@ -213,7 +209,7 @@ Tower rangeTower(int x, int y) {
   Projectiles proj = new Projectiles(projLoc, projColor, direction, damage);
   return new Tower(cost, radius, speed, damage, type, loc, proj);
 }
-
+//upgrades damage
 Tower damageTower(int x, int y) {
   int cost = 250;
   int radius = 150;
@@ -320,7 +316,7 @@ void boardState() {
         board.setBoard(i, j, new Tiles(INVALID));
       }
       if (map[i][j].getColor()==INVALID) {
-        board.addTower(upTower(j, i));
+        //board.addTower(upTower(j, i));
         board.setBoard(i, j, new Tiles(UPGRADED));
       }
     }

@@ -95,8 +95,12 @@ void drawArea() {
   int radi = 0;
   int x = mouseX;
   int y = mouseY;
-  if (MODE==1 || board.findTowerIndex(x/SQUARESIZE, y/SQUARESIZE)!=-1) {
-    radi=normalTower(0,0).getRadius();
+  int boardX = x/SQUARESIZE;
+  int boardY = y/SQUARESIZE;
+  boolean foundTower = board.findTowerIndex(boardX, boardY)!=-1;
+  if (MODE==1 || foundTower) {
+    if (foundTower && board.findTower(boardX, boardY).getCost()==100) radi=upTower(0,0).getRadius();
+    else radi=normalTower(0,0).getRadius();
   }
   strokeWeight(10);
   if (x<=(width-DIFF-radi-9)) circle(x, y, radi*2);

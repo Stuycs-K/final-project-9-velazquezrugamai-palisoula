@@ -97,8 +97,6 @@ public class Map {
   void removeOld(int x, int y) {
     int index = findTowerIndex(x,y);
     if (index!=-1) {
-      Tower tower = towerLoc.get(index);
-      board[tower.getY()][tower.getX()] = new Tiles(VALID);
       towerLoc.remove(index);
     }
   }

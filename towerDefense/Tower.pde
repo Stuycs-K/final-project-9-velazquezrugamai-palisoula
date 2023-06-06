@@ -83,4 +83,9 @@ public class Tower {
   public int getY() {
     return location[1];
   }
+  
+  //accessor method for cost of the tower
+  public int getCost() {
+    return cost;
+  }
 }

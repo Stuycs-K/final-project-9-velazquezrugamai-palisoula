@@ -5,6 +5,7 @@ public class Map {
   int round, lives, money;
   ArrayList<Projectiles> proLoc;
   
+  //creates a new map
   public Map(int rounds, int live, int mon, int ROW, int COL) {
     round = rounds;
     lives = live;
@@ -15,43 +16,17 @@ public class Map {
     proLoc = new ArrayList<Projectiles>();
   }
   
-  //adds tower to place
+  //adds tower to a tile
   boolean addTower(Tower tow){
     int x = tow.location[0];
     int y = tow.location[1];
-    if(validPlacement(x, y)) {
+    boolean attackUp = tow.getpierce()>1;
+    if(validPlacement(x, y) || (attackUp && canUpgrade(x, y))) {
       towerLoc.add(tow);
       board[y][x] = new Tiles(INVALID);
       return true;
     }
     return false;
-  }
-
-//adds projectile to tower
-  void addProjectile(Projectiles proj) {
-    proLoc.add(proj);
-  }
-  
-//INcreases the rounds passed by 1
-  void increaseRound() {
-    round++;
-  }
-  //adding value to the lives
-  void changeLives(int value) {
-    lives += value;
-  }
-  //adding value to the money
-  void changeMoney(int value) {
-    money += value;
-  }
-  //can the tower be placed at (x, y)?
-  boolean validPlacement(int x, int y) {
-    return (x >= 0 && x < board.length && y >= 0 && y < board[x].length)&& board[y][x].getColor() == color(56,78,29);
-  }
-  
-//can the tower be upgraded?
-  boolean canUpgrade(int x, int y){
-    return (board[y][x].getColor() == INVALID);
   }
   
   //moves enemies and projectiles across the board
@@ -61,19 +36,17 @@ public class Map {
      enemy.move(board);
      if (enemy.end(value)) {
        enemyLoc.remove(i);
-       changeLives(0-enemy.getHP());
+       changeLives(-enemy.getHP());
      }
    }
    for (int i=0; i<proLoc.size(); i++) {
      Projectiles object = proLoc.get(i);
-     if (frameCount%5==0) {
-       proLoc.get(i).move();
-     }
+     proLoc.get(i).move();
      for (int j=0; j<enemyLoc.size(); j++) {
        Enemy enemy = enemyLoc.get(j);
-       PVector enemyCoord = new PVector(enemy.loc[0], enemy.loc[1]);
-       PVector projectileLoc = new PVector(object.location[0], object.location[1]);
-       if (PVector.dist(enemyCoord, projectileLoc)<=SQUARESIZE*2) {
+       PVector enemyCoord = new PVector(enemy.getLocX(), enemy.getLocY());
+       PVector projectileLoc = new PVector(object.getLocX(), object.getLocY());
+       if (PVector.dist(enemyCoord, projectileLoc)<=HITBOX) {
          proLoc.remove(i);
          enemy.recieveDamage(object.getDamage());
          killEnemy(j);
@@ -81,7 +54,6 @@ public class Map {
          j=0;
          break;
        }
-      
      }
    }
   }
@@ -90,12 +62,13 @@ public class Map {
   void addEnemy() {
     for (int i=0; i<board.length; i++) {
       if (board[i][0].getColor()==PATH) {
-        int health = 1;
-        int move = SQUARESIZE/4;
+        int health = round/2;
+        int move = money/350;
         String type = "normal";
         int x = 0;
-        int y = i;
+        int y = i*SQUARESIZE;
         enemyLoc.add(new Enemy(health, move, type, x, y));
+        i+=board.length;
       }
     }
   }
@@ -104,7 +77,7 @@ public class Map {
   void deleteProj() {
     for (int i=proLoc.size()-1; i>=0; i--) {
       int[] tempLoc = proLoc.get(i).location;
-      if (tempLoc[0]<0 || tempLoc[1]<0 || tempLoc[0]>=width-200 || tempLoc[1]>=height) {
+      if (tempLoc[0]<0 || tempLoc[1]<0 || tempLoc[0]>=width-DIFF-SQUARESIZE/3 || tempLoc[1]>=height) {
         proLoc.remove(i);
       }
     }
@@ -118,5 +91,151 @@ public class Map {
       return true;
     }
     return false;
+  }
+  
+  //When upgrading a tower, remove the older tower placed there originally
+  void removeOld(int x, int y) {
+    int index = findTowerIndex(x,y);
+    if (index!=-1) {
+      towerLoc.remove(index);
+    }
+  }
+  
+  //accessor method for the tiles array
+  public Tiles[][] getBoard() {
+    return board;
+  }
+  
+  //accessor method for a specific Tile
+  public Tiles getTile(int i, int j) {
+    return board[i][j];
+  }
+  
+  //accessor method for the amount of money the map has
+  public int getMoney() {
+    return money;
+  }
+  
+  //accessor method for the amount of rounds passed in this map
+  public int getRounds() {
+    return round;
+  }
+  
+  //accessor method for the projectiles on the map
+  public ArrayList<Projectiles> getPro() {
+    return proLoc;
+  }
+  
+  //accessor method for the enemies on the map
+  public ArrayList<Enemy> getEnemy() {
+    return enemyLoc;
+  }
+  
+  //accessor method for the towers on the map
+  public ArrayList<Tower> getTower() {
+    return towerLoc;
+  }
+  
+  //accessor method for the amount of lives the map has
+  int getLives() {
+    return lives;
+  }
+  
+  //adds projectile to tower
+  void addProjectile(Projectiles proj) {
+    proLoc.add(proj);
+  }
+  
+  //setter method for a specific tile on the baord
+  public void setBoard(int i, int j, Tiles obj) {
+    board[i][j] = obj;
+  }
+  
+//Increases the rounds passed by 1
+  void increaseRound() {
+    round++;
+  }
+  //adding value to the lives
+  void changeLives(int value) {
+    lives += value;
+  }
+  //adding value to the money
+  void changeMoney(int value) {
+    money += value;
+  }
+  
+  //can the tower be placed at (x, y)?
+  boolean validPlacement(int x, int y) {
+    boolean inRange = (x >= 0 && y < board.length && y >= 0 && x < board[y].length);
+    return inRange && board[y][x].getColor() == VALID;
+  }
+  
+//can the tower be upgraded?
+  boolean canUpgrade(int x, int y){
+    boolean inRange = (x >= 0 && y < board.length && y >= 0 && x < board[y].length);
+    return inRange && (board[y][x].getColor() == INVALID);
+  }
+  
+  //Draws the map, then the towers, on top of it, then the enemies on top of those
+  void avatar() {
+    Tiles[][] temp = getBoard();
+    ArrayList<Tower> tempTowers = getTower();
+    for (int i=0; i<temp.length; i++) {
+      for (int j=0; j<temp[i].length; j++) {
+        fill(temp[i][j].getColor());
+        if (j!=temp[i].length-1) square(j*SQUARESIZE, i*SQUARESIZE, SQUARESIZE);
+        else rect(j*SQUARESIZE, i*SQUARESIZE, SQUARESIZE+5, SQUARESIZE);
+        if (i==temp.length-1) square(j*SQUARESIZE, i*SQUARESIZE, SQUARESIZE+5);
+        noFill();
+      }
+    }
+    fill(175);
+    rect(width-DIFF, 0, width, height);
+    noFill();
+    PFont font = loadFont("Ani-25.vlw");
+    textFont(font);
+    fill(0);
+    text("ROUND: " + getRounds(), width-DIFF+5, SQUARESIZE);
+    text("MONEY: " + getMoney(), width-DIFF+5, SQUARESIZE*2);
+    text("LIVES: " + getLives(), width-DIFF+5, SQUARESIZE*3);
+    rect(width-DIFF, SQUARESIZE*3+5, 200, 100);
+    if(MODE == 1) fill(125);
+    else fill(255);
+    rect(width-DIFF, SQUARESIZE*3+105, 200, 100);
+    if (MODE == 1) fill(255);
+    else fill(125);
+    text(" BUY NORMAL", width-DIFF+5, SQUARESIZE*4+20);
+    text("    TOWERS ", width-DIFF+5, SQUARESIZE*4+45);
+    text("    UPGRADE", width-DIFF+5, SQUARESIZE*3+162);
+    noFill();
+    for (int i=0; i<enemyLoc.size(); i++) {
+      getEnemy().get(i).visualize();
+    }
+    for (int i=0; i<getPro().size(); i++) {
+      getPro().get(i).project();
+    }
+    for (int i=0; i<tempTowers.size(); i++) {
+      tempTowers.get(i).makeTower();
+    }
+  }
+  
+  public Tower findTower(int x, int y) {
+    for (int i=0; i<towerLoc.size(); i++) {
+      Tower tower = towerLoc.get(i);
+      if (x==tower.getX() && y==tower.getY()) {
+        return tower;
+      }
+    }
+    return null;
+  }
+  
+  public int findTowerIndex(int x, int y) {
+    for (int i=0; i<towerLoc.size(); i++) {
+      Tower tower = towerLoc.get(i);
+      if (x==tower.getX() && y==tower.getY()) {
+        return i;
+      }
+    }
+    return -1;
   }
 }

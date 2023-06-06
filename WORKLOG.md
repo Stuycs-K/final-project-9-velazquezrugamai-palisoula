@@ -4,23 +4,18 @@
 
 
 5/22/23 - Israel Velazquez
-
 worked on a part of the class templates/Worked on printing the map background. Added new classes/changed the variables based on both Mr K's suggestions and ease of convenience (Tiles/Projectiles, and changed String[][] to color[][]).
 
 5/23/23 - Israel Velazquez
-
 Worked on making random maps, adding tiles at random and ending them in on the right side of the screen. Added some visuals to towers/Map to make it visible in processing, I've also added our signature e button into the game.
 
 5/24/23 - Israel Velazquez
-
 Worked on adding a side bar with extra information about the amount of lives/money you have and what round you are in. I also added a normal tower and granted the player the ability to click on the board in order to place their tower.
 
 5/25/23 - Israel Velazquez
-
 Enemies can now appear on the board, and they move like they're supposed to. They don't yet die or get hit, and towers are starting to jump them *literally*, but hey it works somewhat.
 
 5/26/23 - Israel Velazquez
-
 Worked on a more efficient move system, tried to get the towers to be more accurate, and to get them to shoot more often
 
 5/27/2023 - Israel Velazquez
@@ -28,6 +23,23 @@ Worked on moving the enemies/projectiles more efficiently to cause less lag, tri
 
 5/29/2023 - Israel Velazquez
 Projectile accuracy has increased, enemies now die when shot, enemies also disappear and take away lives when they make it to the end. Two final bugs left however. Towers don't reload their shots unless they hit an enemy, and enemies sometimes increase the amount of lives they have
+
+5/30/2023 - Israel Velazquez
+Added a way for the enemies to decrease the life counter. I also tried to decrease the speed of the projectiles so they were more visible.
+
+5/31/2023 - Israel Velazquez
+Added a way to win and to lose, added several cheater methods that allow you to gain/lose money, increase/decrease the enemy spawn rate, and make the entire valid board filled with towers. I've also made the enemies scale with each passing round, increasing HP by 1 every 2nd round after round 2, and increasing speed based off of the amount of money the player has. I also added several get() methods to make our code more readable, and fixed the upgraded Towers to make sure to add the towers.
+
+6/1/2023 - Israel Velazquez
+Changed all of our direct variables to be accessor methods. Made it so winning doesn't just start the new round with round 10 enemies. Made the projectiles more accurate, and faster. Added comments to all of our methods
+
+6/4/2023 - Israel Velazquez
+FIXED THE HP BUG. Enemies spawned in multiple times depending on the amount of possible spawn locations, now that that can't happen, they only spawn in one at a time. I've also added more accessor methods to replace the direct variable we were using. Towers now target the front lines instead of the last ones
+
+6/5/2023 - Israel Velazquez
+Added more accessor methods, a radius to help determine the shootable area of the tower, and made the game fullScreen. Added methods in the map area to find specific towers without having to make the loops each time. Re-made it possible for the towers to be upgraded. I also made it to we could see the range of the upgraded tower's as well
+
+
 
 info
 
@@ -62,4 +74,8 @@ started working on way to upgrade towers (Map.canUpgrade(), towerDefense.upTower
 
 5/30/23
 
-finished debugging upgrade component, added explosion picture to giveup(), will need to edit
+finished debugging upgrade component, added explosion picture to giveup() and removed unneeded files.
+
+5/31/23
+
+added a feature where the color of upgrade and new tower changed based on mode, game now always starts on "Buy new towers".

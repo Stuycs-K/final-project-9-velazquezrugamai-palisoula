@@ -102,7 +102,7 @@ void drawArea() {
     if (foundTower && board.findTower(boardX, boardY).getCost()==100) radi=upTower(0,0).getRadius();
     else radi=normalTower(0,0).getRadius();
   }
-  strokeWeight(10);
+  strokeWeight(3);
   if (x<=(width-DIFF-radi-9)) circle(x, y, radi*2);
   strokeWeight(1);
 } 
@@ -124,6 +124,7 @@ void draw() {
   dead();
   win();
   drawArea();
+  normalTower(0,0).menu();
 }
 
 //Resets the board, and tell the player that they lost

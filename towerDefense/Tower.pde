@@ -88,4 +88,10 @@ public class Tower {
   public int getCost() {
     return cost;
   }
+  
+  public void menu() {
+    fill(255, 0, 0);
+    rect(height+200, SQUARESIZE*3+5, DIFF-200, 200);
+    noFill();
+  }
 }

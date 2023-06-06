@@ -65,7 +65,7 @@ public class Tower {
   }
   
   //accessor method for the damage of the tower
-  public int getpierce() {
+  public int getPierce() {
     return pierce;
   }
   
@@ -89,9 +89,29 @@ public class Tower {
     return cost;
   }
   
+  //accessor method for the reload Speed of the tower
+  public int getReload() {
+    return reload;
+  }
+  
+  //accessor method for the type of the tower
+  public String getType() {
+    return type;
+  }
+  
   public void menu() {
+    Tower temp = normalTower(0,0);
     fill(255, 0, 0);
-    rect(height+200, SQUARESIZE*3+5, DIFF-200, 200);
-    noFill();
+    rect(height+SQUARESIZE*5, SQUARESIZE*3+5, DIFF-SQUARESIZE*6.975, SQUARESIZE*4.65);
+    fill(0);
+    text("RANGE: " + getRadius(),height+SQUARESIZE*5.5, SQUARESIZE*4.5);
+    text("DAMAGE: " + getPierce(), height+SQUARESIZE*9.5, SQUARESIZE*4.5);
+    text("RELOAD: " + getReload()/(double)100, height+SQUARESIZE*13.5, SQUARESIZE*4.5);
+    if (temp.getType().equals("norm")) {
+      temp=normalTower(0,0);
+    }
+    text("COST: " + 10*(getRadius()-temp.getRadius()+1),height+SQUARESIZE*5.5, SQUARESIZE*7);
+    text("COST: " + 500*(getPierce()-temp.getPierce()+1)*(getPierce()-temp.getPierce()+1), height+SQUARESIZE*9.5, SQUARESIZE*7);
+    text("COST: " + 55*(getReload()-temp.getReload()+5), height+SQUARESIZE*13.5, SQUARESIZE*7);
   }
 }

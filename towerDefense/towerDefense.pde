@@ -177,7 +177,7 @@ Tower normalTower(int x, int y) {
   int radius = 150;
   int speed = 150;
   int damage = 1;
-  String type = "piercing";
+  String type = "norm";
   int[] loc = new int[] {x, y};
   int[] projLoc = new int[] {x*SQUARESIZE+SQUARESIZE/2, y*SQUARESIZE+SQUARESIZE/2};
   color projColor = PROJECTILE;

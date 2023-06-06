@@ -101,7 +101,7 @@ void drawArea() {
   strokeWeight(10);
   if (x<=(width-DIFF-radi-9)) circle(x, y, radi*2);
   strokeWeight(1);
-}
+} 
 
 /*color codes
  brown: path for enemies

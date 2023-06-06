@@ -82,4 +82,4 @@ added a feature where the color of upgrade and new tower changed based on mode, 
 
 6/5/23
 
-changed the winscreen text to green
+changed the winscreen text to green, created different types of upgrades (ex: increased damage, decreased reload time).

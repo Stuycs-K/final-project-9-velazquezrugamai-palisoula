@@ -272,7 +272,7 @@ void win() {
     board = new Map(round, lives, startingMoney, ROW, COL);
     PFont font = loadFont("Ani-48.vlw");
     textFont(font);
-    fill(color(136, 8, 8));
+    fill(color(57, 255, 20));
     text("YOU HAVE WON!!", width/2-250, height/2);
     text("but can you win again?", width/2-250, height/2+350);
     makeMap();

@@ -1,5 +1,5 @@
 private Map board;
-private int ROW, COL, SQUARESIZE, HALT, ENEMIES, MODE, hold;
+private int ROW, COL, SQUARESIZE, HALT, ENEMIES, MODE, hold, DIFF, HITBOX;
 private boolean add;
 public final color PATH = color(131, 98, 12);
 public final color INVALID = color(255, 13, 13);
@@ -10,7 +10,7 @@ public final color UPGRADED = color(222, 25, 212);
 
 //sets the initial starting board screen
 void setup() {
-  size(1000, 800);
+  fullScreen();
   ROW = 25;
   COL = 25;
   SQUARESIZE = height/ROW;
@@ -23,13 +23,15 @@ void setup() {
   board = new Map(round, lives, startingMoney, ROW, COL);
   makeMap();
   MODE = -1;
+  DIFF = width-height;
+  HITBOX=(int)(SQUARESIZE/2.3);
 }
 
 //places down a tower
 void mouseClicked() {
   int x = mouseX/SQUARESIZE;
   int y = mouseY/SQUARESIZE;
-  if (mouseX>=width-200) {
+  if (mouseX>=width-DIFF) {
     if (mouseY>=SQUARESIZE*3) {
       MODE = mouseY/100;
     }
@@ -84,7 +86,22 @@ void keyPressed() {
   }
 }
 
+void mouseMoved() {
+  
+}
 
+//Draws the range that a tower would have
+void drawArea() {
+  int radi = 0;
+  int x = mouseX;
+  int y = mouseY;
+  if (MODE==1 || board.findTowerIndex(x/SQUARESIZE, y/SQUARESIZE)!=-1) {
+    radi=normalTower(0,0).getRadius();
+  }
+  strokeWeight(10);
+  if (x<=(width-DIFF-radi-9)) circle(x, y, radi*2);
+  strokeWeight(1);
+}
 
 /*color codes
  brown: path for enemies
@@ -102,13 +119,14 @@ void draw() {
   }
   dead();
   win();
+  drawArea();
 }
 
 //Resets the board, and tell the player that they lost
 void giveUp() {
   background(255);
   PImage boom = loadImage("boom.jpg");
-  image(boom, 100, 0);
+  image(boom, width/2-width/4.8, 0);
   int round = 0;
   int lives = 100;
   int startingMoney = 500;
@@ -202,7 +220,7 @@ void startRound() {
 
 //Advances the enemies and projectiles ahead
 void advance() {
-  board.moveEverything(width-203);
+  board.moveEverything(width-DIFF-8);
   countdown();
   board.deleteProj();
 }
@@ -225,7 +243,7 @@ void dead() {
 void lost() {
   background(255);
   PImage boom = loadImage("boom.jpg");
-  image(boom, 100, 0);
+  image(boom, width/2-width/4.8, 0);
   int round = 0;
   int lives = 100;
   int startingMoney = 500;
@@ -243,7 +261,7 @@ void win() {
   if (board.getRounds()>=11) {
     background(255);
     PImage boom = loadImage("boom.jpg");
-    image(boom, 100, 0);
+    image(boom, width/2-width/4.8, 0);
     int round = 0;
     int lives = 100;
     int startingMoney = 500;

@@ -19,7 +19,9 @@ public class Tower {
   //Tells the tower to shoot at the enemy closest to the back lines
   public boolean shoot(Map obj, Enemy enem){
     int[] towLoc = new int[] {location[0]*SQUARESIZE + SQUARESIZE/2, location[1]*SQUARESIZE + SQUARESIZE/2};
-    float distance = PVector.dist(new PVector(enem.loc[0], enem.loc[1]), new PVector(towLoc[0], towLoc[1]));
+    PVector enemy = new PVector(enem.loc[0], enem.loc[1]);
+    PVector tower = new PVector(towLoc[0], towLoc[1]);
+    float distance = PVector.dist(enemy, tower);
     if (distance<=range && timeWaited==0) {
       PVector temp = new PVector(enem.loc[0]-towLoc[0], enem.loc[1]-towLoc[1]);
       proj.setDir(temp);
@@ -65,5 +67,20 @@ public class Tower {
   //accessor method for the damage of the tower
   public int getpierce() {
     return pierce;
+  }
+  
+  //accessor method for the radius of the tower
+  public int getRadius() {
+    return range;
+  }
+  
+  //accessor method for x-coordinate of the tower
+  public int getX() {
+    return location[0];
+  }
+  
+  //accessor method for y-coordinate of the tower
+  public int getY() {
+    return location[1];
   }
 }

@@ -46,7 +46,7 @@ public class Map {
        Enemy enemy = enemyLoc.get(j);
        PVector enemyCoord = new PVector(enemy.getLocX(), enemy.getLocY());
        PVector projectileLoc = new PVector(object.getLocX(), object.getLocY());
-       if (PVector.dist(enemyCoord, projectileLoc)<=SQUARESIZE/1.5) {
+       if (PVector.dist(enemyCoord, projectileLoc)<=HITBOX) {
          proLoc.remove(i);
          enemy.recieveDamage(object.getDamage());
          killEnemy(j);
@@ -77,7 +77,7 @@ public class Map {
   void deleteProj() {
     for (int i=proLoc.size()-1; i>=0; i--) {
       int[] tempLoc = proLoc.get(i).location;
-      if (tempLoc[0]<0 || tempLoc[1]<0 || tempLoc[0]>=width-200 || tempLoc[1]>=height) {
+      if (tempLoc[0]<0 || tempLoc[1]<0 || tempLoc[0]>=width-DIFF-SQUARESIZE/3 || tempLoc[1]>=height) {
         proLoc.remove(i);
       }
     }
@@ -95,12 +95,11 @@ public class Map {
   
   //When upgrading a tower, remove the older tower placed there originally
   void removeOld(int x, int y) {
-    for (int i=0; i<towerLoc.size(); i++) {
-      int[] Loc = towerLoc.get(i).getLocation();
-      if (Loc[0]==x && Loc[1]==y) {
-        towerLoc.remove(i);
-        break;
-      }
+    int index = findTowerIndex(x,y);
+    if (index!=-1) {
+      Tower tower = towerLoc.get(index);
+      board[tower.getY()][tower.getX()] = new Tiles(VALID);
+      towerLoc.remove(index);
     }
   }
   
@@ -180,43 +179,65 @@ public class Map {
   }
   
   //Draws the map, then the towers, on top of it, then the enemies on top of those
-void avatar() {
-  Tiles[][] temp = getBoard();
-  ArrayList<Tower> tempTowers = getTower();
-  for (int i=0; i<temp.length; i++) {
-    for (int j=0; j<temp[i].length; j++) {
-      fill(temp[i][j].getColor());
-      square(j*SQUARESIZE, i*SQUARESIZE, SQUARESIZE);
-      noFill();
+  void avatar() {
+    Tiles[][] temp = getBoard();
+    ArrayList<Tower> tempTowers = getTower();
+    for (int i=0; i<temp.length; i++) {
+      for (int j=0; j<temp[i].length; j++) {
+        fill(temp[i][j].getColor());
+        if (j!=temp[i].length-1) square(j*SQUARESIZE, i*SQUARESIZE, SQUARESIZE);
+        else rect(j*SQUARESIZE, i*SQUARESIZE, SQUARESIZE+5, SQUARESIZE);
+        if (i==temp.length-1) square(j*SQUARESIZE, i*SQUARESIZE, SQUARESIZE+5);
+        noFill();
+      }
+    }
+    fill(175);
+    rect(width-DIFF, 0, width, height);
+    noFill();
+    PFont font = loadFont("Ani-25.vlw");
+    textFont(font);
+    fill(0);
+    text("ROUND: " + getRounds(), width-DIFF+5, SQUARESIZE);
+    text("MONEY: " + getMoney(), width-DIFF+5, SQUARESIZE*2);
+    text("LIVES: " + getLives(), width-DIFF+5, SQUARESIZE*3);
+    rect(width-DIFF, SQUARESIZE*3+5, 200, 100);
+    if(MODE == 1) fill(125);
+    else fill(255);
+    rect(width-DIFF, SQUARESIZE*3+105, 200, 100);
+    if (MODE == 1) fill(255);
+    else fill(125);
+    text(" BUY NORMAL", width-DIFF+5, SQUARESIZE*4+20);
+    text("    TOWERS ", width-DIFF+5, SQUARESIZE*4+45);
+    text("    UPGRADE", width-DIFF+5, SQUARESIZE*3+162);
+    noFill();
+    for (int i=0; i<enemyLoc.size(); i++) {
+      getEnemy().get(i).visualize();
+    }
+    for (int i=0; i<getPro().size(); i++) {
+      getPro().get(i).project();
+    }
+    for (int i=0; i<tempTowers.size(); i++) {
+      tempTowers.get(i).makeTower();
     }
   }
-  fill(175);
-  rect(width-200, 0, width, height);
-  noFill();
-  PFont font = loadFont("Ani-25.vlw");
-  textFont(font);
-  fill(0);
-  text("ROUND: " + getRounds(), width-195, SQUARESIZE);
-  text("MONEY: " + getMoney(), width-195, SQUARESIZE*2);
-  text("LIVES: " + getLives(), width-195, SQUARESIZE*3);
-  rect(width-200, SQUARESIZE*3+5, 200, 100);
-  if(MODE == 1) fill(125);
-  else fill(255);
-  rect(width-200, SQUARESIZE*3+105, 200, 100);
-  if (MODE == 1) fill(255);
-  else fill(125);
-  text(" BUY NORMAL", width-195, SQUARESIZE*4+20);
-  text("    TOWERS ", width-195, SQUARESIZE*4+45);
-  text("    UPGRADE", width-195, SQUARESIZE*3+162);
-  noFill();
-  for (int i=0; i<enemyLoc.size(); i++) {
-    getEnemy().get(i).visualize();
+  
+  public Tower findTower(int x, int y) {
+    for (int i=0; i<towerLoc.size(); i++) {
+      Tower tower = towerLoc.get(i);
+      if (x==tower.getX() && y==tower.getY()) {
+        return tower;
+      }
+    }
+    return null;
   }
-  for (int i=0; i<getPro().size(); i++) {
-    getPro().get(i).project();
+  
+  public int findTowerIndex(int x, int y) {
+    for (int i=0; i<towerLoc.size(); i++) {
+      Tower tower = towerLoc.get(i);
+      if (x==tower.getX() && y==tower.getY()) {
+        return i;
+      }
+    }
+    return -1;
   }
-  for (int i=0; i<tempTowers.size(); i++) {
-    tempTowers.get(i).makeTower();
-  }
-}
 }

@@ -36,6 +36,11 @@ Changed all of our direct variables to be accessor methods. Made it so winning d
 6/4/2023 - Israel Velazquez
 FIXED THE HP BUG. Enemies spawned in multiple times depending on the amount of possible spawn locations, now that that can't happen, they only spawn in one at a time. I've also added more accessor methods to replace the direct variable we were using. Towers now target the front lines instead of the last ones
 
+6/5/2023 - Israel Velazquez
+Added more accessor methods, a radius to help determine the shootable area of the tower, and made the game fullScreen. Added methods in the map area to find specific towers without having to make the loops each time. Re-made it possible for the towers to be upgraded. I also made it to we could see the range of the upgraded tower's as well
+
+
+
 info
 
 

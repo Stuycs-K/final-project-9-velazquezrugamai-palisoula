@@ -81,6 +81,10 @@ finished debugging upgrade component, added explosion picture to giveup() and re
 
 added a feature where the color of upgrade and new tower changed based on mode, game now always starts on "Buy new towers".
 
-6/5/23
+6/6/23
 
 changed the winscreen text to green, created different types of upgrades (ex: increased damage, decreased reload time), fixed aesthetic issues.
+
+6/7/23
+
+made dropdown drop down; continued working to include multiple types of upgrades

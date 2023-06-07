@@ -182,40 +182,12 @@ Tower normalTower(int x, int y) {
   return new Tower(cost, radius, speed, damage, type, loc, proj);
 }
 
-//upgrades reload speed
-Tower reloadTower(int x, int y) {
-  int cost = 100;
-  int speed = 82;
-  int radius = 150;
-  int damage = 1;
-  String type = "piercing";
-  int[] loc = new int[] {x, y};
-  int[] projLoc = new int[] {x*SQUARESIZE+SQUARESIZE/2, y*SQUARESIZE+SQUARESIZE/2};
-  color projColor = PROJECTILE;
-  PVector direction = new PVector(0, 0);
-  Projectiles proj = new Projectiles(projLoc, projColor, direction, damage);
-  return new Tower(cost, radius, speed, damage, type, loc, proj);
-}
-//upgrades range
-Tower rangeTower(int x, int y) {
+//upgrades towerTower 
+Tower upTower(int x, int y) {
   int cost = 100;
   int speed = 150;
-  int radius = 250;
-  int damage = 1;
-  String type = "piercing";
-  int[] loc = new int[] {x, y};
-  int[] projLoc = new int[] {x*SQUARESIZE+SQUARESIZE/2, y*SQUARESIZE+SQUARESIZE/2};
-  color projColor = PROJECTILE;
-  PVector direction = new PVector(0, 0);
-  Projectiles proj = new Projectiles(projLoc, projColor, direction, damage);
-  return new Tower(cost, radius, speed, damage, type, loc, proj);
-}
-//upgrades damage
-Tower damageTower(int x, int y) {
-  int cost = 250;
   int radius = 150;
-  int speed = 150;
-  int damage = 3;
+  int damage = 1;
   String type = "piercing";
   int[] loc = new int[] {x, y};
   int[] projLoc = new int[] {x*SQUARESIZE+SQUARESIZE/2, y*SQUARESIZE+SQUARESIZE/2};

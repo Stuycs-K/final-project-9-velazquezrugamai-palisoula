@@ -115,6 +115,17 @@ public class Tower {
     }
   }
   
+  void upReload(int x, int y) {
+    if(reload >= 40) reload -= 10;
+  }
+  //upgrades range
+  void upRange(int x, int y) {
+    if(range <= 260) range += 10;
+  }
+  //upgrades damage
+  void upDamage(int x, int y) {
+    if(pierce <= 4) pierce++;
+  }
   public Tower whichType(String type) {
     if (type.equals("norm")) {
       return normalTower(0,0);

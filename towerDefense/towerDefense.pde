@@ -189,8 +189,8 @@ Tower normalTower(int x, int y) {
 //upgrades a tower
 Tower upTower(int x, int y) {
   int cost = 100;
+  int speed = 82;
   int radius = 200;
-  int speed = 75;
   int damage = 3;
   String type = "piercing";
   int[] loc = new int[] {x, y};

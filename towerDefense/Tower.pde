@@ -100,6 +100,7 @@ public class Tower {
   }
   
   public void menu() {
+    if(MODE == 2){
     drawArea();
     Tower temp=whichType(getType());
     fill(255, 0, 0);
@@ -111,6 +112,7 @@ public class Tower {
     text("COST: " + 10*(getRadius()-temp.getRadius()+1),height+SQUARESIZE*5.5, SQUARESIZE*7);
     text("COST: " + 500*(getPierce()-temp.getPierce()+1)*(getPierce()-temp.getPierce()+1), height+SQUARESIZE*9.5, SQUARESIZE*7);
     text("COST: " + 55*(getReload()-temp.getReload()+5), height+SQUARESIZE*13.5, SQUARESIZE*7);
+    }
   }
   
   public Tower whichType(String type) {

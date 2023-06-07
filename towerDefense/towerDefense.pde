@@ -188,7 +188,7 @@ Tower reloadTower(int x, int y) {
   int speed = 82;
   int radius = 150;
   int damage = 1;
-  String type = "piercing";
+  String type = "reload";
   int[] loc = new int[] {x, y};
   int[] projLoc = new int[] {x*SQUARESIZE+SQUARESIZE/2, y*SQUARESIZE+SQUARESIZE/2};
   color projColor = PROJECTILE;
@@ -202,7 +202,7 @@ Tower rangeTower(int x, int y) {
   int speed = 150;
   int radius = 250;
   int damage = 1;
-  String type = "piercing";
+  String type = "range";
   int[] loc = new int[] {x, y};
   int[] projLoc = new int[] {x*SQUARESIZE+SQUARESIZE/2, y*SQUARESIZE+SQUARESIZE/2};
   color projColor = PROJECTILE;
@@ -216,7 +216,7 @@ Tower damageTower(int x, int y) {
   int radius = 150;
   int speed = 150;
   int damage = 3;
-  String type = "piercing";
+  String type = "damage";
   int[] loc = new int[] {x, y};
   int[] projLoc = new int[] {x*SQUARESIZE+SQUARESIZE/2, y*SQUARESIZE+SQUARESIZE/2};
   color projColor = PROJECTILE;

@@ -103,7 +103,10 @@ public class Tower {
     drawArea();
     Tower temp=whichType(getType());
     fill(255, 0, 0);
-    rect(height+SQUARESIZE*5, SQUARESIZE*3+5, DIFF-SQUARESIZE*6.975, SQUARESIZE*4.65);
+    for (int i=1; i<=3; i++) {
+      float offset = DIFF-SQUARESIZE*6.975/3;
+      rect(height+SQUARESIZE*5+(i-1)*SQUARESIZE*4.2, SQUARESIZE*3+5, offset-50, SQUARESIZE*4.65);
+    }
     fill(0);
     text("RANGE: " + getRadius(),height+SQUARESIZE*5.5, SQUARESIZE*4.5);
     text("DAMAGE: " + getPierce(), height+SQUARESIZE*9.5, SQUARESIZE*4.5);
@@ -116,6 +119,15 @@ public class Tower {
   public Tower whichType(String type) {
     if (type.equals("norm")) {
       return normalTower(0,0);
+    }
+    else if (type.equals("reload")) {
+      return reloadTower(0,0);
+    }
+    else if (type.equals("range")) {
+      return rangeTower(0,0);
+    }
+    else if (type.equals("damage")) {
+      return damageTower(0,0);
     }
     else {
       return null;

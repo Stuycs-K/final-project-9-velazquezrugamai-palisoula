@@ -24,7 +24,7 @@ void setup() {
   makeMap();
   MODE = 1;
   DIFF = width-height;
-  HITBOX=(int)(SQUARESIZE/2.3);
+  HITBOX=(int)(SQUARESIZE/2.1);
 }
 
 //places down a tower

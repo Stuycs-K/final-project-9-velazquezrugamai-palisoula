@@ -20,7 +20,7 @@ public class Map {
   boolean addTower(Tower tow){
     int x = tow.location[0];
     int y = tow.location[1];
-    boolean attackUp = tow.getpierce()>1;
+    boolean attackUp = tow.getPierce()>1;
     if(validPlacement(x, y) || (attackUp && canUpgrade(x, y))) {
       towerLoc.add(tow);
       board[y][x] = new Tiles(INVALID);

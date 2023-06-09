@@ -31,22 +31,23 @@ void setup() {
 
 //places down a tower
 void mouseClicked() {
+  int tempX = x;
+  int tempY = y;
   x = mouseX/SQUARESIZE;
   y = mouseY/SQUARESIZE;
-  if (x>=width-DIFF) {
-    if (y>=SQUARESIZE*3) {
-      MODE = mouseY/100;
-    }
+  boolean validX = mouseX>=width-DIFF && mouseX<=(width-DIFF)+200;
+  boolean validY = mouseY>=SQUARESIZE*3 && mouseY<=SQUARESIZE*3+200;
+  if (validX && validY) {
+    MODE = mouseY/100;
   }
-  else if (MODE==1 && board.getMoney()>=250 && board.getTile(y, x).getColor() == VALID) {
+  else if (mouseX<=width-DIFF && MODE==1 && board.getMoney()>=250 && board.getTile(y, x).getColor() == VALID) {
     if (board.addTower(normalTower(x, y))) {
       board.changeMoney(-250);
     }
-  } else if(MODE==2 && board.getMoney()>=100 && board.canUpgrade(x, y)){
-      board.removeOld(x, y);
-      //board.addTower(upTower(x, y));
-      board.changeMoney(-100);
-      board.setBoard(y, x, new Tiles(UPGRADED));
+  }
+  else if (MODE==2 && mouseX>=width-DIFF) {
+    x = tempX;
+    y = tempY;
   }
 }
 
@@ -91,11 +92,7 @@ void keyPressed() {
 //Draws the range that a tower would have
 void drawArea() {
   int radi = 0;
-  int x = mouseX;
-  int y = mouseY;
-  int boardX = x/SQUARESIZE;
-  int boardY = y/SQUARESIZE;
-  boolean foundTower = board.findTowerIndex(boardX, boardY)!=-1;
+  boolean foundTower = board.findTowerIndex(x, y)!=-1;
   if (MODE==1 || foundTower) {
     //if (foundTower && board.findTower(boardX, boardY).getCost()==100) radi=upTower(0,0).getRadius();
     //else radi=normalTower(0,0).getRadius();
@@ -121,6 +118,15 @@ void draw() {
   }
   dead();
   win();
+  upgrades();
+}
+
+void upgrades() {
+  if (MODE==2) {
+    if (board.findTowerIndex(x,y)!=-1) {
+      board.findTower(x,y).menu();
+    }
+  }
 }
 
 //Resets the board, and tell the player that they lost

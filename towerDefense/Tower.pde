@@ -120,20 +120,36 @@ public class Tower {
     text("RELOAD: " + getReload()/(double)100, height+SQUARESIZE*13.6, SQUARESIZE*4.5);
     text("COST: " + 10*(getRadius()-temp.getRadius()+1),height+SQUARESIZE*5.5, SQUARESIZE*7);
     text("COST: " + 500*(getPierce()-temp.getPierce()+1)*(getPierce()-temp.getPierce()+1), height+SQUARESIZE*9.6, SQUARESIZE*7);
-    text("COST: " + 55*(getReload()-temp.getReload()+5), height+SQUARESIZE*13.8, SQUARESIZE*7);
+    text("COST: " + 55*(temp.getReload()-getReload()+5), height+SQUARESIZE*13.8, SQUARESIZE*7);
   }
   
-  void upReload(int x, int y) {
-    if(reload >= 40) reload -= 10;
+  //upgrades reload speed
+  public int upReload() {
+    if(reload >= 40) {
+      reload -= 10;
+      return reload;
+    }
+    return -1;
   }
+  
   //upgrades range
-  void upRange(int x, int y) {
-    if(range <= 260) range += 10;
+  public int upRange() {
+    if(range <= 260) {
+      range += 10;
+      return range;
+    }
+    return -1;
   }
+  
   //upgrades damage
-  void upDamage(int x, int y) {
-    if(pierce <= 4) pierce++;
+  public int upDamage() {
+    if(pierce <= 4) {
+      pierce++;
+      return pierce;
+    }
+    return -1;
   }
+  
   public Tower whichType(String type) {
     if (type.equals("norm")) {
       return normalTower(0,0);

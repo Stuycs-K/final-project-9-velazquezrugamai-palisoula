@@ -1,5 +1,5 @@
 private Map board;
-private int ROW, COL, SQUARESIZE, HALT, ENEMIES, MODE, hold, DIFF, HITBOX;
+private int ROW, COL, SQUARESIZE, HALT, ENEMIES, MODE, hold, DIFF, HITBOX, x, y;
 private boolean add;
 public final color PATH = color(131, 98, 12);
 public final color INVALID = color(255, 13, 13);
@@ -25,26 +25,29 @@ void setup() {
   MODE = 1;
   DIFF = width-height;
   HITBOX=(int)(SQUARESIZE/2.1);
+  x= -1;
+  y = -1;
 }
 
 //places down a tower
 void mouseClicked() {
-  int x = mouseX/SQUARESIZE;
-  int y = mouseY/SQUARESIZE;
-  if (mouseX>=width-DIFF) {
-    if (mouseY>=SQUARESIZE*3) {
-      MODE = mouseY/100;
-    }
+  int tempX = x;
+  int tempY = y;
+  x = mouseX/SQUARESIZE;
+  y = mouseY/SQUARESIZE;
+  boolean validX = mouseX>=width-DIFF && mouseX<=(width-DIFF)+200;
+  boolean validY = mouseY>=SQUARESIZE*3 && mouseY<=SQUARESIZE*3+200;
+  if (validX && validY) {
+    MODE = mouseY/100;
   }
-  else if (MODE==1 && board.getMoney()>=250 && board.getTile(y, x).getColor() == VALID) {
+  else if (mouseX<=width-DIFF && MODE==1 && board.getMoney()>=250 && board.getTile(y, x).getColor() == VALID) {
     if (board.addTower(normalTower(x, y))) {
       board.changeMoney(-250);
     }
-  } else if(MODE==2 && board.getMoney()>=100 && board.canUpgrade(x, y)){
-      board.removeOld(x, y);
-      //board.addTower(upTower(x, y));
-      board.changeMoney(-100);
-      board.setBoard(y, x, new Tiles(UPGRADED));
+  }
+  else if (MODE==2 && mouseX>=width-DIFF) {
+    x = tempX;
+    y = tempY;
   }
 }
 
@@ -87,19 +90,12 @@ void keyPressed() {
 }
 
 //Draws the range that a tower would have
-void drawArea() {
-  int radi = 0;
-  int x = mouseX;
-  int y = mouseY;
-  int boardX = x/SQUARESIZE;
-  int boardY = y/SQUARESIZE;
-  boolean foundTower = board.findTowerIndex(boardX, boardY)!=-1;
-  if (MODE==1 || foundTower) {
-    //if (foundTower && board.findTower(boardX, boardY).getCost()==100) radi=upTower(0,0).getRadius();
-    //else radi=normalTower(0,0).getRadius();
-  }
+void drawArea(Tower tow) {
+  int radi = tow.getRadius();
   strokeWeight(3);
-  if (x<=(width-DIFF-radi-9)) circle(x, y, radi*2);
+  float Xloc = (tow.getX()+.5)*SQUARESIZE;
+  float Yloc = (tow.getY()+.5)*SQUARESIZE;
+  if (x<=(width-DIFF-radi-9)) circle(Xloc, Yloc, radi*2);
   strokeWeight(1);
 } 
 
@@ -119,8 +115,16 @@ void draw() {
   }
   dead();
   win();
-  drawArea();
-  normalTower(0,0).menu();
+  upgrades();
+}
+
+void upgrades() {
+  if (MODE==2) {
+    if (board.findTowerIndex(x,y)!=-1) {
+      Tower tower = board.findTower(x,y);
+      tower.menu();
+    }
+  }
 }
 
 //Resets the board, and tell the player that they lost
@@ -182,13 +186,41 @@ Tower normalTower(int x, int y) {
   return new Tower(cost, radius, speed, damage, type, loc, proj);
 }
 
-//upgrades towerTower 
-Tower upTower(int x, int y) {
+//upgrades reload speed
+Tower reloadTower(int x, int y) {
   int cost = 100;
-  int speed = 150;
+  int speed = 82;
   int radius = 150;
   int damage = 1;
-  String type = "piercing";
+  String type = "reload";
+  int[] loc = new int[] {x, y};
+  int[] projLoc = new int[] {x*SQUARESIZE+SQUARESIZE/2, y*SQUARESIZE+SQUARESIZE/2};
+  color projColor = PROJECTILE;
+  PVector direction = new PVector(0, 0);
+  Projectiles proj = new Projectiles(projLoc, projColor, direction, damage);
+  return new Tower(cost, radius, speed, damage, type, loc, proj);
+}
+//upgrades range
+Tower rangeTower(int x, int y) {
+  int cost = 100;
+  int speed = 150;
+  int radius = 250;
+  int damage = 1;
+  String type = "range";
+  int[] loc = new int[] {x, y};
+  int[] projLoc = new int[] {x*SQUARESIZE+SQUARESIZE/2, y*SQUARESIZE+SQUARESIZE/2};
+  color projColor = PROJECTILE;
+  PVector direction = new PVector(0, 0);
+  Projectiles proj = new Projectiles(projLoc, projColor, direction, damage);
+  return new Tower(cost, radius, speed, damage, type, loc, proj);
+}
+//upgrades damage
+Tower damageTower(int x, int y) {
+  int cost = 250;
+  int radius = 150;
+  int speed = 150;
+  int damage = 3;
+  String type = "damage";
   int[] loc = new int[] {x, y};
   int[] projLoc = new int[] {x*SQUARESIZE+SQUARESIZE/2, y*SQUARESIZE+SQUARESIZE/2};
   color projColor = PROJECTILE;

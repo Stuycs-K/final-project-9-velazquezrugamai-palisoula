@@ -100,19 +100,27 @@ public class Tower {
   }
   
   public void menu() {
-    if(MODE == 2){
-    drawArea();
+    drawArea(this);
     Tower temp=whichType(getType());
     fill(255, 0, 0);
-    rect(height+SQUARESIZE*5, SQUARESIZE*3+5, DIFF-SQUARESIZE*6.975, SQUARESIZE*4.65);
+    float offset = SQUARESIZE*9.2;
+    float botSide = offset*4/9.2;
+    float size = SQUARESIZE*2.325;
+    float yoffset = SQUARESIZE*3.1;
+    float dist = 1.85;
+    rect(height+offset*(5/9.2), yoffset, botSide, size);
+    rect(height+offset*(5/9.2), dist*yoffset, botSide, size);
+    rect(height+offset*(13.4/9.2), yoffset, botSide, size);
+    rect(height+offset*(13.4/9.2), dist*yoffset, botSide, size);
+    rect(height+offset, yoffset, botSide, size);
+    rect(height+offset, dist*yoffset, botSide, size);
     fill(0);
-    text("RANGE: " + getRadius(),height+SQUARESIZE*5.5, SQUARESIZE*4.5);
-    text("DAMAGE: " + getPierce(), height+SQUARESIZE*9.5, SQUARESIZE*4.5);
-    text("RELOAD: " + getReload()/(double)100, height+SQUARESIZE*13.5, SQUARESIZE*4.5);
+    text("RANGE: " + getRadius(),height+SQUARESIZE*5.3, SQUARESIZE*4.5);
+    text("DAMAGE: " + getPierce(), height+SQUARESIZE*9.6, SQUARESIZE*4.5);
+    text("RELOAD: " + getReload()/(double)100, height+SQUARESIZE*13.6, SQUARESIZE*4.5);
     text("COST: " + 10*(getRadius()-temp.getRadius()+1),height+SQUARESIZE*5.5, SQUARESIZE*7);
-    text("COST: " + 500*(getPierce()-temp.getPierce()+1)*(getPierce()-temp.getPierce()+1), height+SQUARESIZE*9.5, SQUARESIZE*7);
-    text("COST: " + 55*(getReload()-temp.getReload()+5), height+SQUARESIZE*13.5, SQUARESIZE*7);
-    }
+    text("COST: " + 500*(getPierce()-temp.getPierce()+1)*(getPierce()-temp.getPierce()+1), height+SQUARESIZE*9.6, SQUARESIZE*7);
+    text("COST: " + 55*(getReload()-temp.getReload()+5), height+SQUARESIZE*13.8, SQUARESIZE*7);
   }
   
   void upReload(int x, int y) {
@@ -129,6 +137,15 @@ public class Tower {
   public Tower whichType(String type) {
     if (type.equals("norm")) {
       return normalTower(0,0);
+    }
+    else if (type.equals("reload")) {
+      return reloadTower(0,0);
+    }
+    else if (type.equals("range")) {
+      return rangeTower(0,0);
+    }
+    else if (type.equals("damage")) {
+      return damageTower(0,0);
     }
     else {
       return null;

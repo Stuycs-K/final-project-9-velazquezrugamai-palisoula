@@ -94,3 +94,7 @@ changed the winscreen text to green, created different types of upgrades (ex: in
 6/7/23
 
 made dropdown drop down; continued working to include multiple types of upgrades
+
+6/9/23
+
+added comments where necessary, centered win and lose messages

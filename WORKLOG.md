@@ -42,6 +42,9 @@ Added more accessor methods, a radius to help determine the shootable area of th
 6/6/2023 - Israel Velazquez
 Added even more accessor methods, gave towers their own menu option, made the screen be based more on SQUARESIZE instead on relying on magic numbers, and I added some work in progress additions for addons.
 
+6/7/2023 - Israel Velazquez
+Added a method to return a tower of a type you are looking for. Made the menu look better for a tower.
+
 info
 
 

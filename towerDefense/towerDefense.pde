@@ -29,7 +29,7 @@ void setup() {
   y = -1;
 }
 
-//places down a tower
+//places down a tower and upgrades
 void mouseClicked() {
   int tempX = x;
   int tempY = y;
@@ -85,11 +85,13 @@ void mouseClicked() {
   }
 }
 
-//if key is pressed, ' ' to skip round, press e to give up
+//different hotkeys
 void keyPressed() {
+  //press 'e' to give up
   if (key == 'e') {
     giveUp();
   }
+  //press space to start the new round
   if (key == ' ' && board.getEnemy().size()==0) {
     for (int i = board.getPro().size()-1; i>=0; i--) {
       board.getPro().remove(i);
@@ -100,26 +102,34 @@ void keyPressed() {
     add = true;
     ENEMIES = board.getRounds()*10;
   }
+  //press 'm' to recieve an influx of cash
   if (key=='m') {
     board.changeMoney(500);
   }
+  //press ',' to spped up enemy spawning
   if (key==',') {
     hold--;
     if (hold<=0) {
       hold = 1;
     }
   }
+  //press '.' to slow down enemies
   if (key=='.') {
     hold++;
   }
+  //press '\\' to cover every available square with a tower
   if (key=='\\') {
     boardState();
   }
+  //press 'l' to decrease the amount of cash you have
   if (key=='l') {
     board.changeMoney(-500);
     if (board.getMoney()<0) {
       board.changeMoney(-board.getMoney());
     }
+  }
+  if(key=='w'){
+    lost();
   }
 }
 
@@ -158,7 +168,7 @@ void draw() {
   upgrades();
   //CHANGE ME AFTER OTHER TOWERS HAVE BEEN MADE. SUCH THAT YOU CAN PLACE DOWN THESE NEW TOWERS
 }
-
+//calls on upgrade menu
 void upgrades() {
   if (MODE==2) {
     if (board.findTowerIndex(x,y)!=-1) {
@@ -172,7 +182,7 @@ void upgrades() {
 void giveUp() {
   background(255);
   PImage boom = loadImage("boom.jpg");
-  image(boom, width/2-width/4.8, 0);
+  image(boom, width/2-width/4.8, 100);
   int round = 0;
   int lives = 100;
   int startingMoney = 500;
@@ -317,7 +327,7 @@ void dead() {
 void lost() {
   background(255);
   PImage boom = loadImage("boom.jpg");
-  image(boom, width/2-width/4.8, 0);
+  image(boom, width/2-width/4.8, 100);
   int round = 0;
   int lives = 100;
   int startingMoney = 500;
@@ -325,7 +335,7 @@ void lost() {
   PFont font = loadFont("Ani-48.vlw");
   textFont(font);
   fill(color(136, 8, 8));
-  text("YOU HAVE LOST", width/2-250, height/2);
+  text("YOU HAVE LOST", width/2-200, height/2);
   makeMap();
   HALT = 4000;
 }
@@ -335,7 +345,7 @@ void win() {
   if (board.getRounds()>=11) {
     background(255);
     PImage boom = loadImage("boom.jpg");
-    image(boom, width/2-width/4.8, 0);
+    image(boom, width/2-width/4.8, 100);
     int round = 0;
     int lives = 100;
     int startingMoney = 500;
@@ -343,8 +353,8 @@ void win() {
     PFont font = loadFont("Ani-48.vlw");
     textFont(font);
     fill(color(57, 255, 20));
-    text("YOU HAVE WON!!", width/2-250, height/2);
-    text("but can you win again?", width/2-250, height/2+350);
+    text("YOU HAVE WON!!", width/2-200, height/2);
+    text("but can you win again?", width/2-215, height/2+350);
     makeMap();
     HALT = 8000;
     add = false;

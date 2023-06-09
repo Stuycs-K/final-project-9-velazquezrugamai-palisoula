@@ -1,11 +1,11 @@
 public class Projectiles {
-  int[] location = new int[2];
+  float[] location = new float[2];
   color Color;
   PVector dir;
   int damage;
   
   //creates a projectiles
-  public Projectiles(int[] coords, color image, PVector direction, int dam) {
+  public Projectiles(float[] coords, color image, PVector direction, int dam) {
     location[0] = coords[0];
     location[1] = coords[1];
     Color = image;
@@ -29,7 +29,7 @@ public class Projectiles {
   
   //makes a copy of the projctile
   Projectiles copy() {
-    int[] Loc = new int[2];
+    float[] Loc = new float[2];
     Loc[0] = getLoc()[0];
     Loc[1] = getLoc()[1];
     color CLR = getColor();
@@ -60,17 +60,21 @@ public class Projectiles {
   }
   
   //accessor method for the location of the projectile
-  int[] getLoc() {
+  float[] getLoc() {
     return location;
   }
   
   //accessor method for the X-coordinate of the projectile
-  int getLocX() {
+  float getLocX() {
     return location[0];
   }
   
   //accessor method for the Y-coordinate of the projectile
-  int getLocY() {
+  float getLocY() {
     return location[1];
+  }
+  
+  void setDamage(int value) {
+    damage = value;
   }
 }

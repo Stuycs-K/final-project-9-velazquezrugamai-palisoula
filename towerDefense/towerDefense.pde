@@ -38,7 +38,7 @@ void mouseClicked() {
   boolean validX = mouseX>=width-DIFF && mouseX<=(width-DIFF)+200;
   boolean validY = mouseY>=SQUARESIZE*3 && mouseY<=SQUARESIZE*3+200;
   if (validX && validY) {
-    MODE = mouseY/100;
+    MODE = ((mouseY-SQUARESIZE*3-5)/100)+1;
   }
   else if (mouseX<=width-DIFF && MODE==1 && board.getMoney()>=250 && board.getTile(y, x).getColor() == VALID) {
     if (board.addTower(normalTower(x, y))) {
@@ -49,39 +49,37 @@ void mouseClicked() {
     x=mouseX-height;
     y=mouseY;
     boolean validHeight = y>=SQUARESIZE*5.736 && y<=SQUARESIZE*8.06;
-    boolean range = validHeight && x>=SQUARESIZE*5 && x<=SQUARESIZE*9;
-    boolean damage = validHeight && x>=SQUARESIZE*13.4 && x<=SQUARESIZE*17.4;
-    boolean speed = validHeight && x>=SQUARESIZE*9.2 && x<=SQUARESIZE*13.2;
+    boolean range = x>=SQUARESIZE*5 && x<=SQUARESIZE*9;
+    boolean damage = x>=SQUARESIZE*9.2 && x<=SQUARESIZE*13.2;
+    boolean speed = x>=SQUARESIZE*13.4 && x<=SQUARESIZE*17.4;
     x = tempX;
     y = tempY;
-    if (range) {
-      if (board.findTowerIndex(x,y)!=-1) {
-        Tower tow = board.findTower(x,y);
-        int cost = 0;
-        if (range) {
-          cost = tow.upRange();
-          if (board.getMoney()<=cost) {
-            tow.deRange();
-            cost=0;
-          }
+    if (board.findTowerIndex(x,y)!=-1 && validHeight) {
+      Tower tow = board.findTower(x,y);
+      int cost = 0;
+      if (range) {
+        cost = tow.upRange();
+        if (board.getMoney()<cost) {
+          tow.deRange();
+          cost=0;
         }
-        else if (damage) {
-          cost = tow.upDamage();
-          if (board.getMoney()<=cost) {
-            tow.deDamage();
-            cost=0;
-          }
+      }
+      else if (damage) {
+        cost = tow.upDamage();
+        if (board.getMoney()<cost) {
+          tow.deDamage();
+          cost=0;
         }
-        else if (speed) {
-          cost = tow.upReload();
-          if (board.getMoney()<=cost) {
-            tow.deSpeed();
-            cost=0;
-          }
+      }
+      else if (speed) {
+        cost = tow.upReload();
+        if (board.getMoney()<cost) {
+          tow.deSpeed();
+          cost=0;
         }
-        if (cost>0) {
-          board.changeMoney(-cost);
-        }
+      }
+      if (cost>0) {
+        board.changeMoney(-cost);
       }
     }
   }
@@ -128,11 +126,14 @@ void keyPressed() {
 //Draws the range that a tower would have
 void drawArea(Tower tow) {
   int radi = tow.getRadius();
-  strokeWeight(3);
-  float Xloc = (tow.getX()+.5)*SQUARESIZE;
-  float Yloc = (tow.getY()+.5)*SQUARESIZE;
-  if (x<=(width-DIFF-radi-9)) circle(Xloc, Yloc, radi*2);
-  strokeWeight(1);
+  int location = tow.getX()*SQUARESIZE;
+  if (location+radi<height) {
+    strokeWeight(3);
+    float Xloc = (tow.getX()+.5)*SQUARESIZE;
+    float Yloc = (tow.getY()+.5)*SQUARESIZE;
+    if (x<=(width-DIFF-radi-9)) circle(Xloc, Yloc, radi*2);
+    strokeWeight(1);
+  }
 } 
 
 /*color codes
@@ -152,6 +153,10 @@ void draw() {
   dead();
   win();
   upgrades();
+  if (MODE==1) {
+    drawArea(normalTower(mouseX/SQUARESIZE,mouseY/SQUARESIZE));
+  }
+  //CHANGE ME AFTER OTHER TOWERS HAVE BEEN MADE. SUCH THAT YOU CAN PLACE DOWN THESE NEW TOWERS
 }
 
 void upgrades() {
@@ -215,7 +220,7 @@ Tower normalTower(int x, int y) {
   int damage = 1;
   String type = "norm";
   int[] loc = new int[] {x, y};
-  int[] projLoc = new int[] {x*SQUARESIZE+SQUARESIZE/2, y*SQUARESIZE+SQUARESIZE/2};
+  float[] projLoc = new float[] {x*SQUARESIZE+SQUARESIZE/2, y*SQUARESIZE+SQUARESIZE/2};
   color projColor = PROJECTILE;
   PVector direction = new PVector(0, 0);
   Projectiles proj = new Projectiles(projLoc, projColor, direction, damage);
@@ -230,7 +235,7 @@ Tower reloadTower(int x, int y) {
   int damage = 1;
   String type = "reload";
   int[] loc = new int[] {x, y};
-  int[] projLoc = new int[] {x*SQUARESIZE+SQUARESIZE/2, y*SQUARESIZE+SQUARESIZE/2};
+  float[] projLoc = new float[] {x*SQUARESIZE+SQUARESIZE/2, y*SQUARESIZE+SQUARESIZE/2};
   color projColor = PROJECTILE;
   PVector direction = new PVector(0, 0);
   Projectiles proj = new Projectiles(projLoc, projColor, direction, damage);
@@ -244,7 +249,7 @@ Tower rangeTower(int x, int y) {
   int damage = 1;
   String type = "range";
   int[] loc = new int[] {x, y};
-  int[] projLoc = new int[] {x*SQUARESIZE+SQUARESIZE/2, y*SQUARESIZE+SQUARESIZE/2};
+  float[] projLoc = new float[] {x*SQUARESIZE+SQUARESIZE/2, y*SQUARESIZE+SQUARESIZE/2};
   color projColor = PROJECTILE;
   PVector direction = new PVector(0, 0);
   Projectiles proj = new Projectiles(projLoc, projColor, direction, damage);
@@ -258,7 +263,7 @@ Tower damageTower(int x, int y) {
   int damage = 3;
   String type = "damage";
   int[] loc = new int[] {x, y};
-  int[] projLoc = new int[] {x*SQUARESIZE+SQUARESIZE/2, y*SQUARESIZE+SQUARESIZE/2};
+  float[] projLoc = new float[] {x*SQUARESIZE+SQUARESIZE/2, y*SQUARESIZE+SQUARESIZE/2};
   color projColor = PROJECTILE;
   PVector direction = new PVector(0, 0);
   Projectiles proj = new Projectiles(projLoc, projColor, direction, damage);

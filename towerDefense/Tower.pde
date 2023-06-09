@@ -18,13 +18,14 @@ public class Tower {
   
   //Tells the tower to shoot at the enemy closest to the back lines
   public boolean shoot(Map obj, Enemy enem){
-    int[] towLoc = new int[] {location[0]*SQUARESIZE + SQUARESIZE/2, location[1]*SQUARESIZE + SQUARESIZE/2};
-    PVector enemy = new PVector(enem.loc[0], enem.loc[1]);
+    int[] towLoc = new int[] {location[0]*SQUARESIZE+SQUARESIZE/2, location[1]*SQUARESIZE+SQUARESIZE/2};
+    PVector enemy = new PVector(enem.getLocX(), enem.getLocY());
     PVector tower = new PVector(towLoc[0], towLoc[1]);
     float distance = PVector.dist(enemy, tower);
     if (distance<=range && timeWaited==0) {
-      PVector temp = new PVector(enem.loc[0]-towLoc[0], enem.loc[1]-towLoc[1]);
+      PVector temp = new PVector(enem.getLocX()-towLoc[0], enem.getLocY()-towLoc[1]);
       proj.setDir(temp);
+      proj.setDamage(getPierce());
       obj.addProjectile(proj.copy());
       timeWaited=reload;
       return true;
@@ -101,10 +102,9 @@ public class Tower {
   
   public void menu() {
     drawArea(this);
-    Tower temp=whichType(getType());
     fill(255, 0, 0);
     float offset = SQUARESIZE*9.2;
-    float botSide = offset*4/9.2;
+    float botSide = SQUARESIZE*4;
     float size = SQUARESIZE*2.325;
     float yoffset = SQUARESIZE*3.1;
     float dist = 1.85;
@@ -115,19 +115,31 @@ public class Tower {
     rect(height+offset, yoffset, botSide, size);
     rect(height+offset, dist*yoffset, botSide, size);
     fill(0);
+    int costReload = reloadCost(getReload());
+    int costDamage = damageCost(getPierce());
+    int costRange = rangeCost(getRadius());
     text("RANGE: " + getRadius(),height+SQUARESIZE*5.3, SQUARESIZE*4.5);
     text("DAMAGE: " + getPierce(), height+SQUARESIZE*9.6, SQUARESIZE*4.5);
     text("RELOAD: " + getReload()/(double)100, height+SQUARESIZE*13.6, SQUARESIZE*4.5);
-    text("COST: " + 10*(getRadius()-temp.getRadius()+1),height+SQUARESIZE*5.5, SQUARESIZE*7);
-    text("COST: " + 500*(getPierce()-temp.getPierce()+1)*(getPierce()-temp.getPierce()+1), height+SQUARESIZE*9.6, SQUARESIZE*7);
-    text("COST: " + 55*(temp.getReload()-getReload()+5), height+SQUARESIZE*13.8, SQUARESIZE*7);
+    text("COST: " + costRange,height+SQUARESIZE*5.5, SQUARESIZE*7);
+    text("COST: " + costDamage, height+SQUARESIZE*9.6, SQUARESIZE*7);
+    text("COST: " + costReload, height+SQUARESIZE*13.8, SQUARESIZE*7);
   }
   
   //upgrades reload speed
   public int upReload() {
     if(reload >= 40) {
       reload -= 10;
-      return reload;
+      return reloadCost(reload+10);
+    }
+    return -1;
+  }
+  
+  //calculates reload Cost without upgrading
+  public int reloadCost(int value) {
+    Tower temp=whichType(getType());
+    if(value >= 40) {
+      return 55*(temp.getReload()-value+10);
     }
     return -1;
   }
@@ -136,7 +148,16 @@ public class Tower {
   public int upRange() {
     if(range <= 260) {
       range += 10;
-      return range;
+      return rangeCost(range-10);
+    }
+    return -1;
+  }
+  
+  //calculates range Cost without upgrading
+  public int rangeCost(int value) {
+    Tower temp=whichType(getType());
+    if(value <= 260) {
+      return 10*(value-temp.getRadius()+10);
     }
     return -1;
   }
@@ -145,7 +166,16 @@ public class Tower {
   public int upDamage() {
     if(pierce <= 4) {
       pierce++;
-      return pierce;
+      return damageCost(pierce-1);
+    }
+    return -1;
+  }
+  
+  //calculates reload Cost without upgrading
+  public int damageCost(int value) {
+    Tower temp=whichType(getType());
+    if(value <= 4) {
+      return 500*(value-temp.getPierce())*value+500;
     }
     return -1;
   }

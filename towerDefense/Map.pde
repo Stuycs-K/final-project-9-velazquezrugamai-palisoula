@@ -76,7 +76,7 @@ public class Map {
   //Delete a projectile if it goes out of bounds
   void deleteProj() {
     for (int i=proLoc.size()-1; i>=0; i--) {
-      int[] tempLoc = proLoc.get(i).location;
+      float[] tempLoc = proLoc.get(i).location;
       if (tempLoc[0]<0 || tempLoc[1]<0 || tempLoc[0]>=width-DIFF-SQUARESIZE/3 || tempLoc[1]>=height) {
         proLoc.remove(i);
       }

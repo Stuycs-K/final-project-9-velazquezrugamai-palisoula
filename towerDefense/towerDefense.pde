@@ -150,12 +150,12 @@ void draw() {
   if (add==true && ENEMIES!=0) {
     startRound();
   }
-  dead();
-  win();
-  upgrades();
   if (MODE==1) {
     drawArea(normalTower(mouseX/SQUARESIZE,mouseY/SQUARESIZE));
   }
+  dead();
+  win();
+  upgrades();
   //CHANGE ME AFTER OTHER TOWERS HAVE BEEN MADE. SUCH THAT YOU CAN PLACE DOWN THESE NEW TOWERS
 }
 

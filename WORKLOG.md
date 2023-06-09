@@ -45,6 +45,9 @@ Added even more accessor methods, gave towers their own menu option, made the sc
 6/7/2023 - Israel Velazquez
 Added a method to return a tower of a type you are looking for. Made the menu look better for a tower.
 
+6/8/2023 / 6/9/2023 - Israel Velazquez
+fixed up the upgrade methods in order to make them return values to help with cost calculations. MADE THE TOWERS UPGRADEABLE. They now each have their own little menu that you can use to upgrade each tower and see their range. Made the upgrades stack nicely. Projectiles now shoot extremely precisely. Random green circle in the end is now gone. Game is now too easy.
+
 info
 
 

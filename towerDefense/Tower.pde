@@ -150,6 +150,22 @@ public class Tower {
     return -1;
   }
   
+  //decreases the tower's range by 1 upgrade value worth
+  public void deRange() {
+    range-=10;
+  }
+  
+  //decreases the tower's reload Speed by 1 upgrade value worth
+  public void deSpeed() {
+    reload+=10;
+  }
+  
+  //decreases the tower's damage by 1 upgrade value worth
+  public void deDamage() {
+    pierce--;
+  }
+  
+  //returns the type of tower that the String wants it to call
   public Tower whichType(String type) {
     if (type.equals("norm")) {
       return normalTower(0,0);

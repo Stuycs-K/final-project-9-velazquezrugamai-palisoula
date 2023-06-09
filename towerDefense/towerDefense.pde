@@ -46,8 +46,44 @@ void mouseClicked() {
     }
   }
   else if (MODE==2 && mouseX>=width-DIFF) {
+    x=mouseX-height;
+    y=mouseY;
+    boolean validHeight = y>=SQUARESIZE*5.736 && y<=SQUARESIZE*8.06;
+    boolean range = validHeight && x>=SQUARESIZE*5 && x<=SQUARESIZE*9;
+    boolean damage = validHeight && x>=SQUARESIZE*13.4 && x<=SQUARESIZE*17.4;
+    boolean speed = validHeight && x>=SQUARESIZE*9.2 && x<=SQUARESIZE*13.2;
     x = tempX;
     y = tempY;
+    if (range) {
+      if (board.findTowerIndex(x,y)!=-1) {
+        Tower tow = board.findTower(x,y);
+        int cost = 0;
+        if (range) {
+          cost = tow.upRange();
+          if (board.getMoney()<=cost) {
+            tow.deRange();
+            cost=0;
+          }
+        }
+        else if (damage) {
+          cost = tow.upDamage();
+          if (board.getMoney()<=cost) {
+            tow.deDamage();
+            cost=0;
+          }
+        }
+        else if (speed) {
+          cost = tow.upReload();
+          if (board.getMoney()<=cost) {
+            tow.deSpeed();
+            cost=0;
+          }
+        }
+        if (cost>0) {
+          board.changeMoney(-cost);
+        }
+      }
+    }
   }
 }
 

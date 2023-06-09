@@ -1,5 +1,5 @@
 private Map board;
-private int ROW, COL, SQUARESIZE, HALT, ENEMIES, MODE, hold, DIFF, HITBOX;
+private int ROW, COL, SQUARESIZE, HALT, ENEMIES, MODE, hold, DIFF, HITBOX, x, y;
 private boolean add;
 public final color PATH = color(131, 98, 12);
 public final color INVALID = color(255, 13, 13);
@@ -25,14 +25,16 @@ void setup() {
   MODE = 1;
   DIFF = width-height;
   HITBOX=(int)(SQUARESIZE/2.1);
+  x= -1;
+  y = -1;
 }
 
 //places down a tower
 void mouseClicked() {
-  int x = mouseX/SQUARESIZE;
-  int y = mouseY/SQUARESIZE;
-  if (mouseX>=width-DIFF) {
-    if (mouseY>=SQUARESIZE*3) {
+  x = mouseX/SQUARESIZE;
+  y = mouseY/SQUARESIZE;
+  if (x>=width-DIFF) {
+    if (y>=SQUARESIZE*3) {
       MODE = mouseY/100;
     }
   }
@@ -119,8 +121,6 @@ void draw() {
   }
   dead();
   win();
-  drawArea();
-  normalTower(0,0).menu();
 }
 
 //Resets the board, and tell the player that they lost

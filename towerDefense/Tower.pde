@@ -103,17 +103,24 @@ public class Tower {
     drawArea();
     Tower temp=whichType(getType());
     fill(255, 0, 0);
-    for (int i=1; i<=3; i++) {
-      float offset = DIFF-SQUARESIZE*6.975/3;
-      rect(height+SQUARESIZE*5+(i-1)*SQUARESIZE*4.2, SQUARESIZE*3+5, offset-50, SQUARESIZE*4.65);
-    }
+    float offset = SQUARESIZE*9.2;
+    float botSide = offset*4/9.2;
+    float size = SQUARESIZE*2.325;
+    float yoffset = SQUARESIZE*3.1;
+    float dist = 1.85;
+    rect(height+offset*(5/9.2), yoffset, botSide, size);
+    rect(height+offset*(5/9.2), dist*yoffset, botSide, size);
+    rect(height+offset*(13.4/9.2), yoffset, botSide, size);
+    rect(height+offset*(13.4/9.2), dist*yoffset, botSide, size);
+    rect(height+offset, yoffset, botSide, size);
+    rect(height+offset, dist*yoffset, botSide, size);
     fill(0);
-    text("RANGE: " + getRadius(),height+SQUARESIZE*5.5, SQUARESIZE*4.5);
-    text("DAMAGE: " + getPierce(), height+SQUARESIZE*9.5, SQUARESIZE*4.5);
-    text("RELOAD: " + getReload()/(double)100, height+SQUARESIZE*13.5, SQUARESIZE*4.5);
+    text("RANGE: " + getRadius(),height+SQUARESIZE*5.3, SQUARESIZE*4.5);
+    text("DAMAGE: " + getPierce(), height+SQUARESIZE*9.6, SQUARESIZE*4.5);
+    text("RELOAD: " + getReload()/(double)100, height+SQUARESIZE*13.6, SQUARESIZE*4.5);
     text("COST: " + 10*(getRadius()-temp.getRadius()+1),height+SQUARESIZE*5.5, SQUARESIZE*7);
-    text("COST: " + 500*(getPierce()-temp.getPierce()+1)*(getPierce()-temp.getPierce()+1), height+SQUARESIZE*9.5, SQUARESIZE*7);
-    text("COST: " + 55*(getReload()-temp.getReload()+5), height+SQUARESIZE*13.5, SQUARESIZE*7);
+    text("COST: " + 500*(getPierce()-temp.getPierce()+1)*(getPierce()-temp.getPierce()+1), height+SQUARESIZE*9.6, SQUARESIZE*7);
+    text("COST: " + 55*(getReload()-temp.getReload()+5), height+SQUARESIZE*13.8, SQUARESIZE*7);
   }
   
   public Tower whichType(String type) {

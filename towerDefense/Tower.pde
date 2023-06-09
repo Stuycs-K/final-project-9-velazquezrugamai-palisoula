@@ -100,7 +100,7 @@ public class Tower {
   }
   
   public void menu() {
-    drawArea();
+    drawArea(this);
     Tower temp=whichType(getType());
     fill(255, 0, 0);
     float offset = SQUARESIZE*9.2;

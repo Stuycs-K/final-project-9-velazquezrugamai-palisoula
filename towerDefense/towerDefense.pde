@@ -90,15 +90,12 @@ void keyPressed() {
 }
 
 //Draws the range that a tower would have
-void drawArea() {
-  int radi = 0;
-  boolean foundTower = board.findTowerIndex(x, y)!=-1;
-  if (MODE==1 || foundTower) {
-    //if (foundTower && board.findTower(boardX, boardY).getCost()==100) radi=upTower(0,0).getRadius();
-    //else radi=normalTower(0,0).getRadius();
-  }
+void drawArea(Tower tow) {
+  int radi = tow.getRadius();
   strokeWeight(3);
-  if (x<=(width-DIFF-radi-9)) circle(x, y, radi*2);
+  float Xloc = (tow.getX()+.5)*SQUARESIZE;
+  float Yloc = (tow.getY()+.5)*SQUARESIZE;
+  if (x<=(width-DIFF-radi-9)) circle(Xloc, Yloc, radi*2);
   strokeWeight(1);
 } 
 
@@ -124,7 +121,8 @@ void draw() {
 void upgrades() {
   if (MODE==2) {
     if (board.findTowerIndex(x,y)!=-1) {
-      board.findTower(x,y).menu();
+      Tower tower = board.findTower(x,y);
+      tower.menu();
     }
   }
 }

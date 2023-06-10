@@ -100,6 +100,7 @@ public class Tower {
     return type;
   }
   
+  //draws the menu and showcases the specific stats of each tower
   public void menu() {
     drawArea(this);
     fill(255, 0, 0);
@@ -197,7 +198,7 @@ public class Tower {
   
   //returns the type of tower that the String wants it to call
   public Tower whichType(String type) {
-    if (type.equals("norm")) {
+    if (type.equals("normal")) {
       return normalTower(0,0);
     }
     else if (type.equals("reload")) {

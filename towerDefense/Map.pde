@@ -190,7 +190,7 @@ public class Map {
       }
     }
     fill(175);
-    rect(width-DIFF, 0, width, height);
+    rect(width-DIFF, 0, DIFF, height);
     noFill();
     PFont font = loadFont("Ani-25.vlw");
     textFont(font);
@@ -217,8 +217,10 @@ public class Map {
     for (int i=0; i<tempTowers.size(); i++) {
       tempTowers.get(i).makeTower();
     }
+    if (MODE==1) options();
   }
   
+  //finds the tower object of a tower in a specific location, returns null if no such tower exists
   public Tower findTower(int x, int y) {
     for (int i=0; i<towerLoc.size(); i++) {
       Tower tower = towerLoc.get(i);
@@ -229,6 +231,7 @@ public class Map {
     return null;
   }
   
+  //Finds the index of a tower in a specific location, returns -1 if no such tower exists
   public int findTowerIndex(int x, int y) {
     for (int i=0; i<towerLoc.size(); i++) {
       Tower tower = towerLoc.get(i);
@@ -237,5 +240,27 @@ public class Map {
       }
     }
     return -1;
+  }
+  
+  public void options() {
+    int size = DIFF-200;
+    Tower temp = normalTower(0,0);
+    String[] names = new String[] {"NORMAL", "RANGE", "DAMAGE", "RELOAD"};
+    for (int i=0; i<4; i++) {
+      if (i==0) {
+        fill(125);
+      }
+      else {
+        fill(120-30*i, 30+20*i, 50+20*i);
+      }
+      rect(width-DIFF+250+(size/5+10)*i, SQUARESIZE*3+5, size/5, 100);
+      fill(0);
+      rect(width-DIFF+250+(size/5+10)*i, SQUARESIZE*6, size/5, 100);
+      fill(255);
+      text(names[i], width-DIFF+260+(size/5+10)*i, SQUARESIZE*4.3);
+      textSize(20);
+      text("COST: " + (temp.whichType(names[i].toLowerCase()).getCost()), width-DIFF+260+(size/5+10)*i, SQUARESIZE*7.5);
+    }
+    noFill();
   }
 }

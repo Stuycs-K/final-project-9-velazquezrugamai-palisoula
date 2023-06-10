@@ -228,7 +228,7 @@ Tower normalTower(int x, int y) {
   int radius = 150;
   int speed = 150;
   int damage = 1;
-  String type = "norm";
+  String type = "normal";
   int[] loc = new int[] {x, y};
   float[] projLoc = new float[] {x*SQUARESIZE+SQUARESIZE/2, y*SQUARESIZE+SQUARESIZE/2};
   color projColor = PROJECTILE;
@@ -239,7 +239,7 @@ Tower normalTower(int x, int y) {
 
 //upgrades reload speed
 Tower reloadTower(int x, int y) {
-  int cost = 100;
+  int cost = 650;
   int speed = 82;
   int radius = 150;
   int damage = 1;
@@ -253,7 +253,7 @@ Tower reloadTower(int x, int y) {
 }
 //upgrades range
 Tower rangeTower(int x, int y) {
-  int cost = 100;
+  int cost = 400;
   int speed = 150;
   int radius = 250;
   int damage = 1;
@@ -267,7 +267,7 @@ Tower rangeTower(int x, int y) {
 }
 //upgrades damage
 Tower damageTower(int x, int y) {
-  int cost = 250;
+  int cost = 650;
   int radius = 150;
   int speed = 150;
   int damage = 3;

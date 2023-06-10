@@ -74,6 +74,7 @@ public class Projectiles {
     return location[1];
   }
   
+  //setter method for the damage value of a projectile
   void setDamage(int value) {
     damage = value;
   }

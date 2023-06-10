@@ -3,7 +3,7 @@ THIS DOCUMENT IS REQUIRED
 ## Group Info
 ## Overview
 ## Instructions
-1.) Start the Game
+1.) Start the Game</br>
 2.) In order to place towers, click on the 4 different options on the top right. If there is a difference in the tower's range you will see it if you try to place them on the board.
 3.) If you would like to place a tower on the board, click on the tower you want, make sure you have enough money to afford it, and then click on a green tile on the left hand side.
 4.) If you want to upgrade a tower, click on the upgrade button, then click on a specific tower. you can then spend money on it's range (increases the range of which the tower can see and shoot enemies), it's damage (increases bullet damage/speed/accuracy), and it's speed (Allows the tower to shoot more times per second). These upgrades are different based on the type of tower, and some towers upgrade higher than others in their respective category.

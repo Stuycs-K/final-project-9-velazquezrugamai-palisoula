@@ -205,8 +205,8 @@ public class Map {
     rect(width-DIFF, SQUARESIZE*3+105, 200, 100);
     if (MODE == 1) fill(255);
     else fill(125);
-    text(" BUY NORMAL", width-DIFF+10, SQUARESIZE*4+10);
-    text("    TOWERS ", width-DIFF+5, SQUARESIZE*4+40);
+    text("BUY", width-DIFF+85, SQUARESIZE*4+10);
+    text("    TOWERS ", width-DIFF+15, SQUARESIZE*4+40);
     text("    UPGRADE", width-DIFF+5, SQUARESIZE*3+162);
     noFill();
     for (int i=0; i<enemyLoc.size(); i++) {

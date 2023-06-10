@@ -217,7 +217,7 @@ public class Map {
     for (int i=0; i<tempTowers.size(); i++) {
       tempTowers.get(i).makeTower();
     }
-    options();
+    if (MODE==1) options();
   }
   
   //finds the tower object of a tower in a specific location, returns null if no such tower exists

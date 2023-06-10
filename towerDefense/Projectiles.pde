@@ -74,7 +74,14 @@ public class Projectiles {
     return location[1];
   }
   
+  //setter method for the damage value of a projectile
   void setDamage(int value) {
     damage = value;
+  }
+  
+  //setter method of the projectiles location
+  void setLoc(int x, int y) {
+    location[0] = (.5+x)*SQUARESIZE;
+    location[1] = (y+.5)*SQUARESIZE;
   }
 }

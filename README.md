@@ -1,25 +1,21 @@
 # APCS Final Project
 THIS DOCUMENT IS REQUIRED
 ## Group Info
-
-Group Name - Press 'E' to Self-Destruct
-Members - Israel Velazquez, Allison Palisoul
+Group name - Press 'E' to Self-Destruct (Pd. 9)
+Group Members - Israel Velazquez and Allison Palisoul
 ## Overview
-
-This game is a Tower Defense game with predetermined paths that hordes of enemies will follow. Players are able to buy towers with cash they earn in-game in order to fight these hordes of enemies. There are different towers, different enemies, and ways to sell undesired towers. Each round gets progressively harder and more enjoyable for the player. The game follows a path based system where the player can eliminate trails of enemies
-
+This game is called "towerDefense: the Tower Defense game". It's a tower defense game where you play as the greedy towers trying to hinder to oncoming ellipse hordes. The more money you have, the faster the ellipses are. Ellipses get stronger as time goes on, so you better start upgrading your towers!
 ## Instructions
+1.) Start the Game
+2.) In order to place towers, click on the 4 different options on the top right. If you try to place a tower on the board, you will see the range.
+3.) If you would like to place a tower on the board, click on the tower you want(make sure you have enough money to afford it), and then click on the tile you want to put it on. Please note that you can only place towers on green tiles.
+4.) To upgrade a tower, click on the upgrade button, then click on the tower you would like to upgrade. You can then upgrade its range (increases the range of which the tower can see and shoot enemies), its damage (increases bullet damage/speed/accuracy), and its reload speed (Allows the tower to shoot more times per second). The cost will depend on the type of upgrade and the number of times you've already upgraded the tower. These upgrades are different based on the type of tower, and some towers upgrade higher than others in their respective category.
+5.) Press space to start the round!
+6.) If you would like the enemies to spawn faster throughout a wave, press and hold ','. In order to slow them down, press and hold '.'.
+7.) Killing enemies, starting a round, and pressing 'm' will earn you money. Each enemy killed earns $15, starting a round earns $500, and pressing 'm' gives you $750. If you press 'l', you will lose $500 until you reach 0.
+8.) If you would like to give up, press 'e'. If you would like to cover your board in powerful base towers, press '\'.
+9.) You win if you survive to past round 10. The game will restart once you do!
+10.) You lose if you let enough enemies through the gates. This is only possible during round 4 or later. When an enemy reaches the end of the path, you lose lives based on how much HP that enemy has left. Enemies' HP is increased by 1 during every even round, excluding round 2.
 
-There's two buttons on the right side: the upgrade button and Buy New Towers button. In order to buy a new tower, press the Buy New Towers button and click on the area where you want the tower to be placed (each tower costs $250). In order to upgrade a tower, press the upgrade button and click on the tower you want to upgrade. There will be a menu that opens up on the right side, and you can choose your upgrade(damage, reload speed, and range) there.
-
-Press space to start the round. When you start the round, you will be given more money. Be sure to use it! The more money you have, the faster the enemies travel along the path. Every time an enemy reaches the bottom right corner, you lose lives based on how much health they have left. Each enemy starts with 2 health.
-
-There are also some hotkeys you can use to make your gameplay more interesting!
--Press and hold 'm' to give yourself more money
--Press and hold 'l' to lose money
--Press '\\' to cover every available square with a tower
--Press 'e' to give up and restart your gameplay
--Press and hold ',' to speed up enemy spawning
--Press and hold'.' to slow down enemy spawning
-
-We hope you enjoy playing our game!
+Good luck!
+>>>>>>> 415d57c2aaef7dc1788a82448024e3133fd27482

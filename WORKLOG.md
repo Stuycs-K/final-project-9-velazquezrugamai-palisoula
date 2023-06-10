@@ -48,6 +48,10 @@ Added a method to return a tower of a type you are looking for. Made the menu lo
 6/8/2023 / 6/9/2023 - Israel Velazquez
 fixed up the upgrade methods in order to make them return values to help with cost calculations. MADE THE TOWERS UPGRADEABLE. They now each have their own little menu that you can use to upgrade each tower and see their range. Made the upgrades stack nicely. Projectiles now shoot extremely precisely. Random green circle in the end is now gone. Game is now too easy.
 
+6/9/2023 - Israel Velazquez - Part2
+Hitboxes are bigger, can now buy the different tower varieties. It's slightly finicky, but drawArea() can now also draw the range tower's area. You now have to click the buy tower area to buy a second tower. Made the main sign say 'buy towers' instead of only normal towers. I also centralized it. Added a comment to a method I added
+
+
 info
 
 

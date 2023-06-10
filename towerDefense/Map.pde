@@ -98,6 +98,7 @@ public class Map {
     int index = findTowerIndex(x,y);
     if (index!=-1) {
       towerLoc.remove(index);
+      setBoard(y, x, new Tiles(VALID));
     }
   }
   
@@ -245,21 +246,22 @@ public class Map {
   public void options() {
     int size = DIFF-200;
     Tower temp = normalTower(0,0);
-    String[] names = new String[] {"NORMAL", "RANGE", "DAMAGE", "RELOAD"};
+    String[] names = new String[] {"NORMAL", "DAMAGE", "RANGE", "RELOAD"};
     for (int i=0; i<4; i++) {
       if (i==0) {
         fill(125);
+      }
+      else if (i==2) {
+        fill(75, 215, 90);
       }
       else {
         fill(120-30*i, 30+20*i, 50+20*i);
       }
       rect(width-DIFF+250+(size/5+10)*i, SQUARESIZE*3+5, size/5, 100);
-      fill(0);
-      rect(width-DIFF+250+(size/5+10)*i, SQUARESIZE*6, size/5, 100);
       fill(255);
-      text(names[i], width-DIFF+260+(size/5+10)*i, SQUARESIZE*4.3);
       textSize(20);
-      text("COST: " + (temp.whichType(names[i].toLowerCase()).getCost()), width-DIFF+260+(size/5+10)*i, SQUARESIZE*7.5);
+      text(names[i], width-DIFF+260+(size/5+10)*i, SQUARESIZE*4.1);
+      text("COST: " + (temp.whichType(names[i].toLowerCase()).getCost()), width-DIFF+260+(size/5+10)*i, SQUARESIZE*5);
     }
     noFill();
   }

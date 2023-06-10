@@ -36,6 +36,9 @@ public class Tower {
   //Draws the tower in Processing
   public void makeTower() {
     fill(TOWER);
+    if (getType().equals("reload")) fill(color(25, 50, 255));
+    if (getType().equals("range")) fill(color(5, 255, 23));
+    if (getType().equals("damage")) fill(color(255, 5, 25));
     circle(location[0]*SQUARESIZE+SQUARESIZE/2, location[1]*SQUARESIZE+SQUARESIZE/2, SQUARESIZE/2);
     noFill();
   }
@@ -129,7 +132,8 @@ public class Tower {
   
   //upgrades reload speed
   public int upReload() {
-    if(reload >= 40) {
+    Tower temp=whichType(getType());
+    if (reload >= temp.getReload()-70) {
       reload -= 10;
       return reloadCost(reload+10);
     }
@@ -139,7 +143,7 @@ public class Tower {
   //calculates reload Cost without upgrading
   public int reloadCost(int value) {
     Tower temp=whichType(getType());
-    if(value >= 40) {
+    if (value >= temp.getReload()-70) {
       return 55*(temp.getReload()-value+10);
     }
     return -1;
@@ -147,7 +151,8 @@ public class Tower {
   
   //upgrades range
   public int upRange() {
-    if(range <= 260) {
+    Tower temp=whichType(getType());
+    if (range <= temp.getRadius()+110) {
       range += 10;
       return rangeCost(range-10);
     }
@@ -157,7 +162,7 @@ public class Tower {
   //calculates range Cost without upgrading
   public int rangeCost(int value) {
     Tower temp=whichType(getType());
-    if(value <= 260) {
+    if(value <= temp.getRadius()+110) {
       return 10*(value-temp.getRadius()+10);
     }
     return -1;
@@ -165,7 +170,8 @@ public class Tower {
   
   //upgrades damage
   public int upDamage() {
-    if(pierce <= 4) {
+    Tower temp=whichType(getType());
+    if (pierce <= temp.getPierce()+3) {
       pierce++;
       return damageCost(pierce-1);
     }
@@ -175,7 +181,7 @@ public class Tower {
   //calculates reload Cost without upgrading
   public int damageCost(int value) {
     Tower temp=whichType(getType());
-    if(value <= 4) {
+    if(value <= temp.getPierce()+3) {
       return 500*(value-temp.getPierce())*value+500;
     }
     return -1;
@@ -213,5 +219,12 @@ public class Tower {
     else {
       return null;
     }
+  }
+  
+  //sets the location the tower is at, and sets the location that their projectile originates from
+  public void setLoc(int x, int y) {
+    location[0] = x;
+    location[1] = y;
+    proj.setLoc(x, y);
   }
 }

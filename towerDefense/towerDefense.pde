@@ -128,7 +128,7 @@ void keyPressed() {
   if (key=='m') {
     board.changeMoney(500);
   }
-  //press ',' to spped up enemy spawning
+  //press ',' to speed up enemy spawning
   if (key==',') {
     hold--;
     if (hold<=0) {
@@ -149,9 +149,6 @@ void keyPressed() {
     if (board.getMoney()<0) {
       board.changeMoney(-board.getMoney());
     }
-  }
-  if(key=='w'){
-    lost();
   }
 }
 

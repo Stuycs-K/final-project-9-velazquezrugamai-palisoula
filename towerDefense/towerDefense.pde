@@ -114,7 +114,7 @@ void keyPressed() {
     giveUp();
   }
   //press space to start the new round
-  if (key == ' ' && board.getEnemy().size()==0) {
+  if (key == ' ' && ENEMIES==0) {
     for (int i = board.getPro().size()-1; i>=0; i--) {
       board.getPro().remove(i);
     }

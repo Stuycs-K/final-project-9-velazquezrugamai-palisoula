@@ -1,15 +1,13 @@
 public class Enemy {
   private int HP, speed;
   color image;
-  String Resistance;
   int[] loc = new int[2];
   int radius = SQUARESIZE/2;
   
   //makes a new enemy on the map
-  public Enemy(int health, int move, String type, int x, int y) {
+  public Enemy(int health, int move, int x, int y) {
     HP = health;
     speed = move;
-    Resistance = type;
     loc[0]=x;
     loc[1]=y;
     if (speed==0) {

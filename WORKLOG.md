@@ -102,3 +102,11 @@ made dropdown drop down; continued working to include multiple types of upgrades
 6/9/23
 
 added comments where necessary, centered win and lose messages
+
+6/11/23
+
+finished the final UML, edited the README
+
+6/12/23
+
+worked on the DEVLOG

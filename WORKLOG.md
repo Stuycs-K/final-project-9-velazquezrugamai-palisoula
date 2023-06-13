@@ -51,6 +51,8 @@ fixed up the upgrade methods in order to make them return values to help with co
 6/9/2023 - Israel Velazquez - Part2
 Hitboxes are bigger, can now buy the different tower varieties. It's slightly finicky, but drawArea() can now also draw the range tower's area. You now have to click the buy tower area to buy a second tower. Made the main sign say 'buy towers' instead of only normal towers. I also centralized it. Added a comment to a method I added
 
+6/12/2023 - Israel Velazquez
+Worked on the worklog/DEVLOG, and added some words for clarity in the README
 
 info
 
@@ -110,3 +112,20 @@ finished the final UML, edited the README
 6/12/23
 
 worked on the DEVLOG
+
+
+##Working Features
+-The hotkeys listed in the README all work :D (m, l, ',', '.', '\\', e, and ' ')
+-Selecting towers/upgrades
+-Upgrading towers
+-Shows the tower's radius before placing
+-Enemies gain HP on certain rounds
+-Enemies gain speed once you have 700$ or more
+
+##Broken Features/bugs
+-Depending on the size of your screen, you may not be able to see the enemies when they are in the bottom row.
+-If you press space during a cutscene, it will start a new round. Cutscene's are the explosion
+
+##Content resources
+-Processing's Reference Page --> https://processing.org/reference/
+It was extremely helpful while trying to figure out why certain methods wouldn't work, and for finding new features to work with the features we already added
